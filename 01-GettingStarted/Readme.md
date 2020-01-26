@@ -6,4 +6,6 @@ Creates a workbook from scratch. The workbook contains one worksheet with a simp
 Data is loaded manually via the Cells property of the Worksheet.
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/EPPlus.Sample.NetCore/blob/master/Readme.md)
+[Back to overview](/EPPlus.Sample.NetCore/Readme.md)
+[Back to overview](../Readme.md)
