@@ -1,0 +1,46 @@
+﻿using EPPlusSamples;
+using OfficeOpenXml;
+using OfficeOpenXml.Filter;
+using System;
+using System.Data.SQLite;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+
+namespace EPPlusSampleApp.Core
+{
+    public class IgnoreErrors
+    {
+        public static void Run()
+        {
+            var p = new ExcelPackage();
+
+            var ws = p.Workbook.Worksheets.Add("IgnoreErrors");
+
+            //Suppress Number stored as text
+            ws.Cells["A1"].Value = "1"; 
+            ws.Cells["A2"].Value = "2";
+            var ie =ws.IgnoredErrors.Add(ws.Cells["A2"]);   
+            ie.NumberStoredAsText = true;                   // Ignore errors on A2 only
+            ws.Cells["A2"].AddComment("Number stored as text error is ignored here", "EPPlus Sample");
+
+            ws.Cells["C1"].Value = "1";
+            ws.Cells["C2"].Value = "2";
+            ws.Cells["C3"].Value = "3";
+            ws.Cells["C4"].Value = "4";
+            ws.Cells["C4"].Value = "5";
+            ie = ws.IgnoredErrors.Add(ws.Cells["C1:C5"]);   // Ignore errors on A2 only
+            ie.NumberStoredAsText = true;
+
+            ws.Cells["D1:D5"].Formula = "A1+C1";
+            ws.Cells["D2"].Formula = "A2+B2";               //This will generate a Inconsistant formula error
+            ws.Cells["D4"].Formula = "A1+B2";               //This will generate a Inconsistant formula error
+            ws.Cells["D2,D4"].AddComment("Inconsistant formula error is ignored here", "EPPlus Sample");
+
+            ie = ws.IgnoredErrors.Add(ws.Cells["D2,D4"]);
+            ie.Formula = true;                              // Ignore the inconsistant formula error
+
+            p.SaveAs(FileOutputUtil.GetFileInfo("22-IgnoreErrors.xlsx"));
+        }
+    }
+}
