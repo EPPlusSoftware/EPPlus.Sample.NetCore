@@ -9,4 +9,4 @@ Demonstrates how to load data into a worksheet from the following object types:
 - DataTable
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

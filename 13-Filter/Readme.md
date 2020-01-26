@@ -12,4 +12,4 @@ The code in the RunAsync function will produce a workbook named 18-Filters.xlsx.
 - Dynamic Date
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

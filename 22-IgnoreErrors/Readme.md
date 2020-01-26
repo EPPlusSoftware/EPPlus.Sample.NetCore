@@ -6,4 +6,4 @@ The code in the Run function will produce a workbook named 22-IgnoreErrors.xlsx.
 The examples shows how to ignore the Number Stored As Text error and the Inconsistant Formula Error.
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

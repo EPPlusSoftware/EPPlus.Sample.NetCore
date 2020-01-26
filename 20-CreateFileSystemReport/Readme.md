@@ -5,4 +5,4 @@ Demonstrates usage of styling, printer settings, rich text, pie-, doughnut- and 
 Reads the filesystem and makes a report. 
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

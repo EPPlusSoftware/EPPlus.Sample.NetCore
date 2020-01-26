@@ -7,4 +7,4 @@ We have used SQLite to be able to distribute the database with these sample, but
 Demonstrates some common approaches when generating a database report with EPPlus.
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

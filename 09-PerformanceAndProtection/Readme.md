@@ -5,4 +5,4 @@ A password is set to protect locked cells. Column 3 & 4 will be editable, the re
 ### [PerformanceAndProtectionSample.cs](PerformanceAndProtectionSample.cs)
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

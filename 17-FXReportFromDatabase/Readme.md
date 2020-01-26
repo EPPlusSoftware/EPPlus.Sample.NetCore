@@ -5,4 +5,4 @@ This sample produces a workbook with foreign exchange rates.
 Creates a workbook from scratch. Includes a line chart with historic rates per currency.
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

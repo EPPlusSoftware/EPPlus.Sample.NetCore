@@ -14,4 +14,4 @@ This sample demonstrates how to create a workbook with EPPlus, add formulas to i
 This sample demonstrates how to add custom functions to the EPPlus formula engine.
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

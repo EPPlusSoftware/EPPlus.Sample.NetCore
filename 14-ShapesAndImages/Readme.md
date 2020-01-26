@@ -6,4 +6,4 @@ EPPlus 5 can apply a number of effects to the shape or image.
 ### [ShapesAndImagesSample.cs](ShapesAndImagesSample.cs)
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

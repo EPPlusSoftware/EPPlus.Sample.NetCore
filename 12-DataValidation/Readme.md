@@ -13,4 +13,4 @@ The code in the Run function will produce a workbook named 11-DataValidation.xls
 It also demonstrates how to read existing data validations from a workbook.
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)

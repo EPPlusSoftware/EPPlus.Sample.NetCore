@@ -5,4 +5,4 @@ This sample produces a quiz, where the template workbook is encrypted and passwo
 Demonstrates encryption, password-protection and some data validation.
 
 ---
-[Back to overview](/SampleApp.Core/Readme.md)
+[Back to overview](/Readme.md)
