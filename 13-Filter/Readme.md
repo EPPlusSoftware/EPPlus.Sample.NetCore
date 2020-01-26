@@ -1,4 +1,4 @@
-﻿#13 - Filters
+﻿# 13 - Filters
 These samples demonstrates the filter capabilities of EPPlus.
 
 ### [FilterSample.cs](FilterSample.cs)

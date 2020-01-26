@@ -1,4 +1,4 @@
-﻿#12 - Data validation
+﻿# 12 - Data validation
 These samples demonstrates the data validation capabilities of EPPlus.
 
 ### [DataValidationSample.cs](DataValidationSample.cs)

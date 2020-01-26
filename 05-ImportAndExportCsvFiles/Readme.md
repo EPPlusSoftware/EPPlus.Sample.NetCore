@@ -1,4 +1,4 @@
-﻿#05 - Load data from CSV files into tables
+﻿# 05 - Load data from CSV files into tables
 Loads two CSV files into tables and adds a chart to each sheet.
 
 ### [LoadDataFromCsvFilesIntoTablesSample.cs](LoadDataFromCsvFilesIntoTablesSample.cs)

@@ -1,4 +1,4 @@
-﻿#02 - Read workbook
+﻿# 02 - Read workbook
 Read an existing workbook with EPPlus.
 
 ### [ReadWorkbookSample.cs](ReadWorkbookSample.cs)

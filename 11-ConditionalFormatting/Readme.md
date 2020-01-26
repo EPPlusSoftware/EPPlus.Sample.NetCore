@@ -1,4 +1,4 @@
-﻿#11 - Conditional formatting
+﻿# 11 - Conditional formatting
 Demonstrates conditional formatting.
 
 ### [ConditionalFormattingSample.cs](ConditionalFormattingSample.cs)

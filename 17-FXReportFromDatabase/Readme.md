@@ -1,4 +1,4 @@
-﻿#17 - FX report from database
+﻿# 17 - FX report from database
 This sample produces a workbook with foreign exchange rates.
 
 ### [FXReportFromDatabase.cs](FXReportFromDatabase.cs)

@@ -1,4 +1,4 @@
-﻿#07 - Open Workbook, add data and charts
+﻿# 07 - Open Workbook, add data and charts
 Open an existing workbook with EPPlus, add data and charts.
 
 ### [ReadWorkbookSample.cs](ReadWorkbookSample.cs)

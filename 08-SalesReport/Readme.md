@@ -1,4 +1,4 @@
-﻿#08 - Sales Report
+﻿# 08 - Sales Report
 This sample produces a report based on data from a SQL database. 
 
 We have used SQLite to be able to distribute the database with these sample, but it is very similar to any other database client library supporting the System.Data interfaces.

@@ -1,4 +1,4 @@
-﻿#06 - Formula calculation
+﻿# 06 - Formula calculation
 These samples demonstrates the formula calculation capabilities of EPPlus.
 
 ### [FormulaCalculation.cs](FormulaCalculation.cs)

@@ -1,4 +1,4 @@
-﻿#21 - VBA (Visual Basic for Applications)
+﻿# 21 - VBA (Visual Basic for Applications)
 This sample demonstrates EPPlus support for VBA.
 
 ### [WorkingWithVbaSample.cs](WorkingWithVbaSample.cs)

@@ -1,4 +1,4 @@
-﻿#01 - Getting started
+﻿# 01 - Getting started
 These samples demonstrates the formula calculation capabilities of EPPlus.
 
 ### [GettingStartedSample.cs](GettingStartedSample.cs)

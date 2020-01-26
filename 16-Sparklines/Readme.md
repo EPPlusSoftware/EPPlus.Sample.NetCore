@@ -1,4 +1,4 @@
-﻿#16 - Sparklines
+﻿# 16 - Sparklines
 This sample demonstrates EPPlus support for Sparklines.
 
 ### [SparklinesSample.cs](SparklinesSample.cs)

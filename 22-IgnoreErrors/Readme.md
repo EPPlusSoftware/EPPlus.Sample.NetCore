@@ -1,4 +1,4 @@
-﻿#22 - Ignore Errors
+﻿# 22 - Ignore Errors
 These samples demonstrates how to ignore errors on ranges in EPPlus.
 
 ### [IgnoreErrors.cs](IgnoreErrorsSample.cs)
