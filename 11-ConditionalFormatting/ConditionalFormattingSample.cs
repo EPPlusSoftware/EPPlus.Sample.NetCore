@@ -1,5 +1,5 @@
 ﻿/*************************************************************************************************
-  Copyright (C) EPPlus Software AB. 
+  Required Notice: Copyright (C) EPPlus Software AB. 
   This software is licensed under PolyForm Noncommercial License 1.0.0 
   and may only be used for noncommercial purposes 
   https://polyformproject.org/licenses/noncommercial/1.0.0/
@@ -9,7 +9,7 @@
   Date               Author                       Change
  *************************************************************************************************
   2012-04-03         Eyal Seagull                 Added
-  2020-01-26         Jan Källman & Mats Alm       Initial release EPPlus 5
+  2020-01-26         EPPlus Software AB           Initial release EPPlus 5
  *************************************************************************************************/
 using System;
 using System.Collections.Generic;
