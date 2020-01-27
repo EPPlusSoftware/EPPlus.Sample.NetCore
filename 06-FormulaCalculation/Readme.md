@@ -1,7 +1,7 @@
 ﻿# 06 - Formula calculation
 These samples demonstrates the formula calculation capabilities of EPPlus.
 
-### [FormulaCalculation.cs](FormulaCalculation.cs)
+### [CalculateExistingWorkbook.cs](CalculateExistingWorkbook.cs)
 This sample opens an Excel workbook (FormulaCalcSample.xlsx) and recalculates the formulas in it. Functions used: SUM, SUMIFS, and nested VLOOKUP
 
 It also shows the three different contexts where Calculate can be called: workbook, worksheet and range.
