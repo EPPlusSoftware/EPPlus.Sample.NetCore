@@ -175,7 +175,7 @@ namespace EPPlusSamples
           new ExcelAddress("B11:B20"));
         
         cfRule14.Style.Border.Left.Style = ExcelBorderStyle.Thin;
-        cfRule14.Style.Border.Left.Color.Theme = eThemeSchemeColor.Light2;
+        cfRule14.Style.Border.Left.Color.Theme = eThemeSchemeColor.Text2;
         cfRule14.Style.Border.Bottom.Style = ExcelBorderStyle.DashDot;
         cfRule14.Style.Border.Bottom.Color.SetColor(ExcelIndexedColor.Indexed8);
         cfRule14.Style.Border.Right.Style = ExcelBorderStyle.Thin;

@@ -41,7 +41,7 @@ namespace EPPlusSampleApp.Core
             ws.Cells["C3"].Value = "3";
             ws.Cells["C4"].Value = "4";
             ws.Cells["C4"].Value = "5";
-            ie = ws.IgnoredErrors.Add(ws.Cells["C1:C5"]);   // Ignore errors on A2 only
+            ie = ws.IgnoredErrors.Add(ws.Cells["C1:C5"]);   // Ignore errors on the range
             ie.NumberStoredAsText = true;
 
             ws.Cells["D1:D5"].Formula = "A1+C1";

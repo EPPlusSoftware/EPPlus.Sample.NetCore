@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <RootNamespace>EPPlusSamples</RootNamespace>
   </PropertyGroup>
 
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="5.0.0" />
+    <PackageReference Include="EPPlus" Version="5.0.0-beta" />
     <PackageReference Include="Faker.Net" Version="1.1.1" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
