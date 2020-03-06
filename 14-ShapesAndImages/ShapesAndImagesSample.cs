@@ -53,13 +53,19 @@ namespace EPPlusSamples.EncryptionAndProtection
             //Add the same image, but with 25 percent of the size. Let the position be absolute.
             pic = ws.Drawings.AddPicture("LandscapeSmall", FileInputUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
             pic.SetPosition(2, 0, 16, 0);
-            pic.SetSize(25);
+            pic.SetSize(25); //25% 
             pic.ChangeCellAnchor(eEditAs.Absolute);
 
-            //Add the same image again, but let the picure move and resize when rows and colums are resized.
-            pic = ws.Drawings.AddPicture("LandscapeRotated", FileInputUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
+            //Add the same image again, but let the picture move and resize when rows and colums are resized.
+            pic = ws.Drawings.AddPicture("LandscapeMoveAndResize", FileInputUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
             pic.SetPosition(30, 0, 16, 0);
             pic.ChangeCellAnchor(eEditAs.TwoCell);
+
+            //Add the image overlapping the first image, but make sure it is behind
+            pic = ws.Drawings.AddPicture("LandscapeSendToBack", FileInputUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
+            pic.SetPosition(8, 0, 8, 0);
+            pic.SetSize(25); //25% 
+            pic.SendToBack(); 
         }
 
         private static void FillAndColorSamples(ExcelPackage package)

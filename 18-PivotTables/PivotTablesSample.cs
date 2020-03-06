@@ -117,29 +117,6 @@ namespace EPPlusSamples.PivotTables
             return newFile.FullName;
         }
 
-        //private static List<SalesDTO> GetRandomData()
-        //{   
-        //    List<SalesDTO> ret = new List<SalesDTO>();  
-        //    var firstNames = new string[] {"John", "Gunnar", "Karl", "Alice"};
-        //    var lastNames = new string[] {"Smith", "Johansson", "Lindeman"};
-        //    Random r = new Random();
-        //    for (int i = 0; i < 500; i++)
-        //    {
-        //        ret.Add(
-        //            new SalesDTO()
-        //            {
-        //                FirstName = firstNames[r.Next(4)],
-        //                LastName = lastNames[r.Next(3)],
-        //                OrderDate = new DateTime(2002, 1, 1).AddDays(r.Next(1000)),
-        //                Title="Sales Representative",
-        //                SubTotal = r.Next(100, 10000),
-        //                Tax = 0,
-        //                Freight = 0
-        //            });
-        //    }
-        //    return ret;
-        //}
-
         private static List<SalesDTO> GetDataFromSQL(string connectionStr)
         {
             var ret = new List<SalesDTO>();

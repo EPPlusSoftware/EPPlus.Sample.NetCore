@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="5.0.1-beta" />
+    <PackageReference Include="EPPlus" Version="5.0.2.83-20200306-develop" />
     <PackageReference Include="Faker.Net" Version="1.1.1" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
