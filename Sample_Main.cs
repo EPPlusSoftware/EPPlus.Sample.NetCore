@@ -183,7 +183,7 @@ namespace EPPlusSamples
 
                 //Sample 22 - Ignore cell errors using the IngnoreErrors Collection
                 Console.WriteLine("Running sample 22-Suppress Errors");
-                IgnoreErrors.Run();
+                IgnoreErrorsSample.Run();
                 Console.WriteLine("Sample 22 created {0}", FileOutputUtil.OutputDir.Name);
                 Console.WriteLine();
             }

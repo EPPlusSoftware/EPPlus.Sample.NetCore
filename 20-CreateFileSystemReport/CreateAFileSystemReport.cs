@@ -12,12 +12,16 @@
  *************************************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Drawing;
 using OfficeOpenXml;
 using OfficeOpenXml.Drawing;
 using OfficeOpenXml.Drawing.Chart;
+using System.Drawing.Imaging;
 using OfficeOpenXml.Style;
+using OfficeOpenXml.Style.XmlAccess;
 using OfficeOpenXml.Table;
 using OfficeOpenXml.Drawing.Chart.Style;
 
@@ -227,7 +231,7 @@ namespace EPPlusSamples.CreateFileSystemReport
             AddComments(ws);
 
             //Add the piechart
-            var pieChart = ws.Drawings.AddChart("crtExtensionsSize", eChartType.PieExploded3D) as ExcelPieChart;
+            var pieChart = ws.Drawings.AddPieChart("crtExtensionsSize", ePieChartType.PieExploded3D);
             //Set top left corner to row 1 column 2
             pieChart.SetPosition(1, 0, 2, 0);
             pieChart.SetSize(400, 400);
@@ -247,7 +251,7 @@ namespace EPPlusSamples.CreateFileSystemReport
             row=AddStatRows(ws, lst, 16, "", "Count");
 
             //Add the Doughnut chart
-            var doughtnutChart = ws.Drawings.AddChart("crtExtensionCount", eChartType.DoughnutExploded) as ExcelDoughnutChart;
+            var doughtnutChart = ws.Drawings.AddDoughnutChart("crtExtensionCount", eDoughnutChartType.DoughnutExploded) as ExcelDoughnutChart;
             //Set position to row 1 column 7 and 16 pixels offset
             doughtnutChart.SetPosition(1, 0, 8, 16);
             doughtnutChart.SetSize(400, 400);
@@ -256,13 +260,12 @@ namespace EPPlusSamples.CreateFileSystemReport
             doughtnutChart.Title.Text = "Extension Count";
             doughtnutChart.DataLabel.ShowPercent = true;
             doughtnutChart.DataLabel.ShowLeaderLines = true;
-            doughtnutChart.Style = eChartStyle.Style26; //3D look
             doughtnutChart.StyleManager.SetChartStyle(ePresetChartStyle.DoughnutChartStyle8);
 
             //Top-10 filesize
             _fileSize.Sort();
             row=AddStatRows(ws, _fileSize, 29, "Files", "Size");
-            var barChart = ws.Drawings.AddChart("crtFiles", eChartType.BarClustered3D) as ExcelBarChart;
+            var barChart = ws.Drawings.AddBarChart("crtFiles", eBarChartType.BarClustered3D) as ExcelBarChart;
             //3d Settings
             barChart.View3D.RotX = 0;
             barChart.View3D.Perspective = 0;

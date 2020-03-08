@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace EPPlusSampleApp.Core
 {
-    public class IgnoreErrors
+    public class IgnoreErrorsSample
     {
         public static void Run()
         {
@@ -40,7 +40,7 @@ namespace EPPlusSampleApp.Core
             ws.Cells["C2"].Value = "2";
             ws.Cells["C3"].Value = "3";
             ws.Cells["C4"].Value = "4";
-            ws.Cells["C4"].Value = "5";
+            ws.Cells["C5"].Value = "5";
             ie = ws.IgnoredErrors.Add(ws.Cells["C1:C5"]);   // Ignore errors on the range
             ie.NumberStoredAsText = true;
 
