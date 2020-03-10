@@ -22,6 +22,7 @@ using OfficeOpenXml.Drawing;
 using System.Collections.Generic;
 using OfficeOpenXml.Table;
 using System.Data;
+using System.IO;
 
 namespace EPPlusSamples
 {
@@ -35,34 +36,72 @@ namespace EPPlusSamples
             public double Margin { get; set; }
         }
         /// <summary>
-        /// Sample 15 - Load a theme and create a column chart
+        /// Sample 15 - Creates various charts and apply a theme if supplied in the parameter themeFile.
         /// </summary>
-        public static async Task<string> RunAsync(string connectionString)
+        public static async Task<string> RunAsync(string connectionString, FileInfo xlFile, FileInfo themeFile)
         {
             using (var package = new ExcelPackage())
             {
-                //Load a theme file (Can be exported from Excel). This will change the appearance for the workbook. Uncomment to get the default office theme.
-                package.Workbook.ThemeManager.Load(FileInputUtil.GetFileInfo("15-ChartsAndThemes", "integral.thmx"));
+                //Load a theme file if set. Thmx files can be exported from Excel. This will change the appearance for the workbook.                
+                if (themeFile != null)
+                {
+                    package.Workbook.ThemeManager.Load(themeFile);
+                    /*** Themes can also be altered. For example, uncomment this code to set the Accent1 to a blue color ***/
+                    //package.Workbook.ThemeManager.CurrentTheme.ColorScheme.Accent1.SetRgbColor(Color.FromArgb(32, 78, 224));
+                }
 
-                /*** Themes can also be altered. For example, uncomment this code to set the Accent1 to a blue color ***/
-                //package.Workbook.ThemeManager.CurrentTheme.ColorScheme.Accent1.SetRgbColor(Color.FromArgb(32, 78, 224));
+                /*********************************************************************************************************
+                 * About chart styles: 
+                 * 
+                 * Chart styles can be applied to charts using the Chart.StyleManager.SetChartMethod method.
+                 * The chart styles can either be set by the two enums ePresetChartStyle and ePresetChartStyleMultiSeries or by setting the Chart Style Number.
+                 * 
+                 * Note: Chart styles in Excel changes depending on many parameters (like number of series, axis types and more), so the enums will not always reflect the style index in Excel. 
+                 * The enums are for the most common scenarios.
+                 * If you want to reflect a specific style please use the Chart Style Number for the chart in Excel. 
+                 * The chart style number can be fetched by recording a macro in Excel and click the style you want to apply.
+                 * 
+                 * Chart style do not alter visibility of chart objects like datalabels or chart titles like Excel do. That must be set in code before setting the style.
+                 *********************************************************************************************************/
 
                 //The first method adds a worksheet with four 3D charts with different styles. The last chart applies an exported chart template file (*.crtx) to the chart.
                 await Add3DCharts(connectionString, package);
+                
                 //This method adds four line charts with different chart elements like up-down bars, error bars, drop lines and high-low lines.
                 await AddLineCharts(connectionString, package);
+                
                 //Adds a scatter chart with a moving average trendline.
                 AddScatterChart(package);
+                
                 //Adds a bubble-chartsheet
                 AddBubbleChartsWorksheet(package);
+                
                 //Adds a radar chart
                 AddRadarChart(package);
+                
+                //Add an area chart using a chart template (chrx file)
+                await AddAreaFromChartTemplate(connectionString, package);
 
-                // save our new workbook in the output directory and we are done!
-                var xlFile = FileOutputUtil.GetFileInfo("15-ChartsAndThemes.xlsx");
+                //Save our new workbook in the output directory and we are done!
                 package.SaveAs(xlFile);
                 return xlFile.FullName;
             }
+        }
+
+        private static async Task AddAreaFromChartTemplate(string connectionString, ExcelPackage package)
+        {
+            var ws = package.Workbook.Worksheets.Add("Area chart from template");
+            var range = await LoadFromDatabase(connectionString, ws);
+
+            //Add an Area chart from a template file. The crtx file has it's own theme, so it does not change with the theme.
+            var areaChart = (ExcelAreaChart)ws.Drawings.AddChartFromTemplate(FileInputUtil.GetFileInfo("15-ChartsAndThemes", "AreaChartStyle3.crtx"), "areaChart");
+            var areaSerie = areaChart.Series.Add(ws.Cells[2, 2, 16, 2], ws.Cells[2, 1, 16, 1]);
+            areaSerie.Header = "Order Value";
+            areaChart.SetPosition(1, 0, 6, 0);
+            areaChart.SetSize(1200, 400);
+            areaChart.Title.Text = "Area Chart";
+
+            range.AutoFitColumns(0);
         }
 
         private static void AddScatterChart(ExcelPackage package)
@@ -103,6 +142,7 @@ namespace EPPlusSamples
                 var serie = chart.Series.Add(wsData.Cells[row, 2], wsData.Cells[row, 3], wsData.Cells[row, 4]);
                 serie.HeaderAddress = wsData.Cells[row, 1];
             }
+
             chart.DataLabel.Position = eLabelPosition.Center;
             chart.DataLabel.ShowSeriesName = true;
             chart.DataLabel.ShowBubbleSize = true;
@@ -119,49 +159,45 @@ namespace EPPlusSamples
 
         private static async Task Add3DCharts(string connectionString, ExcelPackage package)
         {
-            var ws = package.Workbook.Worksheets.Add("3D Charts With Integral Theme");
+            var ws = package.Workbook.Worksheets.Add("3D Charts");
 
             var range = await LoadFromDatabase(connectionString, ws);
 
             //Add a column chart
             var chart = ws.Drawings.AddBarChart("column3dChart", eBarChartType.ColumnClustered3D);
-            var serie = chart.Series.Add(ws.Cells[2, 7, 26, 7], ws.Cells[2, 6, 26, 6]);
+            var serie = chart.Series.Add(ws.Cells[2, 2, 16, 2], ws.Cells[2, 1, 26, 1]);
             serie.Header = "Order Value";
-            chart.SetPosition(0, 0, 10, 0);
-            chart.SetSize(1000, 300);
+            chart.SetPosition(0, 0, 6, 0);
+            chart.SetSize(1200, 400);
             chart.Title.Text = "Column Chart 3D";
 
-            //Set style 9 and Colorful Palette 3
-            chart.StyleManager.SetChartStyle(ePresetChartStyle.Bar3dChartStyle9, ePresetChartColors.ColorfulPalette3);
-
-            //Add a bar chart
-            chart = ws.Drawings.AddBarChart("bar3dChart", eBarChartType.ColumnClustered3D);
-            serie = chart.Series.Add(ws.Cells[2, 7, 26, 7], ws.Cells[2, 6, 26, 6]);
-            serie.Header = "Order Value";
-            chart.SetPosition(17, 0, 10, 0);
-            chart.SetSize(1000, 300);
-            chart.Title.Text = "Bar Chart 3D";
-            //Set the color
-            chart.StyleManager.SetChartStyle(ePresetChartStyle.Column3dChartStyle7, ePresetChartColors.MonochromaticPalette1);
+            //Set style 9 and Colorful Palette 3. 
+            chart.StyleManager.SetChartStyle(ePresetChartStyle.Column3dChartStyle9, ePresetChartColors.ColorfulPalette3);
 
             //Add a line chart
             var lineChart = ws.Drawings.AddLineChart("line3dChart", eLineChartType.Line3D);
-            var lineSerie = lineChart.Series.Add(ws.Cells[2, 7, 26, 7], ws.Cells[2, 6, 26, 6]);
+            var lineSerie = lineChart.Series.Add(ws.Cells[2, 2, 16, 2], ws.Cells[2, 1, 16, 1]);
             lineSerie.Header = "Order Value";
-            lineChart.SetPosition(34, 0, 10, 0);
-            lineChart.SetSize(1000, 300);
+            lineChart.SetPosition(21, 0, 6, 0);
+            lineChart.SetSize(1200, 400);
             lineChart.Title.Text = "Line 3D";
             //Set Line3D Style 1
             lineChart.StyleManager.SetChartStyle(ePresetChartStyle.Line3dChartStyle1);
 
-            //Add an Area chart from a template file.
-            var areaChart = (ExcelAreaChart)ws.Drawings.AddChartFromTemplate(FileInputUtil.GetFileInfo("15-ChartsAndThemes", "AreaChartStyle3.crtx"), "areaChart");
-            var areaSerie = areaChart.Series.Add(ws.Cells[2, 7, 26, 7], ws.Cells[2, 6, 26, 6]);
-            areaSerie.Header = "Order Value";
-            areaChart.SetPosition(51, 0, 10, 0);
-            areaChart.SetSize(1000, 300);
-            areaChart.Title.Text = "Area Chart";
+            //Add a bar chart
+            chart = ws.Drawings.AddBarChart("bar3dChart", eBarChartType.BarStacked3D);
+            serie = chart.Series.Add(ws.Cells[2, 2, 16, 2], ws.Cells[2, 1, 16, 1]);
+            serie.Header = "Order Value";
+            serie = chart.Series.Add(ws.Cells[2, 3, 16, 3], ws.Cells[2, 1, 16, 1]);
+            serie.Header = "Tax";
+            serie = chart.Series.Add(ws.Cells[2, 4, 16, 4], ws.Cells[2, 1, 16, 1]);
+            serie.Header = "Freight";
 
+            chart.SetPosition(42, 0, 6, 0);
+            chart.SetSize(1200, 600);
+            chart.Title.Text = "Bar Chart 3D";
+            //Set the color
+            chart.StyleManager.SetChartStyle(ePresetChartStyleMultiSeries.StackedBar3dChartStyle7, ePresetChartColors.ColorfulPalette1);
 
             range.AutoFitColumns(0);
         }
@@ -173,10 +209,10 @@ namespace EPPlusSamples
 
             //Add a line chart
             var chart = ws.Drawings.AddLineChart("LineChartWithDroplines", eLineChartType.Line);
-            var serie = chart.Series.Add(ws.Cells[2, 7, 26, 7], ws.Cells[2, 6, 26, 6]);
+            var serie = chart.Series.Add(ws.Cells[2, 2, 16, 2], ws.Cells[2, 1, 16, 1]);
             serie.Header = "Order Value";
-            chart.SetPosition(0, 0, 10, 0);
-            chart.SetSize(1000, 300);
+            chart.SetPosition(0, 0, 6, 0);
+            chart.SetSize(1200, 400);
             chart.Title.Text = "Line Chart With Droplines";
             chart.AddDropLines();
             chart.DropLine.Border.Width = 2;
@@ -185,10 +221,10 @@ namespace EPPlusSamples
 
             //Add a line chart with Error Bars
             chart = ws.Drawings.AddLineChart("LineChartWithErrorBars", eLineChartType.Line);
-            serie = chart.Series.Add(ws.Cells[2, 7, 26, 7], ws.Cells[2, 6, 26, 6]);
+            serie = chart.Series.Add(ws.Cells[2, 2, 16, 2], ws.Cells[2, 1, 16, 1]);
             serie.Header = "Order Value";
-            chart.SetPosition(17, 0, 10, 0);
-            chart.SetSize(1000, 300);
+            chart.SetPosition(21, 0, 6, 0);
+            chart.SetSize(1200, 400);   //Make this chart wider to make room for the datatable.
             chart.Title.Text = "Line Chart With Error Bars";
             serie.AddErrorBars(eErrorBarType.Both, eErrorValueType.Percentage);
             serie.ErrorBars.Value = 5;
@@ -199,33 +235,33 @@ namespace EPPlusSamples
 
             //Add a line chart with Error Bars
             chart = ws.Drawings.AddLineChart("LineChartWithUpDownBars", eLineChartType.Line);
-            var serie1 = chart.Series.Add(ws.Cells[2, 7, 26, 7], ws.Cells[2, 6, 26, 6]);
+            var serie1 = chart.Series.Add(ws.Cells[2, 2, 16, 2], ws.Cells[2, 1, 16, 1]);
             serie1.Header = "Order Value";
-            var serie2 = chart.Series.Add(ws.Cells[2, 8, 26, 8], ws.Cells[2, 6, 26, 6]);
+            var serie2 = chart.Series.Add(ws.Cells[2, 3, 16, 3], ws.Cells[2, 1, 16, 1]);
             serie2.Header = "Tax";
-            var serie3 = chart.Series.Add(ws.Cells[2, 9, 26, 9], ws.Cells[2, 6, 26, 6]);
+            var serie3 = chart.Series.Add(ws.Cells[2, 4, 16, 4], ws.Cells[2, 1, 16, 1]);
             serie3.Header = "Freight";
-            chart.SetPosition(34, 0, 10, 0);
-            chart.SetSize(1000, 300);
+            chart.SetPosition(42, 0, 6, 0);
+            chart.SetSize(1200, 400);
             chart.Title.Text = "Line Chart With Up/Down Bars";
             chart.AddUpDownBars(true, true);
 
             //Set style 10, Note: As this is a line chart with multiple series, we use the enum for multiple series. Charts with multiple series usually has a subset of of the chart styles in Excel.
-            //Another option to set the style is to use the Excel Style number, in this case 236: chart.StyleManager.SetChartStyle(236);
+            //Another option to set the style is to use the Excel Style number, in this case 236: chart.StyleManager.SetChartStyle(236)
             chart.StyleManager.SetChartStyle(ePresetChartStyleMultiSeries.LineChartStyle9);
             range.AutoFitColumns(0);
 
 
             //Add a line chart with high/low Bars
             chart = ws.Drawings.AddLineChart("LineChartWithHighLowLines", eLineChartType.Line);
-            serie1 = chart.Series.Add(ws.Cells[2, 7, 26, 7], ws.Cells[2, 6, 26, 6]);
+            serie1 = chart.Series.Add(ws.Cells[2, 2, 26, 2], ws.Cells[2, 1, 26, 1]);
             serie1.Header = "Order Value";
-            serie2 = chart.Series.Add(ws.Cells[2, 8, 26, 8], ws.Cells[2, 6, 26, 6]);
+            serie2 = chart.Series.Add(ws.Cells[2, 3, 26, 3], ws.Cells[2, 1, 26, 1]);
             serie2.Header = "Tax";
-            serie3 = chart.Series.Add(ws.Cells[2, 9, 26, 9], ws.Cells[2, 6, 26, 6]);
+            serie3 = chart.Series.Add(ws.Cells[2, 4, 26, 4], ws.Cells[2, 1, 26, 1]);
             serie3.Header = "Freight";
-            chart.SetPosition(51, 0, 10, 0);
-            chart.SetSize(1000, 300);
+            chart.SetPosition(63, 0, 6, 0);
+            chart.SetSize(1200, 400);
             chart.Title.Text = "Line Chart With High/Low Lines";
             chart.AddHighLowLines();
 
@@ -285,13 +321,13 @@ namespace EPPlusSamples
             using (var sqlConn = new SQLiteConnection(connectionString))
             {
                 sqlConn.Open();
-                using (var sqlCmd = new SQLiteCommand("select companyName as CompanyName, [name] as Name, email as Email, country as Country, o.OrderId as OrderId, orderdate as OrderDate, ordervalue as OrderValue, tax As Tax,freight As Freight, currency Currency from Customer c inner join Orders o on c.CustomerId=o.CustomerId inner join SalesPerson s on o.salesPersonId = s.salesPersonId ORDER BY OrderDate, OrderValue desc limit 25", sqlConn))
+                using (var sqlCmd = new SQLiteCommand("select orderdate as OrderDate, SUM(ordervalue) as OrderValue, SUM(tax) As Tax,SUM(freight) As Freight from Customer c inner join Orders o on c.CustomerId=o.CustomerId inner join SalesPerson s on o.salesPersonId = s.salesPersonId Where Currency='USD' group by OrderDate ORDER BY OrderDate desc limit 15", sqlConn))
                 { 
                     using (var sqlReader = sqlCmd.ExecuteReader())
                     {
                         range = await ws.Cells["A1"].LoadFromDataReaderAsync(sqlReader, true);
                         range.Offset(0, 0, 1, range.Columns).Style.Font.Bold = true;
-                        range.Offset(0, 5, range.Rows, 1).Style.Numberformat.Format = "yyyy-MM-dd";
+                        range.Offset(0, 0, range.Rows, 1).Style.Numberformat.Format = "yyyy-MM-dd";
                     }
                     //Set the numberformat
                 }

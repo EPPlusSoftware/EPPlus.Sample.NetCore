@@ -132,7 +132,8 @@ namespace EPPlusSamples.FXReportFromDatabase
 
                     chart.Legend.Position = eLegendPosition.Bottom;
 
-                    chart.StyleManager.SetChartStyle(ePresetChartStyle.LineChartStyle5);
+                    //Set the chart style
+                    chart.StyleManager.SetChartStyle(236);
                 }
                 
                 //Get the documet as a byte array from the stream and save it to disk.  (This is useful in a webapplication) ... 

@@ -137,7 +137,14 @@ namespace EPPlusSamples
 
                 //Sample 15 - Themes and Chart styling
                 Console.WriteLine("Running sample 15-Theme and Chart styling");
-                await ChartsAndThemesSample.RunAsync(connectionStr);
+                //Run the sample with the default office theme
+                await ChartsAndThemesSample.RunAsync(connectionStr, 
+                                                     FileOutputUtil.GetFileInfo("15-ChartsAndThemes.xlsx"), null);
+
+                //Run the sample with the integral theme. Themes can be exported as thmx files from Excel and can then be applied to a package.
+                await ChartsAndThemesSample.RunAsync(connectionStr, 
+                                                     FileOutputUtil.GetFileInfo("15-ChartsAndThemes-IntegralTheme.xlsx"),  
+                                                     FileInputUtil.GetFileInfo("15-ChartsAndThemes", "integral.thmx"));                
                 Console.WriteLine("Sample 15 created {0}", FileOutputUtil.OutputDir.Name);
                 Console.WriteLine();
 
