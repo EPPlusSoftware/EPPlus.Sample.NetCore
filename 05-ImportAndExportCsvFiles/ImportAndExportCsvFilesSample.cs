@@ -73,6 +73,7 @@ namespace EPPlusSamples.LoadDataFromCsvFilesIntoTables
             //Create the format object to describe the text file
             var format = new ExcelTextFormat
             {
+                EOL = "\n",
                 TextQualifier = '"',
                 SkipLinesBeginning = 2,
                 SkipLinesEnd = 1
@@ -139,6 +140,7 @@ namespace EPPlusSamples.LoadDataFromCsvFilesIntoTables
             //Create the format object to describe the text file
             var format = new ExcelTextFormat
             {
+                EOL = "\n",
                 Delimiter = '\t',       //Tab
                 SkipLinesBeginning = 1
             };
