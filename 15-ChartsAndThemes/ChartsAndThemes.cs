@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using OfficeOpenXml.Table;
 using System.Data;
 using System.IO;
+using OfficeOpenXml.Drawing.Chart.ChartEx;
 
 namespace EPPlusSamples
 {
@@ -78,7 +79,16 @@ namespace EPPlusSamples
                 
                 //Adds a radar chart
                 AddRadarChart(package);
-                
+
+                //Adds a sunburst and a treemap chart 
+                await AddSunburstAndTreemapChart(connectionString, package);
+
+                //Add a box & whisker and a histogram chart 
+                AddBoxWhiskerAndParetoHistogramChart(package);
+
+                // Add a waterfall chart
+                AddWaterfallChart(package);
+
                 //Add an area chart using a chart template (chrx file)
                 await AddAreaFromChartTemplate(connectionString, package);
 
@@ -86,6 +96,148 @@ namespace EPPlusSamples
                 package.SaveAs(xlFile);
                 return xlFile.FullName;
             }
+        }
+
+        private static async Task AddSunburstAndTreemapChart(string connectionString, ExcelPackage package)
+        {
+            var ws = package.Workbook.Worksheets.Add("Sunburst & Treemap Chart");
+            var range = await LoadSalesFromDatabase(connectionString, ws);
+
+            var sunburstChart = ws.Drawings.AddSunburstChart("SunburstChart1");
+            var sbSerie = sunburstChart.Series.Add(ws.Cells[2, 1, range.Rows, 3], ws.Cells[2, 4, range.Rows, 4]);
+            sbSerie.HeaderAddress = ws.Cells["D1"];
+            sunburstChart.SetPosition(1, 0, 6, 0);
+            sunburstChart.SetSize(800, 800);
+            sunburstChart.Title.Text = "Sales";            
+            sunburstChart.Legend.Add();
+            sunburstChart.Legend.Position = eLegendPosition.Bottom;
+            sbSerie.DataLabel.Add(true, true);
+            sunburstChart.StyleManager.SetChartStyle(ePresetChartStyle.SunburstChartStyle4);
+
+
+            var treemapChart = ws.Drawings.AddTreemapChart("TreemapChart1");
+            var tmSerie = treemapChart.Series.Add(ws.Cells[2, 1, range.Rows, 3], ws.Cells[2, 4, range.Rows, 4]);
+            treemapChart.Title.Font.Fill.Style = eFillStyle.SolidFill;
+            treemapChart.Title.Font.Fill.SolidFill.Color.SetSchemeColor(eSchemeColor.Background2);
+            tmSerie.HeaderAddress = ws.Cells["D1"];
+            treemapChart.SetPosition(1, 0, 19, 0);
+            treemapChart.SetSize(1000, 800);
+            treemapChart.Title.Text = "Sales";
+            treemapChart.Legend.Add();
+            treemapChart.Legend.Position = eLegendPosition.Right;
+            tmSerie.DataLabel.Add(true, true);
+            tmSerie.ParentLabelLayout = eParentLabelLayout.Banner;
+            treemapChart.StyleManager.SetChartStyle(ePresetChartStyle.TreemapChartStyle6);
+        }
+        private static void AddBoxWhiskerAndParetoHistogramChart(ExcelPackage package)
+        {
+            var ws = package.Workbook.Worksheets.Add("BoxAndWhiskerChart");
+            AddBoxWhiskerData(ws);
+
+            var boxWhiskerChart = ws.Drawings.AddBoxWhiskerChart("BoxAndWhisker1");
+            var bwSerie1 = boxWhiskerChart.Series.Add(ws.Cells[2, 1, 11, 1], null);
+            bwSerie1.HeaderAddress = ws.Cells["A1"];
+            var bwSerie2 = boxWhiskerChart.Series.Add(ws.Cells[2, 2, 11, 2], null);
+            bwSerie2.HeaderAddress = ws.Cells["B1"];
+            var bwSerie3 = boxWhiskerChart.Series.Add(ws.Cells[2, 3, 11, 3], null);
+            bwSerie3.HeaderAddress = ws.Cells["C1"];
+            boxWhiskerChart.SetPosition(1, 0, 6, 0);
+            boxWhiskerChart.SetSize(800, 800);
+            boxWhiskerChart.Title.Text = "Number series";
+            boxWhiskerChart.StyleManager.SetChartStyle(ePresetChartStyle.BoxWhiskerChartStyle4);
+
+            var histogramChart = ws.Drawings.AddHistogramChart("Pareto", true);
+            histogramChart.SetPosition(1, 0, 19, 0);
+            histogramChart.SetSize(800, 800);
+            var hgSerie = histogramChart.Series.Add(ws.Cells[2, 3, 15, 3], null);
+            hgSerie.HeaderAddress = ws.Cells["C1"];
+            hgSerie.Binning.Size = 4;
+        }
+
+        private static void AddWaterfallChart(ExcelPackage package)
+        {
+            var ws = package.Workbook.Worksheets.Add("WaterfallChart");
+
+            ws.SetValue("A1", "Description");
+            ws.SetValue("A2", "Initial Saldo");
+            ws.SetValue("A3", "Food");
+            ws.SetValue("A4", "Beer");
+            ws.SetValue("A5", "Transfer");
+            ws.SetValue("A6", "Electrical Bill");
+            ws.SetValue("A7", "Cell Phone");
+            ws.SetValue("A8", "Car Repair");
+
+            ws.SetValue("B1", "Saldo/transaction");
+            ws.SetValue("B2", 1000);
+            ws.SetValue("B3", -237.5);
+            ws.SetValue("B4", -33.75);
+            ws.SetValue("B5", 200);
+            ws.SetValue("B6", -153.4);
+            ws.SetValue("B7", -49);
+            ws.SetValue("B8", -258.47);
+            ws.Cells["B9"].Formula="SUM(B2:B8)";
+            ws.Calculate();
+
+            var waterfallChart = ws.Drawings.AddWaterfallChart("Waterfall1");
+            waterfallChart.SetPosition(1, 0, 6, 0);
+            waterfallChart.SetSize(800, 800);
+            var wfSerie1 = waterfallChart.Series.Add(ws.Cells[2, 2, 9, 2], ws.Cells[2, 1, 8, 1]);
+
+            var dp=wfSerie1.DataPoints.Add(0);
+            dp.SubTotal = true;
+            dp = wfSerie1.DataPoints.Add(7);
+            dp.SubTotal = true;
+        }
+        private static void AddBoxWhiskerData(ExcelWorksheet ws)
+        {
+            ws.Cells["A1"].Value = "Primes";
+            ws.Cells["A2"].Value = 2;
+            ws.Cells["A3"].Value = 3;
+            ws.Cells["A4"].Value = 5;
+            ws.Cells["A5"].Value = 7;
+            ws.Cells["A6"].Value = 11;
+            ws.Cells["A7"].Value = 13;
+            ws.Cells["A8"].Value = 17;
+            ws.Cells["A9"].Value = 19;
+            ws.Cells["A10"].Value = 23;
+            ws.Cells["A11"].Value = 29;
+            ws.Cells["A12"].Value = 31;
+            ws.Cells["A13"].Value = 37;
+            ws.Cells["A14"].Value = 41;
+            ws.Cells["A15"].Value = 43;
+
+            ws.Cells["B1"].Value = "Even";
+            ws.Cells["B2"].Value = 2;
+            ws.Cells["B3"].Value = 4;
+            ws.Cells["B4"].Value = 6;
+            ws.Cells["B5"].Value = 8;
+            ws.Cells["B6"].Value = 10;
+            ws.Cells["B7"].Value = 12;
+            ws.Cells["B8"].Value = 14;
+            ws.Cells["B9"].Value = 16;
+            ws.Cells["B10"].Value = 18;
+            ws.Cells["B11"].Value = 20;
+            ws.Cells["B12"].Value = 22;
+            ws.Cells["B13"].Value = 24;
+            ws.Cells["B14"].Value = 26;
+            ws.Cells["B15"].Value = 28;
+
+
+            ws.Cells["C1"].Value = "Random";
+            ws.Cells["C2"].Value = 2;
+            ws.Cells["C3"].Value = 3;
+            ws.Cells["C4"].Value = 7;
+            ws.Cells["C5"].Value = 12;
+            ws.Cells["C6"].Value = 15;
+            ws.Cells["C7"].Value = 18;
+            ws.Cells["C8"].Value = 19;
+            ws.Cells["C9"].Value = 23;
+            ws.Cells["C10"].Value = 25;
+            ws.Cells["C11"].Value = 30;
+            ws.Cells["C12"].Value = 35;
+            ws.Cells["C13"].Value = 37;
+            ws.Cells["C14"].Value = 40;
+            ws.Cells["C15"].Value = 42;
         }
 
         private static async Task AddAreaFromChartTemplate(string connectionString, ExcelPackage package)
@@ -334,6 +486,26 @@ namespace EPPlusSamples
             }
             return range;
         }
+        private static async Task<ExcelRangeBase> LoadSalesFromDatabase(string connectionString, ExcelWorksheet ws)
+        {
+            ExcelRangeBase range;
+            using (var sqlConn = new SQLiteConnection(connectionString))
+            {
+                sqlConn.Open();
+                using (var sqlCmd = new SQLiteCommand("select s.continent, s.country, s.city, SUM(OrderValue) As Sales from Customer c inner join Orders o on c.CustomerId=o.CustomerId inner join SalesPerson s on o.salesPersonId = s.salesPersonId Where Currency='USD' group by s.continent, s.country, s.city ORDER BY s.continent, s.country, s.city", sqlConn))
+                {
+                    using (var sqlReader = sqlCmd.ExecuteReader())
+                    {
+                        range = await ws.Cells["A1"].LoadFromDataReaderAsync(sqlReader, true);
+                        range.Offset(0, 0, 1, range.Columns).Style.Font.Bold = true;
+                        range.Offset(0, 3, range.Rows, 3).Style.Numberformat.Format = "#,##0";
+                    }
+                    //Set the numberformat
+                }
+            }
+            return range;
+        }
+
         private static void CreateIceCreamData(ExcelWorksheet ws)
         {
             ws.SetValue("A1", "Icecream Sales-2019");

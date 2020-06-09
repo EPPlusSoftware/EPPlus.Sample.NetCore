@@ -142,7 +142,7 @@ namespace EPPlusSampleApp.Core
             using (var sqlConn = new SQLiteConnection(connectionString))
             {
                 sqlConn.Open();
-                using (var sqlCmd = new SQLiteCommand("select companyName as CompanyName, [name] as Name, email as Email, country as Country, o.OrderId as OrderId, orderdate as OrderDate, ordervalue as OrderValue, currency Currency from Customer c inner join Orders o on c.CustomerId=o.CustomerId inner join SalesPerson s on o.salesPersonId = s.salesPersonId ORDER BY 1,2 desc", sqlConn))
+                using (var sqlCmd = new SQLiteCommand("select companyName as CompanyName, [name] as Name, email as Email, c.country as Country, o.OrderId as OrderId, orderdate as OrderDate, ordervalue as OrderValue, currency Currency from Customer c inner join Orders o on c.CustomerId=o.CustomerId inner join SalesPerson s on o.salesPersonId = s.salesPersonId ORDER BY 1,2 desc", sqlConn))
                 {
                     using (var sqlReader = sqlCmd.ExecuteReader())
                     {

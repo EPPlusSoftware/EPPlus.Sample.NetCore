@@ -38,7 +38,7 @@ namespace EPPlusSamples.SalesReport
                 using (var sqlConn = new SQLiteConnection(connectionString))
                 {
                     sqlConn.Open();
-                    using (var sqlCmd = new SQLiteCommand("select CompanyName, [Name], Email, Country, o.OrderId, orderdate, ordervalue, currency from Customer c inner join Orders o on c.CustomerId=o.CustomerId inner join SalesPerson s on o.salesPersonId = s.salesPersonId ORDER BY 1,2 desc", sqlConn))
+                    using (var sqlCmd = new SQLiteCommand("select CompanyName, [Name], Email, c.Country, o.OrderId, orderdate, ordervalue, currency from Customer c inner join Orders o on c.CustomerId=o.CustomerId inner join SalesPerson s on o.salesPersonId = s.salesPersonId ORDER BY 1,2 desc", sqlConn))
                     {
                         var range = await ws.Cells["B2"].LoadFromDataReaderAsync(sqlCmd.ExecuteReader(), true, "Table1", TableStyles.Medium10);
                         range.AutoFitColumns();
