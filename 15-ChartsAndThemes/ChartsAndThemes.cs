@@ -89,6 +89,11 @@ namespace EPPlusSamples
                 // Add a waterfall chart
                 AddWaterfallChart(package);
 
+                // Add a funnel chart
+                AddFunnelChart(package);
+
+                await AddRegionMapChart(connectionString, package);
+
                 //Add an area chart using a chart template (chrx file)
                 await AddAreaFromChartTemplate(connectionString, package);
 
@@ -104,7 +109,7 @@ namespace EPPlusSamples
             var range = await LoadSalesFromDatabase(connectionString, ws);
 
             var sunburstChart = ws.Drawings.AddSunburstChart("SunburstChart1");
-            var sbSerie = sunburstChart.Series.Add(ws.Cells[2, 1, range.Rows, 3], ws.Cells[2, 4, range.Rows, 4]);
+            var sbSerie = sunburstChart.Series.Add(ws.Cells[2, 4, range.Rows, 4], ws.Cells[2, 1, range.Rows, 3]);
             sbSerie.HeaderAddress = ws.Cells["D1"];
             sunburstChart.SetPosition(1, 0, 6, 0);
             sunburstChart.SetSize(800, 800);
@@ -116,7 +121,7 @@ namespace EPPlusSamples
 
 
             var treemapChart = ws.Drawings.AddTreemapChart("TreemapChart1");
-            var tmSerie = treemapChart.Series.Add(ws.Cells[2, 1, range.Rows, 3], ws.Cells[2, 4, range.Rows, 4]);
+            var tmSerie = treemapChart.Series.Add(ws.Cells[2, 4, range.Rows, 4], ws.Cells[2, 1, range.Rows, 3]);
             treemapChart.Title.Font.Fill.Style = eFillStyle.SolidFill;
             treemapChart.Title.Font.Fill.SolidFill.Color.SetSchemeColor(eSchemeColor.Background2);
             tmSerie.HeaderAddress = ws.Cells["D1"];
@@ -127,7 +132,8 @@ namespace EPPlusSamples
             treemapChart.Legend.Position = eLegendPosition.Right;
             tmSerie.DataLabel.Add(true, true);
             tmSerie.ParentLabelLayout = eParentLabelLayout.Banner;
-            treemapChart.StyleManager.SetChartStyle(ePresetChartStyle.TreemapChartStyle6);
+            treemapChart.StyleManager.SetChartStyle(ePresetChartStyle.TreemapChartStyle3);
+            
         }
         private static void AddBoxWhiskerAndParetoHistogramChart(ExcelPackage package)
         {
@@ -177,16 +183,74 @@ namespace EPPlusSamples
             ws.SetValue("B8", -258.47);
             ws.Cells["B9"].Formula="SUM(B2:B8)";
             ws.Calculate();
-
+            ws.Cells.AutoFitColumns();
             var waterfallChart = ws.Drawings.AddWaterfallChart("Waterfall1");
+            waterfallChart.Title.Text = "Saldo and Transaction";
             waterfallChart.SetPosition(1, 0, 6, 0);
-            waterfallChart.SetSize(800, 800);
-            var wfSerie1 = waterfallChart.Series.Add(ws.Cells[2, 2, 9, 2], ws.Cells[2, 1, 8, 1]);
+            waterfallChart.SetSize(800, 400);
+            var wfSerie = waterfallChart.Series.Add(ws.Cells[2, 2, 9, 2], ws.Cells[2, 1, 8, 1]);
 
-            var dp=wfSerie1.DataPoints.Add(0);
+            var dp=wfSerie.DataPoints.Add(0);
             dp.SubTotal = true;
-            dp = wfSerie1.DataPoints.Add(7);
+            dp = wfSerie.DataPoints.Add(7);
             dp.SubTotal = true;
+        }
+        private static void AddFunnelChart(ExcelPackage package)
+        {
+            var ws = package.Workbook.Worksheets.Add("FunnelChart");
+
+            ws.SetValue("A1", "Stage");
+            ws.SetValue("A2", "Leads");
+            ws.SetValue("A3", "Prospects");
+            ws.SetValue("A4", "Meeting");
+            ws.SetValue("A5", "Negotiation");
+            ws.SetValue("A6", "Project");
+            ws.SetValue("A7", "Close");
+
+            ws.SetValue("B1", "Number");
+            ws.SetValue("B2", 3500);
+            ws.SetValue("B3", 1000);
+            ws.SetValue("B4", 200);
+            ws.SetValue("B5", 100);
+            ws.SetValue("B6", 95);
+            ws.SetValue("B7", 92);
+            ws.Tables.Add(ws.Cells["A1:B7"], "SalesTable");
+            ws.Cells.AutoFitColumns();
+
+            var funnelChart = ws.Drawings.AddFunnelChart("FunnelChart");
+            funnelChart.Title.Text = "Sales process";
+            funnelChart.SetPosition(1, 0, 6, 0);
+            funnelChart.SetSize(800, 400);            
+            var fSerie = funnelChart.Series.Add(ws.Cells[2, 2, 7, 2], ws.Cells[2, 1, 7, 1]);
+            fSerie.DataLabel.Add(false, true);
+        }
+        private static async Task AddRegionMapChart(string connectionString, ExcelPackage package)
+        {
+            var ws = package.Workbook.Worksheets.Add("RegionMapChart");
+
+            var range = await LoadSalesFromDatabase(connectionString, ws);
+
+            //Region map charts 
+            var regionChart = ws.Drawings.AddRegionMapChart("RegionMapChart");
+            regionChart.Title.Text = "Sales";
+            regionChart.SetPosition(1, 0, 6, 0);
+            regionChart.SetSize(1200, 600);
+            
+            var rmSerie = regionChart.Series.Add(ws.Cells[2, 4, range.End.Row, 4], ws.Cells[2, 1, range.End.Row, 3]);
+
+            rmSerie.ColorBy = eColorBy.Value;
+            
+            //Color settings only apply when color by is Value
+            rmSerie.Colors.NumberOfColors = eNumberOfColors.ThreeColor;
+            rmSerie.Colors.MinColor.Color.SetSchemeColor(eSchemeColor.Accent3);
+            rmSerie.Colors.MidColor.Color.SetHslColor(180, 50, 50);
+            rmSerie.Colors.MidColor.ValueType = eColorValuePositionType.Number;
+            rmSerie.Colors.MidColor.PositionValue = 200;
+            rmSerie.Colors.MaxColor.Color.SetRgbPercentageColor(75, 25, 25);
+            rmSerie.Colors.MaxColor.ValueType = eColorValuePositionType.Percent;
+            rmSerie.Colors.MaxColor.PositionValue = 85;
+
+            rmSerie.ProjectionType = eProjectionType.Mercator;
         }
         private static void AddBoxWhiskerData(ExcelWorksheet ws)
         {
@@ -221,7 +285,6 @@ namespace EPPlusSamples
             ws.Cells["B13"].Value = 24;
             ws.Cells["B14"].Value = 26;
             ws.Cells["B15"].Value = 28;
-
 
             ws.Cells["C1"].Value = "Random";
             ws.Cells["C2"].Value = 2;
