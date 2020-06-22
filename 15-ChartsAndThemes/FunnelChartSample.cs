@@ -17,6 +17,7 @@ namespace EPPlusSamples
             funnelChart.SetSize(800, 400);
             var fSerie = funnelChart.Series.Add(ws.Cells[2, 2, 7, 2], ws.Cells[2, 1, 7, 1]);
             fSerie.DataLabel.Add(false, true);
+            funnelChart.StyleManager.SetChartStyle(OfficeOpenXml.Drawing.Chart.Style.ePresetChartStyle.FunnelChartStyle9);
         }
 
         private static ExcelWorksheet LoadFunnelChartData(ExcelPackage package)

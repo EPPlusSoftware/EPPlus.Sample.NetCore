@@ -209,7 +209,7 @@ namespace EPPlusSamples
 
         private static void AddChart(ExcelRange rng,string name, string prefix)
         {
-            var chrt = (ExcelPieChart)rng.Worksheet.Drawings.AddChart(name, eChartType.Pie);
+            var chrt = rng.Worksheet.Drawings.AddPieChart(name, ePieChartType.Pie);
             chrt.SetPosition(rng.Start.Row-1, 0, rng.Start.Column-1, 0);
             chrt.To.Row = rng.Start.Row+9;
             chrt.To.Column = rng.Start.Column + 9;

@@ -68,10 +68,13 @@ namespace EPPlusSamples
                 ScatterChartSample.Add(package);
                 
                 //Adds a bubble-chartsheet
-                ChartWorksheetSample.AddBubbleChart(package);
+                ChartWorksheetSample.Add(package);
                 
                 //Adds a radar chart
-                RadarChartSample.AddRadarChart(package);
+                RadarChartSample.Add(package);
+
+                //Adds a Volume-High-Low-Close stock chart
+                StockChartSample.Add(package);
 
                 //Adds a sunburst and a treemap chart 
                 await SunburstAndTreemapChartSample.Add(connectionString, package);

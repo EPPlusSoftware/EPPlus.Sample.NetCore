@@ -6,7 +6,7 @@ namespace EPPlusSamples
 {
     public class RadarChartSample : ChartSampleBase
     {
-        public static void AddRadarChart(ExcelPackage package)
+        public static void Add(ExcelPackage package)
         {
             var ws = package.Workbook.Worksheets.Add("RadarChart");
 

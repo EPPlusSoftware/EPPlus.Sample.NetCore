@@ -107,291 +107,291 @@ namespace EPPlusSamples
         // -------------------------------------------------------------------
         // Create an Above Average rule
         // -------------------------------------------------------------------
-        var cfRule5 = worksheet.ConditionalFormatting.AddAboveAverage(
+        var cfRule4 = worksheet.ConditionalFormatting.AddAboveAverage(
           new ExcelAddress("B11:B20"));
-        cfRule5.Style.Font.Bold = true;
-        cfRule5.Style.Font.Color.Color = Color.Red;
-        cfRule5.Style.Font.Strike = true;
+        cfRule4.Style.Font.Bold = true;
+        cfRule4.Style.Font.Color.Color = Color.Red;
+        cfRule4.Style.Font.Strike = true;
 
         // -------------------------------------------------------------------
         // Create an Above Or Equal Average rule
         // -------------------------------------------------------------------
-        var cfRule6 = worksheet.ConditionalFormatting.AddAboveOrEqualAverage(
+        var cfRule5 = worksheet.ConditionalFormatting.AddAboveOrEqualAverage(
           new ExcelAddress("B11:B20"));
 
         // -------------------------------------------------------------------
         // Create a Below Average rule
         // -------------------------------------------------------------------
-        var cfRule7 = worksheet.ConditionalFormatting.AddBelowAverage(
+        var cfRule6 = worksheet.ConditionalFormatting.AddBelowAverage(
           new ExcelAddress("B11:B20"));
 
         // -------------------------------------------------------------------
         // Create a Below Or Equal Average rule
         // -------------------------------------------------------------------
-        var cfRule8 = worksheet.ConditionalFormatting.AddBelowOrEqualAverage(
+        var cfRule7 = worksheet.ConditionalFormatting.AddBelowOrEqualAverage(
           new ExcelAddress("B11:B20"));
 
         // -------------------------------------------------------------------
         // Create a Above StdDev rule
         // -------------------------------------------------------------------
-        var cfRule9 = worksheet.ConditionalFormatting.AddAboveStdDev(
+        var cfRule8 = worksheet.ConditionalFormatting.AddAboveStdDev(
           new ExcelAddress("B11:B20"));
-          cfRule9.StdDev = 0;
+          cfRule8.StdDev = 0;
 
         // -------------------------------------------------------------------
         // Create a Below StdDev rule
         // -------------------------------------------------------------------
-        var cfRule10 = worksheet.ConditionalFormatting.AddBelowStdDev(
+        var cfRule9 = worksheet.ConditionalFormatting.AddBelowStdDev(
           new ExcelAddress("B11:B20"));
 
-        cfRule10.StdDev = 2;
+        cfRule9.StdDev = 2;
 
         // -------------------------------------------------------------------
         // Create a Bottom rule
         // -------------------------------------------------------------------
-        var cfRule11 = worksheet.ConditionalFormatting.AddBottom(
+        var cfRule10 = worksheet.ConditionalFormatting.AddBottom(
           new ExcelAddress("B11:B20"));
 
-        cfRule11.Rank = 4;
+        cfRule10.Rank = 4;
 
         // -------------------------------------------------------------------
         // Create a Bottom Percent rule
         // -------------------------------------------------------------------
-        var cfRule12 = worksheet.ConditionalFormatting.AddBottomPercent(
+        var cfRule11 = worksheet.ConditionalFormatting.AddBottomPercent(
           new ExcelAddress("B11:B20"));
 
-        cfRule12.Rank = 15;
+        cfRule11.Rank = 15;
 
         // -------------------------------------------------------------------
         // Create a Top rule
         // -------------------------------------------------------------------
-        var cfRule13 = worksheet.ConditionalFormatting.AddTop(
+        var cfRule12 = worksheet.ConditionalFormatting.AddTop(
           new ExcelAddress("B11:B20"));
 
         // -------------------------------------------------------------------
         // Create a Top Percent rule
         // -------------------------------------------------------------------
-        var cfRule14 = worksheet.ConditionalFormatting.AddTopPercent(
+        var cfRule13 = worksheet.ConditionalFormatting.AddTopPercent(
           new ExcelAddress("B11:B20"));
         
-        cfRule14.Style.Border.Left.Style = ExcelBorderStyle.Thin;
-        cfRule14.Style.Border.Left.Color.Theme = eThemeSchemeColor.Text2;
-        cfRule14.Style.Border.Bottom.Style = ExcelBorderStyle.DashDot;
-        cfRule14.Style.Border.Bottom.Color.SetColor(ExcelIndexedColor.Indexed8);
-        cfRule14.Style.Border.Right.Style = ExcelBorderStyle.Thin;
-        cfRule14.Style.Border.Right.Color.Color=Color.Blue;
-        cfRule14.Style.Border.Top.Style = ExcelBorderStyle.Hair;
-        cfRule14.Style.Border.Top.Color.Auto=true;
+        cfRule13.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+        cfRule13.Style.Border.Left.Color.Theme = eThemeSchemeColor.Text2;
+        cfRule13.Style.Border.Bottom.Style = ExcelBorderStyle.DashDot;
+        cfRule13.Style.Border.Bottom.Color.SetColor(ExcelIndexedColor.Indexed8);
+        cfRule13.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+        cfRule13.Style.Border.Right.Color.Color=Color.Blue;
+        cfRule13.Style.Border.Top.Style = ExcelBorderStyle.Hair;
+        cfRule13.Style.Border.Top.Color.Auto=true;
 
         // -------------------------------------------------------------------
         // Create a Last 7 Days rule
         // -------------------------------------------------------------------
         ExcelAddress timePeriodAddress = new ExcelAddress("D21:G34 C11:C20");
-        var cfRule15 = worksheet.ConditionalFormatting.AddLast7Days(
+        var cfRule14 = worksheet.ConditionalFormatting.AddLast7Days(
           timePeriodAddress);
 
-        cfRule15.Style.Fill.PatternType = ExcelFillStyle.LightTrellis;
-        cfRule15.Style.Fill.PatternColor.Color = Color.BurlyWood;
-        cfRule15.Style.Fill.BackgroundColor.Color = Color.LightCyan;
+        cfRule14.Style.Fill.PatternType = ExcelFillStyle.LightTrellis;
+        cfRule14.Style.Fill.PatternColor.Color = Color.BurlyWood;
+        cfRule14.Style.Fill.BackgroundColor.Color = Color.LightCyan;
 
         // -------------------------------------------------------------------
         // Create a Last Month rule
         // -------------------------------------------------------------------
-        var cfRule16 = worksheet.ConditionalFormatting.AddLastMonth(
+        var cfRule15 = worksheet.ConditionalFormatting.AddLastMonth(
           timePeriodAddress);
 
-        cfRule16.Style.NumberFormat.Format = "YYYY";
+        cfRule15.Style.NumberFormat.Format = "YYYY";
         // -------------------------------------------------------------------
         // Create a Last Week rule
         // -------------------------------------------------------------------
-        var cfRule17 = worksheet.ConditionalFormatting.AddLastWeek(
+        var cfRule16 = worksheet.ConditionalFormatting.AddLastWeek(
           timePeriodAddress);
-        cfRule17.Style.NumberFormat.Format = "YYYY";
+        cfRule16.Style.NumberFormat.Format = "YYYY";
 
         // -------------------------------------------------------------------
         // Create a Next Month rule
         // -------------------------------------------------------------------
-        var cfRule18 = worksheet.ConditionalFormatting.AddNextMonth(
+        var cfRule17 = worksheet.ConditionalFormatting.AddNextMonth(
           timePeriodAddress);
 
         // -------------------------------------------------------------------
         // Create a Next Week rule
         // -------------------------------------------------------------------
-        var cfRule19 = worksheet.ConditionalFormatting.AddNextWeek(
+        var cfRule18 = worksheet.ConditionalFormatting.AddNextWeek(
           timePeriodAddress);
 
         // -------------------------------------------------------------------
         // Create a This Month rule
         // -------------------------------------------------------------------
-        var cfRule20 = worksheet.ConditionalFormatting.AddThisMonth(
+        var cfRule19 = worksheet.ConditionalFormatting.AddThisMonth(
           timePeriodAddress);
 
         // -------------------------------------------------------------------
         // Create a This Week rule
         // -------------------------------------------------------------------
-        var cfRule21 = worksheet.ConditionalFormatting.AddThisWeek(
+        var cfRule20 = worksheet.ConditionalFormatting.AddThisWeek(
           timePeriodAddress);
 
         // -------------------------------------------------------------------
         // Create a Today rule
         // -------------------------------------------------------------------
-        var cfRule22 = worksheet.ConditionalFormatting.AddToday(
+        var cfRule21 = worksheet.ConditionalFormatting.AddToday(
           timePeriodAddress);
 
         // -------------------------------------------------------------------
         // Create a Tomorrow rule
         // -------------------------------------------------------------------
-        var cfRule23 = worksheet.ConditionalFormatting.AddTomorrow(
+        var cfRule22 = worksheet.ConditionalFormatting.AddTomorrow(
           timePeriodAddress);
 
         // -------------------------------------------------------------------
         // Create a Yesterday rule
         // -------------------------------------------------------------------
-        var cfRule24 = worksheet.ConditionalFormatting.AddYesterday(
+        var cfRule23 = worksheet.ConditionalFormatting.AddYesterday(
           timePeriodAddress);
 
         // -------------------------------------------------------------------
         // Create a BeginsWith rule
         // -------------------------------------------------------------------
         ExcelAddress cellIsAddress = new ExcelAddress("E11:E20");
-        var cfRule25 = worksheet.ConditionalFormatting.AddBeginsWith(
+        var cfRule24 = worksheet.ConditionalFormatting.AddBeginsWith(
           cellIsAddress);
 
-        cfRule25.Text = "SearchMe";
+        cfRule24.Text = "SearchMe";
 
         // -------------------------------------------------------------------
         // Create a Between rule
         // -------------------------------------------------------------------
-        var cfRule26 = worksheet.ConditionalFormatting.AddBetween(
+        var cfRule25 = worksheet.ConditionalFormatting.AddBetween(
           cellIsAddress);
 
-        cfRule26.Formula = "IF(E11>5,10,20)";
-        cfRule26.Formula2 = "IF(E11>5,30,50)";
+        cfRule25.Formula = "IF(E11>5,10,20)";
+        cfRule25.Formula2 = "IF(E11>5,30,50)";
 
         // -------------------------------------------------------------------
         // Create a ContainsBlanks rule
         // -------------------------------------------------------------------
-        var cfRule27 = worksheet.ConditionalFormatting.AddContainsBlanks(
+        var cfRule26 = worksheet.ConditionalFormatting.AddContainsBlanks(
           cellIsAddress);
 
         // -------------------------------------------------------------------
         // Create a ContainsErrors rule
         // -------------------------------------------------------------------
-        var cfRule28 = worksheet.ConditionalFormatting.AddContainsErrors(
+        var cfRule27 = worksheet.ConditionalFormatting.AddContainsErrors(
           cellIsAddress);
 
         // -------------------------------------------------------------------
         // Create a ContainsText rule
         // -------------------------------------------------------------------
-        var cfRule29 = worksheet.ConditionalFormatting.AddContainsText(
+        var cfRule28 = worksheet.ConditionalFormatting.AddContainsText(
           cellIsAddress);
 
-        cfRule29.Text = "Me";
+        cfRule28.Text = "Me";
 
         // -------------------------------------------------------------------
         // Create a DuplicateValues rule
         // -------------------------------------------------------------------
-        var cfRule30 = worksheet.ConditionalFormatting.AddDuplicateValues(
+        var cfRule29 = worksheet.ConditionalFormatting.AddDuplicateValues(
           cellIsAddress);
 
         // -------------------------------------------------------------------
         // Create an EndsWith rule
         // -------------------------------------------------------------------
-        var cfRule31 = worksheet.ConditionalFormatting.AddEndsWith(
+        var cfRule30 = worksheet.ConditionalFormatting.AddEndsWith(
           cellIsAddress);
 
-        cfRule31.Text = "EndText";
+        cfRule30.Text = "EndText";
 
         // -------------------------------------------------------------------
         // Create an Equal rule
         // -------------------------------------------------------------------
-        var cfRule32 = worksheet.ConditionalFormatting.AddEqual(
+        var cfRule31 = worksheet.ConditionalFormatting.AddEqual(
           cellIsAddress);
 
-        cfRule32.Formula = "6";
+        cfRule31.Formula = "6";
 
         // -------------------------------------------------------------------
         // Create an Expression rule
         // -------------------------------------------------------------------
-        var cfRule33 = worksheet.ConditionalFormatting.AddExpression(
+        var cfRule32 = worksheet.ConditionalFormatting.AddExpression(
           cellIsAddress);
 
-        cfRule33.Formula = "E11=E12";
+        cfRule32.Formula = "E11=E12";
 
         // -------------------------------------------------------------------
         // Create a GreaterThan rule
         // -------------------------------------------------------------------
-        var cfRule34 = worksheet.ConditionalFormatting.AddGreaterThan(
+        var cfRule33 = worksheet.ConditionalFormatting.AddGreaterThan(
           cellIsAddress);
 
-        cfRule34.Formula = "SE(E11<10,10,65)";
+        cfRule33.Formula = "SE(E11<10,10,65)";
 
         // -------------------------------------------------------------------
         // Create a GreaterThanOrEqual rule
         // -------------------------------------------------------------------
-        var cfRule35 = worksheet.ConditionalFormatting.AddGreaterThanOrEqual(
+        var cfRule34 = worksheet.ConditionalFormatting.AddGreaterThanOrEqual(
           cellIsAddress);
 
-        cfRule35.Formula = "35";
+        cfRule34.Formula = "35";
 
         // -------------------------------------------------------------------
         // Create a LessThan rule
         // -------------------------------------------------------------------
-        var cfRule36 = worksheet.ConditionalFormatting.AddLessThan(
+        var cfRule35 = worksheet.ConditionalFormatting.AddLessThan(
           cellIsAddress);
 
-        cfRule36.Formula = "36";
+        cfRule35.Formula = "36";
 
         // -------------------------------------------------------------------
         // Create a LessThanOrEqual rule
         // -------------------------------------------------------------------
-        var cfRule37 = worksheet.ConditionalFormatting.AddLessThanOrEqual(
+        var cfRule36 = worksheet.ConditionalFormatting.AddLessThanOrEqual(
           cellIsAddress);
 
-        cfRule37.Formula = "37";
+        cfRule36.Formula = "37";
 
         // -------------------------------------------------------------------
         // Create a NotBetween rule
         // -------------------------------------------------------------------
-        var cfRule38 = worksheet.ConditionalFormatting.AddNotBetween(
+        var cfRule37 = worksheet.ConditionalFormatting.AddNotBetween(
           cellIsAddress);
 
-        cfRule38.Formula = "333";
-        cfRule38.Formula2 = "999";
+        cfRule37.Formula = "333";
+        cfRule37.Formula2 = "999";
 
         // -------------------------------------------------------------------
         // Create a NotContainsBlanks rule
         // -------------------------------------------------------------------
-        var cfRule39 = worksheet.ConditionalFormatting.AddNotContainsBlanks(
+        var cfRule38 = worksheet.ConditionalFormatting.AddNotContainsBlanks(
           cellIsAddress);
 
         // -------------------------------------------------------------------
         // Create a NotContainsErrors rule
         // -------------------------------------------------------------------
-        var cfRule40 = worksheet.ConditionalFormatting.AddNotContainsErrors(
+        var cfRule39 = worksheet.ConditionalFormatting.AddNotContainsErrors(
           cellIsAddress);
 
         // -------------------------------------------------------------------
         // Create a NotContainsText rule
         // -------------------------------------------------------------------
-        var cfRule41 = worksheet.ConditionalFormatting.AddNotContainsText(
+        var cfRule40 = worksheet.ConditionalFormatting.AddNotContainsText(
           cellIsAddress);
 
-        cfRule41.Text = "NotMe";
+        cfRule40.Text = "NotMe";
 
         // -------------------------------------------------------------------
         // Create an NotEqual rule
         // -------------------------------------------------------------------
-        var cfRule42 = worksheet.ConditionalFormatting.AddNotEqual(
+        var cfRule41 = worksheet.ConditionalFormatting.AddNotEqual(
           cellIsAddress);
 
-        cfRule42.Formula = "14";
+        cfRule41.Formula = "14";
 
         ExcelAddress cfAddress43 = new ExcelAddress("G2:G10");
-        var cfRule43 = worksheet.ConditionalFormatting.AddThreeIconSet(cfAddress43, eExcelconditionalFormatting3IconsSetType.TrafficLights1);
+        var cfRule42 = worksheet.ConditionalFormatting.AddThreeIconSet(cfAddress43, eExcelconditionalFormatting3IconsSetType.TrafficLights1);
 
         ExcelAddress cfAddress44 = new ExcelAddress("H2:H10");
-        var cfRule44 = worksheet.ConditionalFormatting.AddDatabar(cfAddress44, Color.DarkBlue);
+        var cfRule43 = worksheet.ConditionalFormatting.AddDatabar(cfAddress44, Color.DarkBlue);
         
           // -----------------------------------------------------------
         // Removing Conditional Formatting rules
@@ -417,6 +417,18 @@ namespace EPPlusSamples
         package.Workbook.Properties.SetCustomPropertyValue("Checked by", "Eyal Seagull");
         package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
 
+        //Getting a rule from the collection as a typed rule
+        if(worksheet.ConditionalFormatting[41].Type==eExcelConditionalFormattingRuleType.ThreeIconSet)
+        {
+            var iconRule = worksheet.ConditionalFormatting[41].As.ThreeIconSet; //Type cast the rule as an iconset rule.    
+            //Do something with the iconRule...
+        }
+        if (worksheet.ConditionalFormatting[42].Type == eExcelConditionalFormattingRuleType.DataBar)
+        {
+
+            var dataBarRule = worksheet.ConditionalFormatting[42].As.DataBar; //Type cast the rule as an iconset rule.
+            //Do something with the databarRule...
+        }
         // save our new workbook and we are done!
         package.Save();
       }

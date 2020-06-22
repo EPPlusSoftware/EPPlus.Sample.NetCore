@@ -26,7 +26,7 @@ namespace EPPlusSamples
             sunburstChart.Legend.Add();
             sunburstChart.Legend.Position = eLegendPosition.Bottom;
             sbSerie.DataLabel.Add(true, true);
-            sunburstChart.StyleManager.SetChartStyle(ePresetChartStyle.SunburstChartStyle4);
+            sunburstChart.StyleManager.SetChartStyle(ePresetChartStyle.SunburstChartStyle3);
 
 
             var treemapChart = ws.Drawings.AddTreemapChart("TreemapChart1");
@@ -41,7 +41,7 @@ namespace EPPlusSamples
             treemapChart.Legend.Position = eLegendPosition.Right;
             tmSerie.DataLabel.Add(true, true);
             tmSerie.ParentLabelLayout = eParentLabelLayout.Banner;
-            treemapChart.StyleManager.SetChartStyle(ePresetChartStyle.TreemapChartStyle3);            
+            treemapChart.StyleManager.SetChartStyle(ePresetChartStyle.TreemapChartStyle6);            
         }
     }
 }

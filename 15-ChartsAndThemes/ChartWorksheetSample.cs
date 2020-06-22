@@ -9,13 +9,13 @@ namespace EPPlusSamples
 {
     public class ChartWorksheetSample : ChartSampleBase
     {
-        public static void AddBubbleChart(ExcelPackage package)
+        public static void Add(ExcelPackage package)
         {
             ExcelWorksheet wsData = LoadBubbleChartData(package);
 
-            //Add a bubble chart on the data with one serie per row. 
+            //Add a bubble chart worksheet on the data with one serie per row. 
             var wsChart = package.Workbook.Worksheets.AddChart("Bubble Chart", eChartType.Bubble);
-            var chart = ((ExcelBubbleChart)wsChart.Chart);
+            var chart = wsChart.Chart.As.BubbleChart;
             for (int row = 2; row <= 7; row++)
             {
                 var serie = chart.Series.Add(wsData.Cells[row, 2], wsData.Cells[row, 3], wsData.Cells[row, 4]);
