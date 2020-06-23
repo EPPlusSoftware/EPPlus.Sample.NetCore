@@ -11,18 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="17 - FormulaCalculation\**" />
-    <EmbeddedResource Remove="17 - FormulaCalculation\**" />
-    <None Remove="17 - FormulaCalculation\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="FormulaCalcSample.xlsx" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="5.1.2.191-20200622-develop" />
-    <PackageReference Include="Faker.Net" Version="1.1.1" />
+    <PackageReference Include="EPPlus" Version="5.1.2.194-20200623-develop" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.112" />

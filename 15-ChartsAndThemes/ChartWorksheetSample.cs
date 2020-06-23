@@ -15,7 +15,7 @@ namespace EPPlusSamples
 
             //Add a bubble chart worksheet on the data with one serie per row. 
             var wsChart = package.Workbook.Worksheets.AddChart("Bubble Chart", eChartType.Bubble);
-            var chart = wsChart.Chart.As.BubbleChart;
+            var chart = wsChart.Chart.As.Chart.BubbleChart;
             for (int row = 2; row <= 7; row++)
             {
                 var serie = chart.Series.Add(wsData.Cells[row, 2], wsData.Cells[row, 3], wsData.Cells[row, 4]);

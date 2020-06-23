@@ -106,7 +106,7 @@ namespace EPPlusSamples.FXReportFromDatabase
                     }
 
                     //Set the series for the chart. The series must exist in the template or the program will crash.
-                    var chart = ws.Drawings["SampleChart"].As.LineChart; //We know the chart is a linechart, so we can use the As.LineChart Property directly
+                    var chart = ws.Drawings["SampleChart"].As.Chart.LineChart; //We know the chart is a linechart, so we can use the As.Chart.LineChart Property directly
                     chart.Title.Text = "Exchange rate %";
                     chart.Series[0].Header = "USD/SEK";
                     chart.Series[0].XSeries = "'" + ws.Name + "'!" + ExcelRange.GetAddress(startRow+1, 1, row - 1, 1);

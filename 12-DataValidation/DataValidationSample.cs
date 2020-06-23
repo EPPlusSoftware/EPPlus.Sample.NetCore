@@ -11,8 +11,6 @@
   01/27/2020         EPPlus Software AB           Initial release EPPlus 5
  *************************************************************************************************/
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.IO;
 using OfficeOpenXml;
@@ -50,7 +48,7 @@ namespace EPPlusSamples.DataValidation
         {
             var sheet = package.Workbook.Worksheets.Add("integer");
             // add a validation and set values
-            var validation = sheet.DataValidations.AddIntegerValidation("A1:A2");
+            var validation = sheet.DataValidations.AddIntegerValidation("A1:A2");            
             // Alternatively:
             //var validation = sheet.Cells["A1:A2"].DataValidation.AddIntegerDataValidation();
             validation.ErrorStyle = ExcelDataValidationWarningStyle.stop;
@@ -192,10 +190,10 @@ namespace EPPlusSamples.DataValidation
                     switch(dataValidation.ValidationType.Type)
                     {
                         case eDataValidationType.Whole:
-                            PrintWholeValidationDetails(sheet, (IExcelDataValidationInt)dataValidation, row);
+                            PrintWholeValidationDetails(sheet, dataValidation.As.IntegerValidation, row);
                             break;
                         case eDataValidationType.List:
-                            PrintListValidationDetails(sheet, (IExcelDataValidationList)dataValidation, row);
+                            PrintListValidationDetails(sheet, dataValidation.As.ListValidation, row);
                             break;
                         case eDataValidationType.Time:
                             PrintTimeValidationDetails(sheet, (ExcelDataValidationTime)dataValidation, row);
