@@ -106,7 +106,7 @@ namespace EPPlusSampleApp.Core
         }
         private static async Task DynamicDateAugustFilter(string connectionString, ExcelPackage p)
         {
-            var ws = p.Workbook.Worksheets.Add("DynamicAprilFilter");
+            var ws = p.Workbook.Worksheets.Add("DynamicAugustFilter");
             ExcelRangeBase range = await LoadFromDatabase(connectionString, ws);
 
             range.AutoFilter = true;
