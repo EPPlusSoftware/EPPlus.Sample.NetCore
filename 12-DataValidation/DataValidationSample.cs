@@ -196,7 +196,6 @@ namespace EPPlusSamples.DataValidation
                             PrintListValidationDetails(sheet, dataValidation.As.ListValidation, row);
                             break;
                         case eDataValidationType.Time:
-                            //PrintTimeValidationDetails(sheet, (ExcelDataValidationTime)dataValidation, row);
                             PrintTimeValidationDetails(sheet, dataValidation.As.TimeValidation, row);
                             break;
                         default:
