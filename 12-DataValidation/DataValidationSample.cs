@@ -196,7 +196,8 @@ namespace EPPlusSamples.DataValidation
                             PrintListValidationDetails(sheet, dataValidation.As.ListValidation, row);
                             break;
                         case eDataValidationType.Time:
-                            PrintTimeValidationDetails(sheet, (ExcelDataValidationTime)dataValidation, row);
+                            //PrintTimeValidationDetails(sheet, (ExcelDataValidationTime)dataValidation, row);
+                            PrintTimeValidationDetails(sheet, dataValidation.As.TimeValidation, row);
                             break;
                         default:
                             // the rest of the types are not supported in this sample, but I hope you get the picture...
@@ -238,7 +239,7 @@ namespace EPPlusSamples.DataValidation
             sheet.Cells["D" + row.ToString()].Value = value;
         }
 
-        private static void PrintTimeValidationDetails(ExcelWorksheet sheet, ExcelDataValidationTime validation, int row)
+        private static void PrintTimeValidationDetails(ExcelWorksheet sheet, IExcelDataValidationTime validation, int row)
         {
             var value1 = string.Empty;
             if(!string.IsNullOrEmpty(validation.Formula.ExcelFormula))
