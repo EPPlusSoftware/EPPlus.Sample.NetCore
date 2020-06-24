@@ -34,7 +34,6 @@ namespace EPPlusSamples
             chart.Legend.Position = eLegendPosition.Right;
 
             chart.Title.Text = "Fiction Inc";
-
             chart.StyleManager.SetChartStyle(ePresetChartStyle.StockChartStyle10);
         }
         public static void CreateStockData(ExcelWorksheet ws)

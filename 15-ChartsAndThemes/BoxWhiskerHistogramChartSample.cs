@@ -20,6 +20,7 @@ namespace EPPlusSamples
             boxWhiskerChart.SetPosition(1, 0, 6, 0);
             boxWhiskerChart.SetSize(800, 800);
             boxWhiskerChart.Title.Text = "Number series";
+            boxWhiskerChart.XAxis.Deleted = true;               //Don't show the X-Axis
             boxWhiskerChart.StyleManager.SetChartStyle(ePresetChartStyle.BoxWhiskerChartStyle3);
 
             var histogramChart = ws.Drawings.AddHistogramChart("Pareto", true);

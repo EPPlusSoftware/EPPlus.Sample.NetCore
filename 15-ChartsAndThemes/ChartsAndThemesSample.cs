@@ -55,7 +55,7 @@ namespace EPPlusSamples
                  * If you want to reflect a specific style please use the Chart Style Number for the chart in Excel. 
                  * The chart style number can be fetched by recording a macro in Excel and click the style you want to apply.
                  * 
-                 * Chart style do not alter visibility of chart objects like datalabels or chart titles like Excel do. That must be set in code before setting the style.
+                 * Chart style do not alter visibility of chart objects like data labels or chart titles like Excel do. That must be set in code before setting the style.
                  *********************************************************************************************************/
 
                 //The first method adds a worksheet with four 3D charts with different styles. The last chart applies an exported chart template file (*.crtx) to the chart.
