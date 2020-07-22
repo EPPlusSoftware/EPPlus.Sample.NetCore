@@ -21,7 +21,7 @@ using OfficeOpenXml.Table;
 using System.Reflection;
 using System.ComponentModel;
 
-namespace EPPlusSamples.LoadingDataWithTables
+namespace EPPlusSamples.LoadingData
 {
     /// <summary>
     /// This class shows how to load data in a few ways
@@ -110,6 +110,7 @@ namespace EPPlusSamples.LoadingDataWithTables
             //...and save
             var fi = FileOutputUtil.GetFileInfo("04-LoadingData.xlsx");
             pck.SaveAs(fi);
+            pck.Dispose();
         }
         private static DataTable GetDataTable(DirectoryInfo dir)
         {

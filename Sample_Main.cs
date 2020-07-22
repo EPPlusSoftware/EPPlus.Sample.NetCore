@@ -20,7 +20,7 @@ using EPPlusSamples.EncryptionAndProtection;
 using EPPlusSamples.FormulaCalculation;
 using EPPlusSamples.FXReportFromDatabase;
 using EPPlusSamples.LoadDataFromCsvFilesIntoTables;
-using EPPlusSamples.LoadingDataWithTables;
+using EPPlusSamples.LoadingData;
 using EPPlusSamples.OpenWorkbookAddDataAndChart;
 using EPPlusSamples.PerformanceAndProtection;
 using EPPlusSamples.PivotTables;
@@ -65,9 +65,13 @@ namespace EPPlusSamples
                 Console.WriteLine();
 
                 //Sample 4 - Shows a few ways to load data (Datatable, IEnumerable and more).
-                Console.WriteLine("Running sample 4");
+                Console.WriteLine("Running sample 4 - LoadingDataWithTables");
                 LoadingDataWithTablesSample.Run();
-                Console.WriteLine("Sample 4 created {0}", FileOutputUtil.OutputDir.Name);
+                Console.WriteLine("Sample 4 (LoadingDataWithTables) created {0}", FileOutputUtil.OutputDir.Name);
+                Console.WriteLine();
+                //Sample 4 - Shows how to load dynamic/ExpandoObject 
+                LoadingDataWithDynamicObjects.Run();
+                Console.WriteLine("Sample 4 (LoadingDataWithDynamicObjects) created {0}", FileOutputUtil.OutputDir.Name);
                 Console.WriteLine();
 
                 //Sample 5 Loads two csv files into tables and creates an area chart and a Column/Line chart on the data.
