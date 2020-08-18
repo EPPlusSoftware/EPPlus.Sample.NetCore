@@ -201,7 +201,7 @@ namespace EPPlusSamples
 
                 //Sample 23 - Comments and Threaded comments
                 Console.WriteLine("Running sample 23-Comments/Notes and Threaded Comments");
-                ThreadedCommentsSample.Run();
+                CommentsSample.Run();
             }
             catch (Exception ex)
             {

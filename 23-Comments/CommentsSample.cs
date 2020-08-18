@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace EPPlusSamples._23_Comments
 {
-    public class ThreadedCommentsSample
+    public class CommentsSample
     {
         public static void Run()
         {
@@ -79,8 +79,8 @@ namespace EPPlusSamples._23_Comments
             thread.AddComment(user1.Id, "My second comment");
 
             // A workbook might have been opened by previous users that you will find in the ThreadedComments collection, could be from the AD and/or Office365.
-            // Let's add another fictive user.
-            var user2 = persons.Add("John Doe", "john.doe@company.com::123jklöasdfjl", IdentityProvider.Office365);
+            // Let's add another fictive user using the user id format of Office365.
+            var user2 = persons.Add("John Doe", "S::john.doe@somecompany.com::e3e726c6-1401-473b-bc95-cb3e1c892d99", IdentityProvider.Office365);
 
             // The Thread.Sleep(50) statements below is just to avoid that comments get the same timestamp when this sample runs
 
@@ -109,6 +109,7 @@ namespace EPPlusSamples._23_Comments
                     {
                         var personMentioned = persons[mention.MentionPersonId];
                         Console.WriteLine("{0} was mentioned in a comment", personMentioned.DisplayName);
+                        Console.WriteLine("Identity provider: {0}", personMentioned.ProviderId.ToString());
                     }
                 }
                 Console.WriteLine("***************************");
@@ -120,6 +121,20 @@ namespace EPPlusSamples._23_Comments
             {
                 Console.WriteLine("The thread is now resolved!");
             }
+
+            // for backward compatibility a comment/note is created in a cell containing a threaded comment
+            // if threaded comments is not supported the user will see this comment instead
+            var legacyComment = sheet.Cells["A1"].Comment;
+            Console.WriteLine("Legacy comment text: {0}", legacyComment.Text);
+
+            // add a thread in cell B1, add a comment
+            var thread2 = sheet.ThreadedComments.Add("B1");
+            var c = thread2.AddComment(user1.Id, "Hello");
+            Console.WriteLine("B1 now contains a thread with {0} comment", thread2.Comments.Count);
+            // remove the comment
+            thread2.Remove(c);
+            if (thread2.Comments.Count == 0)
+                Console.WriteLine("Tread is now empty");
         }
     }
 }
