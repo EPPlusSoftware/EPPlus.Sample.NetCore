@@ -14,6 +14,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using EPPlusSampleApp.Core;
+using EPPlusSamples._23_Comments;
 using EPPlusSamples.CreateFileSystemReport;
 using EPPlusSamples.DataValidation;
 using EPPlusSamples.EncryptionAndProtection;
@@ -197,6 +198,10 @@ namespace EPPlusSamples
                 IgnoreErrorsSample.Run();
                 Console.WriteLine("Sample 22 created {0}", FileOutputUtil.OutputDir.Name);
                 Console.WriteLine();
+
+                //Sample 23 - Comments and Threaded comments
+                Console.WriteLine("Running sample 23-Comments/Notes and Threaded Comments");
+                ThreadedCommentsSample.Run();
             }
             catch (Exception ex)
             {
