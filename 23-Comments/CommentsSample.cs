@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading;
 
-namespace EPPlusSamples._23_Comments
+namespace EPPlusSamples.Comments
 {
     public class CommentsSample
     {
@@ -135,6 +135,8 @@ namespace EPPlusSamples._23_Comments
             thread2.Remove(c);
             if (thread2.Comments.Count == 0)
                 Console.WriteLine("Tread is now empty");
+            // remove the entire thread
+            sheet.ThreadedComments.Remove(thread); 
         }
     }
 }
