@@ -134,9 +134,7 @@ namespace EPPlusSamples.Comments
             // remove the comment
             thread2.Remove(c);
             if (thread2.Comments.Count == 0)
-                Console.WriteLine("Tread is now empty");
-            // remove the entire thread
-            sheet.ThreadedComments.Remove(thread); 
+                Console.WriteLine("Thread is now empty");
         }
     }
 }
