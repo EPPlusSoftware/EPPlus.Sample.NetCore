@@ -13,6 +13,7 @@
 using EPPlusSamples;
 using OfficeOpenXml;
 using OfficeOpenXml.Filter;
+using OfficeOpenXml.Table.PivotTable;
 using System;
 using System.Data.SQLite;
 using System.Net.Http;
@@ -35,9 +36,11 @@ namespace EPPlusSampleApp.Core
             await DynamicAboveAverageFilter(connectionString, p);
             await DynamicDateAugustFilter(connectionString, p);
 
-            //Filter on a table
+            //Filter on a table, also see sample 24-Slicers. 
             await TableFilter(connectionString, p);
-
+            
+            //Filter on a pivot table, also see sample 24-Slicers. 
+            await PivotTableFilter(connectionString, p);
 
             p.SaveAs(FileOutputUtil.GetFileInfo("13-Filters.xlsx"));
         }
@@ -133,6 +136,45 @@ namespace EPPlusSampleApp.Core
             var colOrderValue = tbl.AutoFilter.Columns.AddCustomFilterColumn(6);
             colOrderValue.Filters.Add(new ExcelFilterCustomItem("500", eFilterOperator.GreaterThanOrEqual));
             tbl.AutoFilter.ApplyFilter();
+            range.AutoFitColumns(0);
+        }
+        private static async Task PivotTableFilter(string connectionString, ExcelPackage p)
+        {
+            var ws = p.Workbook.Worksheets.Add("PivotTableFilter");
+            ExcelRangeBase range = await LoadFromDatabase(connectionString, ws);
+
+            var tbl = ws.Tables.Add(range, "ptFilter");
+            tbl.TableStyle = OfficeOpenXml.Table.TableStyles.Medium23;
+
+            var pt1=ws.PivotTables.Add(ws.Cells["J1"], tbl, "PivotTable1");
+            var rowField = pt1.RowFields.Add(pt1.Fields["CompanyName"]);
+            var dataField = pt1.DataFields.Add(pt1.Fields["OrderValue"]);
+
+            //First deselect a company in the items list. To do so we first need to refresh the items from the range.
+            rowField.Items.Refresh();  //Refresh the items from the range.
+            rowField.Items.GetByValue("Sporer, Mertz and Jaskolski").Hidden=true;
+            //Add a caption filter on Company Name between A and D
+            rowField.Filters.AddCaptionFilter(ePivotTableCaptionFilterType.CaptionBetween, "A", "D");
+            //Add a value filter where OrderValue >= 100
+            rowField.Filters.AddValueFilter(ePivotTableValueFilterType.ValueGreaterThanOrEqual, dataField, 100);
+
+            //Add a second pivot table with some different filters.
+            var pt2 = ws.PivotTables.Add(ws.Cells["M1"], tbl, "PivotTable2");
+            var rowField1 = pt2.RowFields.Add(pt2.Fields["Currency"]);
+            var rowField2 = pt2.RowFields.Add(pt2.Fields["OrderDate"]);
+            rowField2.Format = "yyyy-MM-dd";
+            var dataField1 = pt2.DataFields.Add(pt2.Fields["OrderValue"]);
+            var dataField2 = pt2.DataFields.Add(pt2.Fields["OrderId"]);
+            dataField2.Function = DataFieldFunctions.CountNums;
+
+            var slicer = rowField1.AddSlicer();
+            slicer.SetPosition(11, 0, 9, 0);
+            //Add a date filter between first of Mars 2017 to 30th of June
+            rowField2.Filters.AddDateValueFilter(ePivotTableDateValueFilterType.DateBetween, new DateTime(2017, 3, 1), new DateTime(2017, 6, 30));
+            //Add a filter on the bottom 25 percent of the OrderValue
+            rowField2.Filters.AddTop10Filter(ePivotTableTop10FilterType.Percent, dataField1, 25, false);
+            pt2.DataOnRows = false;
+
             range.AutoFitColumns(0);
         }
 
