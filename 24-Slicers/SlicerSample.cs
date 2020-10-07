@@ -64,7 +64,7 @@ namespace EPPlusSamples
             slicer2.To.Column = 7;
 
             var slicer3 = pivotTable2.Fields["Order date"].AddSlicer();
-            slicer3.Caption = "Name - PivotTable2";
+            slicer3.Caption = "Order date - PivotTable2";
             slicer3.SetPosition(0, 0, 7, 0);
             slicer3.To.Column = 11;
         }
@@ -159,7 +159,7 @@ namespace EPPlusSamples
                     {
                         var range = wsSource.Cells["A1"].LoadFromDataReader(sqlReader, true);
                         range.Offset(0, 0, 1, range.Columns).Style.Font.Bold = true;
-                        range.Offset(1, 4, range.Rows - 1, 1).Style.Numberformat.Format = "yyyy-MM-dd";
+                        range.Offset(1, 4, range.Rows - 1, 1).Style.Numberformat.Format = "yyyy-MM-dd hh:mm";
                         range.Offset(1, 5, range.Rows - 1, 3).Style.Numberformat.Format = "#,##0";
                     }
                 }

@@ -168,7 +168,7 @@ namespace EPPlusSamples
 
                 //Sample 18 - Pivot tables
                 Console.WriteLine("Running sample 18");
-                output = PivotTablesSample.Run(connectionStr);    //TODO: Fix database
+                output = PivotTablesSample.Run(connectionStr);
                 Console.WriteLine("Sample 18 created {0}", output);
                 Console.WriteLine();
 
@@ -205,8 +205,8 @@ namespace EPPlusSamples
                 Console.WriteLine("Sample 23 created {0}", FileOutputUtil.OutputDir.Name);
                 Console.WriteLine();
 
-                //Sample 24 - Comments and Threaded comments
-                Console.WriteLine("Running sample 24-Table and Pivot Table Slicers");
+                //Sample 24 - Table slicers and Pivot table slicers
+                Console.WriteLine("Running sample 24-Table and Pivot table slicers");
                 SlicerSample.Run(connectionStr);
                 Console.WriteLine("Sample 23 created {0}", FileOutputUtil.OutputDir.Name);
                 Console.WriteLine();

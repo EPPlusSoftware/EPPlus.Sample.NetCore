@@ -212,6 +212,8 @@ namespace EPPlusSamples.PivotTables
             var pivotTable4 = wsPivot4.PivotTables.Add(wsPivot4.Cells["A3"], pivotCache, "PerWithCalculatedField");
 
             pivotTable4.RowFields.Add(pivotTable4.Fields["CompanyName"]);
+            pivotTable4.RowFields.Add(pivotTable4.Fields["OrderDate"]);
+
             //Be carfull with formulas as they are not validated and can cause the pivot table to become corrupt. 
             var calcField = pivotTable4.Fields.AddCalculatedField("Total", "'OrderValue'+'Tax'+'Freight'");
             calcField.Format = "#,##0";
@@ -225,7 +227,7 @@ namespace EPPlusSamples.PivotTables
             dataField = pivotTable4.DataFields.Add(pivotTable4.Fields["Freight"]);
             dataField.Format = "#,##0";
             dataField = pivotTable4.DataFields.Add(pivotTable4.Fields["Total"]);
-            //dataField.Format = "#,##0";
+            dataField.Format = "#,##0";
 
 
             //We want the data fields to appear in columns
@@ -246,6 +248,7 @@ namespace EPPlusSamples.PivotTables
             
             //Add a rowfield
             var rowField2 = pivotTable4.RowFields.Add(pivotTable4.Fields["OrderDate"]);
+
             //Add a date value filter to the pivot table.
             rowField2.Filters.AddDateValueFilter(ePivotTableDateValueFilterType.DateBetween, new DateTime(2017,8,1), new DateTime(2017, 8, 31));
 
@@ -254,6 +257,7 @@ namespace EPPlusSamples.PivotTables
             rowField2.Items[8].Hidden = true;
 
             //Number formats can be set directly on fields as well as on datafields...
+            pivotTable4.Fields["OrderDate"].Format = "yyyy-MM-dd hh:mm:ss";
             pivotTable4.Fields["OrderValue"].Format = "#,##0";
             pivotTable4.Fields["Tax"].Format = "#,##0";
             pivotTable4.Fields["Freight"].Format = "#,##0";
