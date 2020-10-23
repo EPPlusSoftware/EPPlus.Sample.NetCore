@@ -25,7 +25,7 @@ dotnet run
 |10|[Read data using Linq](/10-ReadDataUsingLinq/)|This sample shows how to use Linq with the Cells collection to read sample 9.|
 |11|[Conditional formatting](/11-ConditionalFormatting/)|Demonstrates conditional formatting.|
 |12|[Data validation](/12-DataValidation/)|How to add various types of data validation to a workbook and read existing validations.|
-|13|[Filters](/13-Filter/)|How to apply filters in a worksheet or a table|
+|13|[Filters](/13-Filter/)|How to apply filters in a worksheet, table or a pivot table|
 |14|[Shapes & Images](/14-ShapesAndImages/)|Shows how to add shapes and format them in different ways.
 |15|[Chart Styling & Themes ](/15-ChartsAndThemes/)|Load a theme and create various charts and style them.
 |16|[Sparklines](/16-Sparklines/)|Demonstrates sparklines functionality.|
@@ -34,6 +34,9 @@ dotnet run
 |19|[Encryption and protection](/19-EncryptionAndProtection/)|This sample produces a quiz, where the template workbook is encrypted and password protected.|
 |20|[Create filesystem report](/20-CreateFileSystemReport/)|Demonstrates usage of styling, printer settings, rich text, pie-, doughnut- and bar-charts, freeze panes|
 |21|[VBA - Visual Basic for Applications](/21-VBA/)|Demonstrates EPPlus support for VBA, includes a battleship game|
+|22|[Ignore errors](/22-IgnoreErrors/)|Various samples on how to ignore error on cells.|
+|23|[Comments](/23-Comments/)|Sample showing how to add notes and threaded comments.|
+|24|[Slicers](/24-Slicers/)|Sample showing how to add Pivot Table slicers and Tabel slicers
 
 ### Output files
 The samples above produces some workbooks - the name of each workbook indicates which sample that generated it. These workbooks are located in a subdirectory - named "SampleApp" - to the output directory of the sample project.
@@ -53,5 +56,6 @@ apt-get:
 ```
 apt-get install libgdiplus
 ```
+For Docker, see our [Docker file samples]( https://github.com/EPPlusSoftware/EPPlus/wiki/EPPlus-and-Docker)  
 
 Also see wiki on https://github.com/EPPlusSoftware/EPPlus/wiki for more details
