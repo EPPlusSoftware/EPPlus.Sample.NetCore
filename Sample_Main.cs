@@ -14,6 +14,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using EPPlusSampleApp.Core;
+using EPPlusSamples._25_ImportAndExportDataTable;
 using EPPlusSamples.Comments;
 using EPPlusSamples.CreateFileSystemReport;
 using EPPlusSamples.DataValidation;
@@ -208,7 +209,13 @@ namespace EPPlusSamples
                 //Sample 24 - Table slicers and Pivot table slicers
                 Console.WriteLine("Running sample 24-Table and Pivot table slicers");
                 SlicerSample.Run(connectionStr);
-                Console.WriteLine("Sample 23 created {0}", FileOutputUtil.OutputDir.Name);
+                Console.WriteLine("Sample 24 created {0}", FileOutputUtil.OutputDir.Name);
+                Console.WriteLine();
+
+                //Sample 25 - Import and Export DataTable
+                Console.WriteLine("Running sample 25 - Import and Export DataTable");
+                DataTableSample.Run(connectionStr);
+                Console.WriteLine("Sample 25 finished.");
                 Console.WriteLine();
             }
             catch (Exception ex)
