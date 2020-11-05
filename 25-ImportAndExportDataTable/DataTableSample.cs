@@ -7,7 +7,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Text;
 
-namespace EPPlusSamples._25_ImportAndExportDataTable
+namespace EPPlusSamples
 {
     public class DataTableSample
     {
