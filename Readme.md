@@ -37,7 +37,7 @@ dotnet run
 |22|[Ignore errors](/22-IgnoreErrors/)|Various samples on how to ignore error on cells.|
 |23|[Comments](/23-Comments/)|Sample showing how to add notes and threaded comments.|
 |24|[Slicers](/24-Slicers/)|Sample showing how to add Pivot Table slicers and Tabel slicers
-|25|[Export to/from DataTable](/25-ImportAndExportDataTable) Sample showing import/export rangedata with System.Data.DataTable
+|25|[Export to/from DataTable](/25-ImportAndExportDataTable)|Sample showing import/export rangedata with System.Data.DataTable
 
 ### Output files
 The samples above produces some workbooks - the name of each workbook indicates which sample that generated it. These workbooks are located in a subdirectory - named "SampleApp" - to the output directory of the sample project.
