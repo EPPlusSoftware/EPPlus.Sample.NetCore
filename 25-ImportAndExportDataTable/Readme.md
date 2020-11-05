@@ -1,4 +1,4 @@
-﻿# 24 - Slicers
+﻿# 25 - Import/export with DataTable
 These samples demonstrates how to import and export data to/from a range to/from a DataTable.
 
 ### [DataTableSample.cs](DataTableSample.cs)
