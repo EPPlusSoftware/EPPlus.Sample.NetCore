@@ -216,6 +216,12 @@ namespace EPPlusSamples
                 DataTableSample.Run(connectionStr);
                 Console.WriteLine("Sample 25 finished.");
                 Console.WriteLine();
+
+                //Sample 26 - Form Controls & Drawing Groups
+                Console.WriteLine("Running sample 26 - Form controls");
+                FormControlsSample.Run(connectionStr);
+                Console.WriteLine("Sample 26 finished.");
+                Console.WriteLine();
             }
             catch (Exception ex)
             {
