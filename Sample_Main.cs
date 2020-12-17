@@ -74,6 +74,10 @@ namespace EPPlusSamples
                 LoadingDataWithDynamicObjects.Run();
                 Console.WriteLine("Sample 4 (LoadingDataWithDynamicObjects) created {0}", FileOutputUtil.OutputDir.Name);
                 Console.WriteLine();
+                // Sample 4 - LoadFromCollectionWithAttributes
+                LoadingDataFromCollectionWithAttributes.Run();
+                Console.WriteLine("Sample 4 (LoadingDataFromCollectionWithAttributes) created {0}", FileOutputUtil.OutputDir.Name);
+                Console.WriteLine();
 
                 //Sample 5 Loads two csv files into tables and creates an area chart and a Column/Line chart on the data.
                 //This sample also shows how to use a secondary axis.
