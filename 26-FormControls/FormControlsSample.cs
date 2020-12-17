@@ -17,23 +17,14 @@ namespace EPPlusSamples
                 var dataSheet = CreateDataSheet(package);
 
                 //Create the form-sheet and set headers and som basic properties.
-                var formSheet = package.Workbook.Worksheets.Add("Form");
-                formSheet.Cells["A1"].Value = "Room booking";
-                formSheet.Cells["A1"].Style.Font.Size = 18;
-                formSheet.Cells["A1"].Style.Font.Bold = true;
-                formSheet.Column(1).Width = 30;
-                formSheet.Column(2).Width = 60;
-                formSheet.View.ShowGridLines = false;
-                formSheet.View.ShowHeaders = false;
-                formSheet.Cells.Style.Fill.SetBackground(Color.Gray);
-                formSheet.DefaultRowHeight = 25;
+                ExcelWorksheet formSheet = CreateFormSheet(package);
 
                 //Add texts and format the text fields style
                 formSheet.Cells["A3"].Value = "Name";
                 formSheet.Cells["A4"].Value = "Gender";
                 formSheet.Cells["B3,B5,B11"].Style.Border.BorderAround(ExcelBorderStyle.Dotted);
                 formSheet.Cells["B3,B5,B11"].Style.Fill.SetBackground(eThemeSchemeColor.Background1);
-                
+
                 //Controls are added via the worksheets drawings collection. 
                 //Each type has its typed method returning the specific control class. 
                 //Optionally you can use the AddControl method specifying the control type via the eControlType enum
@@ -41,14 +32,14 @@ namespace EPPlusSamples
                 dropDown.InputRange = dataSheet.Cells["A1:A2"];     //Linkes to the range of items
                 dropDown.LinkedCell = formSheet.Cells["C4"];        //The cell where the selected index is updated.
                 dropDown.SetPosition(3, 1, 1, 0);
-                dropDown.SetSize(453, 32);
-                
+                dropDown.SetSize(451, 31);
+
                 formSheet.Cells["A5"].Value = "Number of guests";
 
                 //Add a spin button for the number of guests cell
                 var spinnButton = formSheet.Drawings.AddSpinButtonControl("SpinButton1");
                 spinnButton.SetPosition(4, 0, 2, 1);
-                spinnButton.SetSize(32, 35);
+                spinnButton.SetSize(30, 35);
                 spinnButton.Value = 0;
                 spinnButton.Increment = 1;
                 spinnButton.MinValue = 0;
@@ -129,6 +120,23 @@ namespace EPPlusSamples
 
                 package.SaveAs(FileOutputUtil.GetFileInfo("26-FormControls.xlsm"));
             }
+        }
+
+        private static ExcelWorksheet CreateFormSheet(ExcelPackage package)
+        {
+            var formSheet = package.Workbook.Worksheets.Add("Form");
+            formSheet.Cells["A1"].Value = "Room booking";
+            formSheet.Cells["A1"].Style.Font.Size = 18;
+            formSheet.Cells["A1"].Style.Font.Bold = true;
+            formSheet.Column(1).Width = 30;
+            formSheet.Column(2).Width = 60;
+            formSheet.Cells.Style.Fill.SetBackground(Color.Gray);
+            for (int row = 1; row <= 18; row++)
+            {
+                formSheet.Row(row).Height = 25;
+            }
+
+            return formSheet;
         }
 
         private static ExcelWorksheet CreateDataSheet(ExcelPackage package)
