@@ -219,7 +219,7 @@ namespace EPPlusSamples
 
                 //Sample 26 - Form Controls & Drawing Groups
                 Console.WriteLine("Running sample 26 - Form controls");
-                FormControlsSample.Run(connectionStr);
+                FormControlsSample.Run();
                 Console.WriteLine("Sample 26 finished.");
                 Console.WriteLine();
             }

@@ -38,6 +38,7 @@ dotnet run
 |23|[Comments](/23-Comments/)|Sample showing how to add notes and threaded comments.|
 |24|[Slicers](/24-Slicers/)|Sample showing how to add Pivot Table slicers and Tabel slicers
 |25|[Export to/from DataTable](/25-ImportAndExportDataTable)|Sample showing import/export rangedata with System.Data.DataTable
+|26|[Form controls](/26-FormControls)|Sample showing how to add differnt form controls and how to group drawings.
 
 ### Output files
 The samples above produces some workbooks - the name of each workbook indicates which sample that generated it. These workbooks are located in a subdirectory - named "SampleApp" - to the output directory of the sample project.

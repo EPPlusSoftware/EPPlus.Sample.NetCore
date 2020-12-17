@@ -38,7 +38,7 @@ namespace EPPlusSamples
                 //Each type has its typed method returning the specific control class. 
                 //Optionally you can use the AddControl method specifying the control type via the eControlType enum
                 var dropDown = formSheet.Drawings.AddDropDownControl("DropDown1");
-                dropDown.InputRange = dataSheet.Cells["A1:A2"];     //Linkes the range with items
+                dropDown.InputRange = dataSheet.Cells["A1:A2"];     //Linkes to the range of items
                 dropDown.LinkedCell = formSheet.Cells["C4"];        //The cell where the selected index is updated.
                 dropDown.SetPosition(3, 1, 1, 0);
                 dropDown.SetSize(453, 32);
@@ -56,7 +56,7 @@ namespace EPPlusSamples
                 spinnButton.LinkedCell = formSheet.Cells["B5"];
                 spinnButton.Value = 1;
 
-                //Add a group box and four option boxes to select room type
+                //Add a group box and four option buttons to select room type
                 var grpBox = formSheet.Drawings.AddGroupBoxControl("GroupBox 1");
                 grpBox.Text = "Room types";
                 grpBox.SetPosition(5, 8, 1, 1);
@@ -84,9 +84,9 @@ namespace EPPlusSamples
                 r4.LinkedCell = formSheet.Cells["C7"];
                 r4.SetPosition(8, 15, 1, 5);
 
-                //Group the radio buttons together with the radio buttons, so they act as one unit.
-                //You can group drawings via the Group method on one of the drawings...
-                var grp = grpBox.Group(r1, r2, r3);     //This will group the groupbox and three of the radio buttons. You would normaly include r4 here as well, but we add it in the next statment to demonstrate how drawings can be grouped.
+                //Group the groupbox together with the radio buttons, so they act as one unit.
+                //You can group drawings via the Group method on one of the drawings, here using the group box...
+                var grp = grpBox.Group(r1, r2, r3);     //This will group the groupbox and three of the radio buttons. You would normally include r4 here as well, but we add it in the next statement to demonstrate how group shapes work.
                 //...Or add them to a group drawing returned by the Group method.
                 grp.Drawings.Add(r4); //This will add the fourth radio button to the group
 
