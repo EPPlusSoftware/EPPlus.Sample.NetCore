@@ -30,7 +30,7 @@ namespace EPPlusSamples
                 //Optionally you can use the AddControl method specifying the control type via the eControlType enum
                 var dropDown = formSheet.Drawings.AddDropDownControl("DropDown1");
                 dropDown.InputRange = dataSheet.Cells["A1:A2"];     //Linkes to the range of items
-                dropDown.LinkedCell = formSheet.Cells["C4"];        //The cell where the selected index is updated.
+                dropDown.LinkedCell = formSheet.Cells["G4"];        //The cell where the selected index is updated.
                 dropDown.SetPosition(3, 1, 1, 0);
                 dropDown.SetSize(451, 31);
 
@@ -56,23 +56,23 @@ namespace EPPlusSamples
                 var r1 = formSheet.Drawings.AddRadioButtonControl("OptionSingleRoom");
                 r1.Text = "Single Room";
                 r1.FirstButton = true;
-                r1.LinkedCell = formSheet.Cells["C7"];
+                r1.LinkedCell = formSheet.Cells["G7"];
                 r1.SetPosition(5, 15, 1, 5);
 
                 var r2 = formSheet.Drawings.AddRadioButtonControl("OptionDoubleRoom");
                 r2.Text = "Double Room";
-                r2.LinkedCell = formSheet.Cells["C7"];
+                r2.LinkedCell = formSheet.Cells["G7"];
                 r2.SetPosition(6, 15, 1, 5);
                 r2.Checked = true;
 
                 var r3 = formSheet.Drawings.AddRadioButtonControl("OptionSuperiorRoom");
                 r3.Text = "Superior";
-                r3.LinkedCell = formSheet.Cells["C7"];
+                r3.LinkedCell = formSheet.Cells["G7"];
                 r3.SetPosition(7, 15, 1, 5);
 
                 var r4 = formSheet.Drawings.AddRadioButtonControl("OptionSuite");
                 r4.Text = "Suite";
-                r4.LinkedCell = formSheet.Cells["C7"];
+                r4.LinkedCell = formSheet.Cells["G7"];
                 r4.SetPosition(8, 15, 1, 5);
 
                 //Group the groupbox together with the radio buttons, so they act as one unit.
@@ -98,7 +98,7 @@ namespace EPPlusSamples
                 formSheet.Cells["A12"].Value = "Requests";
                 var listBox = formSheet.Drawings.AddListBoxControl("Listbox1");
                 listBox.InputRange = dataSheet.Cells["B1:B3"];
-                listBox.LinkedCell = formSheet.Cells["C12"];
+                listBox.LinkedCell = formSheet.Cells["G12"];
                 listBox.SetPosition(11, 5, 1, 0);
                 listBox.SetSize(200, 100);
 
