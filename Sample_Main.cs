@@ -170,10 +170,11 @@ namespace EPPlusSamples
                 Console.WriteLine("Sample 17 created: {0}", output);
                 Console.WriteLine();
 
-                //Sample 18 - Pivot tables
-                Console.WriteLine("Running sample 18");
+                //sample 18 - pivot tables
+                Console.WriteLine("running sample 18");
                 output = PivotTablesSample.Run(connectionStr);
-                Console.WriteLine("Sample 18 created {0}", output);
+                PivotTablesStylingSample.Run();
+                Console.WriteLine("sample 18 created {0}", output);
                 Console.WriteLine();
 
                 //Sample 19 Swedish Quiz : Shows Encryption, workbook- and worksheet protection.
@@ -226,6 +227,13 @@ namespace EPPlusSamples
                 FormControlsSample.Run();
                 Console.WriteLine("Sample 26 finished.");
                 Console.WriteLine();
+
+                //Sample 27 - Table styles
+                Console.WriteLine("Running sample 27 - Custom table and slicer styles");
+                CustomTableSlicerStyleSample.Run(connectionStr);
+                Console.WriteLine("Sample 27 finished.");
+                Console.WriteLine();
+
             }
             catch (Exception ex)
             {
