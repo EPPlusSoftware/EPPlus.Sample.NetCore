@@ -205,18 +205,40 @@ namespace EPPlusSamples.PivotTables
         {
             //This method connects a slicer to the pivot table. Also see sample 24 for more detailed samples on slicers.
             var wsPivot5 = pck.Workbook.Worksheets["PivotWithCalculatedField"];
-
             //Create a new pivot table using the same cache as pivot table 2.
             var pivotTable5 = wsPivot5.PivotTables[0];
 
-            //TODO: Add sample
+            //Sets the entire calculated column fill to solid - Accent 4
+            
+            //This sets the top-right column. Offset C1 means means offset 3 columns offset within the top end area.
+            var style1 = pivotTable5.Styles.AddTopEnd("C1");
+            style1.Style.Fill.BackgroundColor.SetColor(eThemeSchemeColor.Accent4);
+
+            //Sets the fill for the label
+            var style2 = pivotTable5.Styles.AddLabel();
+            style2.Conditions.DataFields.Add(pivotTable5.DataFields[3]); //Add a style for the calculated file
+            style2.Style.Fill.BackgroundColor.SetColor(eThemeSchemeColor.Accent4);
+
+            //Sets the fill for the data part of the calculated field.
+            var style3 = pivotTable5.Styles.Add();
+            style3.Conditions.DataFields.Add(pivotTable5.DataFields[3]); //Add a style for the calculated file
+            style3.LabelOnly = false;
+            style3.Style.Fill.BackgroundColor.SetColor(eThemeSchemeColor.Accent4);
         }
         private static void StylePivotTable6_CaptionFilter(ExcelPackage pck)
         {
             var wsPivot6 = pck.Workbook.Worksheets["PivotWithCaptionFilter"];
             var pivotTable6 = wsPivot6.PivotTables[0];
 
-            //TODO: Add sample
+            //Set the pivot table labels in tabular form to get the filter buttons for all row fields.
+            pivotTable6.SetCompact(false);
+
+            //Set the style for the buttons.
+            var style1 = pivotTable6.Styles.AddButtonField(pivotTable6.RowFields[0]);
+            style1.Style.Font.Color.SetColor(eThemeSchemeColor.Accent4);
+
+            var style2 = pivotTable6.Styles.AddButtonField(ePivotTableAxis.RowAxis, 1); //Field with index 1 in the row axis.
+            style2.Style.Font.Color.SetColor(eThemeSchemeColor.Accent4);
         }
     }
 }

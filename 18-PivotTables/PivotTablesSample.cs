@@ -212,7 +212,7 @@ namespace EPPlusSamples.PivotTables
             var pivotTable4 = wsPivot4.PivotTables.Add(wsPivot4.Cells["A3"], pivotCache, "PerWithCalculatedField");
 
             pivotTable4.RowFields.Add(pivotTable4.Fields["CompanyName"]);
-            pivotTable4.RowFields.Add(pivotTable4.Fields["OrderDate"]);
+            //Be careful with formulas as they are not validated and can cause the pivot table to become corrupt. 
 
             //Be careful with formulas as they can cause the pivot table to become corrupt if they are entered invalidly.
             var calcField = pivotTable4.Fields.AddCalculatedField("Total", "'OrderValue'+'Tax'+'Freight'");

@@ -211,7 +211,7 @@ namespace EPPlusSamples
                 Console.WriteLine();
 
                 //Sample 24 - Table slicers and Pivot table slicers
-                Console.WriteLine("Running sample 24-Table and Pivot table slicers");
+                Console.WriteLine("Running sample 24-Table and Pivot Table Slicers");
                 SlicerSample.Run(connectionStr);
                 Console.WriteLine("Sample 24 created {0}", FileOutputUtil.OutputDir.Name);
                 Console.WriteLine();
