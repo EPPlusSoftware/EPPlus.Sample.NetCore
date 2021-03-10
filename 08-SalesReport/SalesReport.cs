@@ -72,7 +72,7 @@ namespace EPPlusSamples.SalesReport
                 worksheet.Cells["A4:G4"].Style.Font.Bold = true;
 
 
-                // lets connect to the sample database for some data
+                //Lets connect to the sample database for some data
                 using (var sqlConn = new SQLiteConnection(connectionString))
                 {
                     sqlConn.Open();

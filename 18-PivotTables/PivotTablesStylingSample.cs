@@ -116,27 +116,24 @@ namespace EPPlusSamples.PivotTables
             var topRight = pivot2.Styles.AddTopEnd();
             topRight.Style.Fill.BackgroundColor.SetColor(Color.Red);
 
-            //Here we only want to style a part of the top right area. We use the Offset property that uses the A1C1 address notation starting from the cell to the right as A1. 
-            //B1 here will be the second cell to the right. You can also use multiple cells references, like A1:B1
-            var topRightOffset1 = pivot2.Styles.AddTopEnd("B1");
-            topRightOffset1.Style.Border.BorderAround(ExcelBorderStyle.Dotted, eThemeSchemeColor.Text1);
 
 
-            var rowLableStyleQuarter = pivot2.Styles.AddLabel(pivot2.Fields["OrderDate"]);
+
+            var rowLableStyleQuarter = pivot2.Styles.AddLabel(pivot2.Fields["Quarters"]);
             rowLableStyleQuarter.Style.Font.Italic = true;
 
             var rowLableStyleYear = pivot2.Styles.AddLabel(pivot2.Fields["Years"]);
             rowLableStyleYear.Style.Font.Underline = ExcelUnderLineType.Single;
 
-            //Here we style a label for a single row item. We add all the row fields to the pivot area and then add the values we want to style. Note that the value and tdata type must match the value in the pivot field.
-            var labelItem1 = pivot2.Styles.AddLabel(pivot2.Fields["Name"], pivot2.Fields["Years"], pivot2.Fields["OrderDate"]);
+            //Here we style a label for a single row item. We add all the row fields to the pivot area and then add the values we want to style. Note that the value and data type must match the value in the pivot field.
+            var labelItem1 = pivot2.Styles.AddLabel(pivot2.Fields["Name"], pivot2.Fields["Years"], pivot2.Fields["Quarters"]);
             labelItem1.Conditions.Fields[0].Items.AddByValue("Christina Parker");
             labelItem1.Conditions.Fields[1].Items.AddByValue(2017D);    //Double here to match the value in the pivot table
             labelItem1.Conditions.Fields[2].Items.AddByValue("Q4");
             labelItem1.Style.Font.Color.SetColor(Color.DarkRed);
 
             //Here we style a data cell for a single row item. We add all the row fields and the data fields we want to the pivot area and then add the values of the row fields. 
-            var dataItem1 = pivot2.Styles.AddData(pivot2.Fields["Name"], pivot2.Fields["Years"], pivot2.Fields["OrderDate"]);
+            var dataItem1 = pivot2.Styles.AddData(pivot2.Fields["Name"], pivot2.Fields["Years"], pivot2.Fields["Quarters"]);
             dataItem1.Conditions.Fields[0].Items.AddByValue("Hellen Kuhlman");
             dataItem1.Conditions.Fields[1].Items.AddByValue(2017D);    //Double here to match the value in the pivot table
             dataItem1.Conditions.Fields[2].Items.AddByValue("Q3");
@@ -156,6 +153,7 @@ namespace EPPlusSamples.PivotTables
             style.TotalRow.Style.Font.Italic = true;
             pivot3.StyleName = styleName;
 
+            //Set the style for the header of the data fields.
             var style1 = pivot3.Styles.AddLabel();
             style1.Conditions.DataFields.Add(pivot3.DataFields[0]);
             style1.Conditions.DataFields.Add(pivot3.DataFields[1]);
@@ -197,7 +195,7 @@ namespace EPPlusSamples.PivotTables
             slicer.StyleName = styleName;
 
             var style1 = pivotTable4.Styles.Add();
-            style1.GrandRow = true;
+            style1.GrandRow = true;     //The pivot area will apply to the Grand Row only.
             style1.DataOnly = false;    //DataOnly is true by default, so to apply the style to the entire row we set it to false.
             style1.Style.Font.Size = 18;
         }
@@ -216,12 +214,12 @@ namespace EPPlusSamples.PivotTables
 
             //Sets the fill for the label
             var style2 = pivotTable5.Styles.AddLabel();
-            style2.Conditions.DataFields.Add(pivotTable5.DataFields[3]); //Add a style for the calculated file
+            style2.Conditions.DataFields.Add(pivotTable5.DataFields[3]); //Adds a style for the calculated field
             style2.Style.Fill.BackgroundColor.SetColor(eThemeSchemeColor.Accent4);
 
             //Sets the fill for the data part of the calculated field.
             var style3 = pivotTable5.Styles.Add();
-            style3.Conditions.DataFields.Add(pivotTable5.DataFields[3]); //Add a style for the calculated file
+            style3.Conditions.DataFields.Add(pivotTable5.DataFields[3]); //Add a style for the calculated field
             style3.LabelOnly = false;
             style3.Style.Fill.BackgroundColor.SetColor(eThemeSchemeColor.Accent4);
         }

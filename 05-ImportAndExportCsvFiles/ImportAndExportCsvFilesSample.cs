@@ -169,6 +169,10 @@ namespace EPPlusSamples.LoadDataFromCsvFilesIntoTables
             tbl.Columns[5].Name = "Profit";
             tbl.TableStyle = TableStyles.Medium10;
 
+            //To the header row and totals font to italic, use the HeaderRowStyle and the TotalsRowStyle property. You can also use the tbl.DataStyle to style the data part of the table.
+            tbl.HeaderRowStyle.Font.Italic = true;
+            tbl.TotalsRowStyle.Font.Italic = true;
+            
             sheet.Cells[sheet.Dimension.Address].AutoFitColumns();
 
             //Add a chart with two charttypes (Column and Line) and a secondary axis...
