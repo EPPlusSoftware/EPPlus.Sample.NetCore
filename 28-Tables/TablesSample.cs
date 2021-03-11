@@ -37,31 +37,52 @@ namespace EPPlusSamples
             var ws = p.Workbook.Worksheets.Add("SimpleTable");
 
             var range = await LoadDataAsync(connectionString, ws).ConfigureAwait(false);
-            var tbl=ws.Tables.Add(range, "Table1");
+            var tbl1=ws.Tables.Add(range, "Table1");
             
-            tbl.ShowTotal = true;
+            tbl1.ShowTotal = true;
             //Format the OrderDate column and add a Count Numbers subtotal.
-            tbl.Columns["OrderDate"].TotalsRowFunction = RowFunctions.CountNums;
-            tbl.Columns["OrderDate"].DataStyle.NumberFormat.Format = "yyyy-MM-dd";
-            tbl.Columns["OrderDate"].TotalsRowStyle.NumberFormat.Format = "#,##0";
+            tbl1.Columns["OrderDate"].TotalsRowFunction = RowFunctions.CountNums;
+            tbl1.Columns["OrderDate"].DataStyle.NumberFormat.Format = "yyyy-MM-dd";
+            tbl1.Columns["OrderDate"].TotalsRowStyle.NumberFormat.Format = "#,##0";
 
             //Format the OrderValue column and add a Sum subtotal.
-            tbl.Columns["OrderValue"].TotalsRowFunction = RowFunctions.Sum;
-            tbl.Columns["OrderValue"].DataStyle.NumberFormat.Format = "#,##0";
-            tbl.Columns["OrderValue"].TotalsRowStyle.NumberFormat.Format = "#,##0";
+            tbl1.Columns["OrderValue"].TotalsRowFunction = RowFunctions.Sum;
+            tbl1.Columns["OrderValue"].DataStyle.NumberFormat.Format = "#,##0";
+            tbl1.Columns["OrderValue"].TotalsRowStyle.NumberFormat.Format = "#,##0";
 
             //Add a calculated formula referencing the OrderValue column within the same row.
-            tbl.Columns.Add(1);
-            var addedcolumn = tbl.Columns[tbl.Columns.Count - 1];
+            tbl1.Columns.Add(1);
+            var addedcolumn = tbl1.Columns[tbl1.Columns.Count - 1];
             addedcolumn.Name = "OrderValue with Tax";
             addedcolumn.CalculatedColumnFormula = "Table1[[#This Row],[OrderValue]] * 110%"; //Sets the calculated formula referencing the OrderValue column within this row.
             addedcolumn.TotalsRowFunction = RowFunctions.Sum;
             addedcolumn.DataStyle.NumberFormat.Format = "#,##0";
             addedcolumn.TotalsRowStyle.NumberFormat.Format = "#,##0";
 
-            tbl.ShowLastColumn = true;            
+            tbl1.ShowLastColumn = true;            
 
-            tbl.Range.AutoFitColumns();
+            tbl1.Range.AutoFitColumns();
+
+            //Calculate the formulas so we get the calculated column values as well.
+            ws.Calculate();
+
+            //Create a data table from the table
+            var dataTable = tbl1.ToDataTable(x => { x.DataTableName = "DataTable1"; x.SkipNumberOfRowsEnd=2; });
+            //Then create a new table from the data table
+            var range2=ws.Cells["K1"].LoadFromDataTable(dataTable, true, TableStyles.Dark4);
+            var tbl2 = ws.Tables.GetFromRange(range2);
+
+            //Format the OrderDate column and add a Count Numbers subtotal.
+            tbl2.Columns["OrderDate"].TotalsRowFunction = RowFunctions.CountNums;
+            tbl2.Columns["OrderDate"].DataStyle.NumberFormat.Format = "yyyy-MM-dd";
+            tbl2.Columns["OrderDate"].TotalsRowStyle.NumberFormat.Format = "#,##0";
+
+            //Format the OrderValue column and add a Sum subtotal.
+            tbl2.Columns["OrderValue"].TotalsRowFunction = RowFunctions.Sum;
+            tbl2.Columns["OrderValue"].DataStyle.NumberFormat.Format = "#,##0";
+            tbl2.Columns["OrderValue"].TotalsRowStyle.NumberFormat.Format = "#,##0";
+
+            range2.AutoFitColumns();
         }
         /// <summary>
         /// This sample creates a two table and a custom table style. The first table is styled using different style objects of the table. 
