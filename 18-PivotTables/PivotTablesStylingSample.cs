@@ -48,7 +48,9 @@ namespace EPPlusSamples.PivotTables
                 //This sample styles the pivot table using pivot areas in various ways and create a custom named slicer style for the slicers.
                 StylePivotTable4_WithASlicer(pck);
 
+                //Adds a slicer and do some styling.
                 StylePivotTable5_WithACalculatedField(pck);                
+                //Sets the pivot table into tabular mode to display the filter boxes on the row fields then styles the button fields
                 StylePivotTable6_CaptionFilter(pck);
 
                 pck.Save();
