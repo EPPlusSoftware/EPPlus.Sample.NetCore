@@ -10,7 +10,7 @@ namespace EPPlusSamples
 {
     /// <summary>
     /// This sample demonstrates how work with Excel tables in EPPlus.
-    /// Tables can easily be added by many of the ExcelRange - Load methods as demonstrated in earlier sample.
+    /// Tables can easily be added by many of the ExcelRange - Load methods as demonstrated in earlier samples.
     /// This sample will focus on how to add and setup tables from the ExcelWorksheet.Tables collection.
     /// </summary>
     public static class TablesSample
@@ -50,7 +50,7 @@ namespace EPPlusSamples
             tbl1.Columns["OrderValue"].DataStyle.NumberFormat.Format = "#,##0";
             tbl1.Columns["OrderValue"].TotalsRowStyle.NumberFormat.Format = "#,##0";
 
-            //Add a calculated formula referencing the OrderValue column within the same row.
+            //Adds a calculated formula referencing the OrderValue column within the same row.
             tbl1.Columns.Add(1);
             var addedcolumn = tbl1.Columns[tbl1.Columns.Count - 1];
             addedcolumn.Name = "OrderValue with Tax";

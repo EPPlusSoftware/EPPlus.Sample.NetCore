@@ -277,43 +277,5 @@ namespace EPPlusSamples
             return pt;
         }
         #endregion
-        private static void PivotTableOneSlicerToMultiplePivotTables(ExcelPackage p)
-        {
-            var wsSource = p.Workbook.Worksheets["PivotTableSourceData"];
-            var wsPivot = p.Workbook.Worksheets.Add("OneSlicerToTwoPivotTables");
-
-            var pivotTable1 = wsPivot.PivotTables.Add(wsPivot.Cells["D15"], wsSource.Cells[wsSource.Dimension.Address], "PivotTable1");
-            pivotTable1.RowFields.Add(pivotTable1.Fields["Company Name"]);
-            pivotTable1.DataFields.Add(pivotTable1.Fields["Order Value"]);
-            pivotTable1.DataFields.Add(pivotTable1.Fields["Tax"]);
-            pivotTable1.DataFields.Add(pivotTable1.Fields["Freight"]);
-            pivotTable1.DataOnRows = false;
-
-            //To connect a slicer to multiple pivot tables the tables need to use the same pivot table cache, so we use pivotTable1's cache as source to pivotTable2...
-            var pivotTable2 = wsPivot.PivotTables.Add(wsPivot.Cells["H15"], pivotTable1.CacheDefinition, "PivotTable2");
-            pivotTable2.RowFields.Add(pivotTable2.Fields["Country"]);
-            pivotTable2.DataFields.Add(pivotTable2.Fields["Order Value"]);
-            pivotTable2.DataFields.Add(pivotTable2.Fields["Tax"]);
-            pivotTable2.DataFields.Add(pivotTable2.Fields["Freight"]);
-            pivotTable2.DataOnRows = false;
-
-            var slicer1 = pivotTable1.Fields["Country"].AddSlicer();
-            slicer1.Caption = "Country - Both";
-
-            //Now add the second pivot table to the slicer cache. This require that the pivot tables share the same cache. 
-            slicer1.Cache.PivotTables.Add(pivotTable2);
-            slicer1.SetPosition(0, 0, 0, 0);
-            slicer1.Style = eSlicerStyle.Light4;
-
-            var slicer2 = pivotTable1.Fields["Company Name"].AddSlicer();
-            slicer2.Caption = "Company Name - PivotTable1";
-            slicer2.SetPosition(0, 0, 3, 0);
-            slicer2.To.Column = 7;
-
-            var slicer3 = pivotTable2.Fields["Order date"].AddSlicer();
-            slicer3.Caption = "Order date - PivotTable2";
-            slicer3.SetPosition(0, 0, 7, 0);
-            slicer3.To.Column = 11;
-        }
     }
 }
