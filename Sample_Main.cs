@@ -172,7 +172,9 @@ namespace EPPlusSamples
 
                 //sample 18 - pivot tables
                 Console.WriteLine("running sample 18");
+                //This sample demonstrates how to create and work with pivot tables.
                 output = PivotTablesSample.Run(connectionStr);
+                //The second class demonstrates how to style you pivot table.
                 PivotTablesStylingSample.Run();
                 Console.WriteLine("sample 18 created {0}", output);
                 Console.WriteLine();
