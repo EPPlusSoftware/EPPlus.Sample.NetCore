@@ -53,6 +53,8 @@ namespace EPPlusSamples.PivotTables
                 //Sets the pivot table into tabular mode to display the filter boxes on the row fields then styles the button fields
                 StylePivotTable6_CaptionFilter(pck);
 
+                StylePivotTable7_WithDataFieldsUsingShowAs(pck);
+
                 pck.Save();
             }
             return newFile.FullName;
@@ -239,6 +241,42 @@ namespace EPPlusSamples.PivotTables
 
             var style2 = pivotTable6.Styles.AddButtonField(ePivotTableAxis.RowAxis, 1); //Field with index 1 in the row axis.
             style2.Style.Font.Color.SetColor(eThemeSchemeColor.Accent4);
+        }
+        private static void StylePivotTable7_WithDataFieldsUsingShowAs(ExcelPackage pck)
+        {
+            var wsPivot7 = pck.Workbook.Worksheets["PivotWithShowAsFields"];
+            var pivotTable7 = wsPivot7.PivotTables[0];
+
+            pivotTable7.PivotTableStyle = PivotTableStyles.Dark18;
+
+            var styleUSD=pivotTable7.Styles.AddData(pivotTable7.Fields["Currency"]);
+            styleUSD.Conditions.Fields[0].Items.AddByValue("USD");
+            styleUSD.Style.Fill.PatternType = ExcelFillStyle.Solid;            
+            styleUSD.Style.Fill.BackgroundColor.Tint = -0.9;
+
+            var styleEUR = pivotTable7.Styles.AddData(pivotTable7.Fields["Currency"]);
+            styleEUR.Conditions.Fields[0].Items.AddByValue("EUR");
+            styleEUR.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            styleEUR.Style.Fill.BackgroundColor.Tint = -0.85;
+
+            var styleSEK = pivotTable7.Styles.AddData(pivotTable7.Fields["Currency"]);
+            styleSEK.Conditions.Fields[0].Items.AddByValue("SEK");
+            styleSEK.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            styleSEK.Style.Fill.BackgroundColor.Tint = -0.80;
+
+            var styleDKK = pivotTable7.Styles.AddData(pivotTable7.Fields["Currency"]);
+            styleDKK.Conditions.Fields[0].Items.AddByValue("DKK");
+            styleDKK.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            styleDKK.Style.Fill.BackgroundColor.Tint = -0.75;
+
+            var styleINR = pivotTable7.Styles.AddData(pivotTable7.Fields["Currency"]);
+            styleINR.Conditions.Fields[0].Items.AddByValue("INR");
+            styleINR.Style.Fill.PatternType = ExcelFillStyle.Solid;
+            styleINR.Style.Fill.BackgroundColor.Tint = -0.70;
+
+            var styleTotal = pivotTable7.Styles.AddData(pivotTable7.Fields["Currency"]);
+            styleTotal.GrandRow = true;
+            styleTotal.Style.Fill.BackgroundColor.Tint = -1;
         }
     }
 }

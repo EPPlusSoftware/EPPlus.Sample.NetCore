@@ -72,11 +72,14 @@ namespace EPPlusSamples.PivotTables
 
                 //Filter samples
                 var pt6 = CreatePivotTableCaptionFilter(pck, dataRange);
+                var pt7 = CreatePivotTableWithDataFieldsUsingShowAs(pck, dataRange);
 
                 pck.Save();
             }
             return newFile.FullName;
         }
+
+
         private static ExcelPivotTable CreatePivotTableWithPivotChart(ExcelPackage pck, ExcelRangeBase dataRange)
         {
             var wsPivot = pck.Workbook.Worksheets.Add("PivotSimple");
@@ -273,6 +276,56 @@ namespace EPPlusSamples.PivotTables
             pivotTable4.DataOnRows = false;
             return pivotTable4;
         }
+        private static ExcelPivotTable CreatePivotTableWithDataFieldsUsingShowAs(ExcelPackage pck, ExcelRangeBase dataRange)
+        {
+            var wsPivot5 = pck.Workbook.Worksheets.Add("PivotWithShowAsFields");
+
+            //Create a new pivot table with a new cache.
+            var pivotTable5 = wsPivot5.PivotTables.Add(wsPivot5.Cells["A3"], dataRange, "WithCaptionFilter");
+
+            var rowField1 = pivotTable5.RowFields.Add(pivotTable5.Fields["CompanyName"]);
+            var rowField2 = pivotTable5.RowFields.Add(pivotTable5.Fields["Name"]);
+            var colField1 = pivotTable5.ColumnFields.Add(pivotTable5.Fields["Currency"]);
+
+            //Collapses all row and column fields
+            rowField1.Items.Refresh();
+            rowField1.Items.ShowDetails(false);
+
+            rowField2.Items.Refresh();
+            rowField2.Items.ShowDetails(false);
+
+            colField1.Items.Refresh();
+            colField1.Items.ShowDetails(false);
+
+            //Sets the ∑ Values position within column or row fields collection.
+            //The value of the pivotTable5.DataOnRows will determin if the rowFields or columnsFields collection is used.
+            //A negative or out of range value will add the values to the end of the collection.
+            pivotTable5.DataOnRows = false;
+            pivotTable5.ValuesFieldPosition = 0;    //Set values first in the row fields collection
+
+            var df1 = pivotTable5.DataFields.Add(pivotTable5.Fields["OrderValue"]);
+            df1.Name = "Order value";
+            df1.Format = "#,##0";
+
+            var df2 = pivotTable5.DataFields.Add(pivotTable5.Fields["OrderValue"]);
+            df2.Name = "Order value % of total";
+            df2.ShowDataAs.SetPercentOfColumn();
+            df2.Format = "0.0%;";
+
+            var df3 = pivotTable5.DataFields.Add(pivotTable5.Fields["OrderValue"]);
+            df3.Name = "Count Difference From Previous";
+            df3.ShowDataAs.SetDifference(rowField1, ePrevNextPivotItem.Previous);
+            df3.Function = DataFieldFunctions.Count;
+            df3.Format = "#,##0";
+            
+            pivotTable5.SetCompact(false);
+            pivotTable5.ColumnHeaderCaption = "Data";
+            pivotTable5.ShowColumnStripes = true;            
+            wsPivot5.Column(1).Width = 30;
+
+            return pivotTable5;
+        }
+
         private static List<SalesDTO> GetDataFromSQL(string connectionStr)
         {
             var ret = new List<SalesDTO>();
