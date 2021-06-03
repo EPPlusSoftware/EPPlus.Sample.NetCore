@@ -4,6 +4,6 @@ First method shows how to add a calculated column to your table.
 The second method show how to style a table, add a custom total formula and adding rows.
 The third method adds a slicer to filter a table column.
 ### [TablesSample.cs](TablesSample.cs)
-
+### [SortingTablesSample.cs](SortingTablesSample.cs)
 ---
 [Back to overview](/Readme.md)

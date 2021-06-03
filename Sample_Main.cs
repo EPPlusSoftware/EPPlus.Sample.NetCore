@@ -239,6 +239,8 @@ namespace EPPlusSamples
                 //Sample 28 - Custom Named Table, Pivot Table and Slicer styles
                 Console.WriteLine("Running sample 28 - Working with tables");
                 await TablesSample.RunAsync(connectionStr);
+                Console.WriteLine("Sorting tables sample...");
+                await SortingTablesSample.RunAsync(connectionStr);
                 Console.WriteLine("Sample 28 finished.");
                 Console.WriteLine();
 
@@ -246,6 +248,12 @@ namespace EPPlusSamples
                 Console.WriteLine("Running sample 29 - External References");
                 ExternalReferencesSample.Run();
                 Console.WriteLine("Sample 29 finished.");
+                Console.WriteLine();
+
+                // Sample 30 - Sort ranges
+                Console.WriteLine("Running sample 30 - Sort ranges");
+                SortingRangesSample.Run();
+                Console.WriteLine("Sample 30 finished.");
                 Console.WriteLine();
             }
             catch (Exception ex)
