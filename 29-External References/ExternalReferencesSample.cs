@@ -1,4 +1,5 @@
 ﻿using OfficeOpenXml;
+using OfficeOpenXml.ExternalReferences;
 using System;
 using System.IO;
 namespace EPPlusSamples
@@ -12,28 +13,36 @@ namespace EPPlusSamples
     {
         public static void Run()
         {
+            //Reads a workbook and calculates the formulas from the cache and from the loaded exteranl workbook. 
             ReadFileWithExternalLink();
 
-            var file = FileOutputUtil.GetFileInfo("29-ExternalLinks.xlsx");
-            using (var p = new ExcelPackage(file))
+            //Sample file 1 adds external links to another workbook.
+            var sampleFile1 = FileOutputUtil.GetFileInfo("29-ExternalLinks-1.xlsx");
+            using (var p = new ExcelPackage(sampleFile1))
             {
 
                 AddWorksheetWithExternalReferences(p);
 
                 AddWorksheetWithExternalReferencesInFormulas(p);
 
-
                 p.Save();
             }
+
+            BreakLinks();
         }
 
+
+        /// <summary>
+        /// This sample shows how EPPlus works with external workbooks depending on 
+        /// </summary>
         private static void ReadFileWithExternalLink()
         {
             var externalFile = FileInputUtil.GetFileInfo("29-External References", "WorkbookWithExternalLinks.xlsx");
             using (var p = new ExcelPackage(externalFile))
             {
+                //This worksheet contains references to an external workbook. 
+                //First print the values saved in the package.
                 var ws = p.Workbook.Worksheets[0];
-                //This worksheet contains references to an external workbook that is not available. 
                 Console.WriteLine("Values from Excel:");
                 Console.WriteLine($"Cell C1 formula : {ws.Cells["C1"].Formula} with value {ws.Cells["C1"].Value}");
                 Console.WriteLine($"Cell C2 formula : {ws.Cells["C2"].Formula} with value {ws.Cells["C2"].Value}");
@@ -42,6 +51,8 @@ namespace EPPlusSamples
                 Console.WriteLine($"Cell C6 formula : {ws.Cells["C6"].Formula} with value {ws.Cells["C6"].Value}");
                 Console.WriteLine();
 
+                //Now, clear the formula values and calculate the workbook again.
+                //In this case, EPPlus uses the package internal saved cache for the external workbook to calculate the formulas referencing this workbook.
                 ws.ClearFormulaValues();
                 ws.Calculate();
 
@@ -53,6 +64,12 @@ namespace EPPlusSamples
                 Console.WriteLine($"Cell C6 formula : {ws.Cells["C6"].Formula} with value {ws.Cells["C6"].Value}");
                 Console.WriteLine();
 
+                //Note in the output, that Cell C6 has a different value from the Excel Calculation.
+                //This is because the saved cache does not contain all information required, in this case some of the lines are hidden and should be ignored by the subtotal function. 
+                //This is the same behavior as in Excel if you recalculate without the external workbook available.
+
+                //To avoid this behavior you can load the external workbook before doing the calculate.
+                //This is only an issue in special cases where the function needs information not available in the cache, as for example hidden cells and numeric formats.
                 var externalReference = p.Workbook.ExternalReferences[0].As.ExternalWorkbook;
                 p.Workbook.ExternalReferences.Directories.Add(FileInputUtil.GetSubDirectory("29-External References","Data"));
                 externalReference.Load();
@@ -100,7 +117,7 @@ namespace EPPlusSamples
         {
             var externalLinkFile = FileOutputUtil.GetFileInfo("01-GettingStarted.xlsx", false);
             var externalWorkbook = p.Workbook.ExternalReferences.AddExternalWorkbook(externalLinkFile);
-
+            
             var ws = p.Workbook.Worksheets.Add("Sheet2");
 
             ws.Cells["A1"].Value = "Quantity*Price:";
@@ -113,16 +130,20 @@ namespace EPPlusSamples
             ws.Cells["A4"].AddComment("Sum of external cells matches the sum from cell E5 in the original workbook", "EPPlus Software");
             ws.Cells["B4:C4"].Style.Font.Bold = true;
             ws.Cells["B4:C4"].Style.Numberformat.Format = "#,##0";
-
+            
             ws.Calculate();
 
             //If you only want to update the cache you can use externalWorkbook.UpdateCache();
             //Note: The cache is updated when the package is saved if externalWorkbook.CacheStatue is eExternalWorkbookCacheStatus.NotUpdated.
-            //      If the cache status is LoadedFromPackage or Updated, you must make sure to update the cache, if necessary, before saving the packge
-            externalWorkbook.UpdateCache();
-
+            //      If the cache status is LoadedFromPackage or Updated, you must make sure to update the cache, if necessary, before saving the packge.
+            externalWorkbook.UpdateCache();           
 
             ws.Cells.AutoFitColumns();
         }
+        private static void BreakLinks()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
