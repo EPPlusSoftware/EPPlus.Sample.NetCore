@@ -41,6 +41,8 @@ dotnet run
 |26|[Form controls](/26-FormControls)|Sample showing how to add differnt form controls and how to group drawings.
 |27|[Custom styles for tables and slicers](/27-CustomNamedStyles)|Sample showing how to create custom styles from tables, pivot tables and slicers.
 |28|[Tables](/28-Tables)|Sample showing how to work with tables.
+|29|[External links](/29-ExternalLinks)|Shows how to work with links to external workbooks
+|30|[Sorting Ranges](/30-SortingRanges)|Shows how to work with the Sort method for ranges and tables
 
 ### Output files
 The samples above produces some workbooks - the name of each workbook indicates which sample that generated it. These workbooks are located in a subdirectory - named "SampleApp" - to the output directory of the sample project.
