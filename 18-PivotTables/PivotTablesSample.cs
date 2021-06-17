@@ -69,10 +69,10 @@ namespace EPPlusSamples.PivotTables
                 var pt3 = CreatePivotTableWithPageFilter(pck, pt2.CacheDefinition);
                 var pt4 = CreatePivotTableWithASlicer(pck, pt2.CacheDefinition);
                 var pt5 = CreatePivotTableWithACalculatedField(pck, pt2.CacheDefinition);
-
-                //Filter samples
                 var pt6 = CreatePivotTableCaptionFilter(pck, dataRange);
                 var pt7 = CreatePivotTableWithDataFieldsUsingShowAs(pck, dataRange);
+                
+                CreatePivotTableSorting(pck, dataRange);
 
                 pck.Save();
             }
@@ -311,7 +311,7 @@ namespace EPPlusSamples.PivotTables
             df2.Name = "Order value % of total";
             df2.ShowDataAs.SetPercentOfColumn();
             df2.Format = "0.0%;";
-
+            
             var df3 = pivotTable5.DataFields.Add(pivotTable5.Fields["OrderValue"]);
             df3.Name = "Count Difference From Previous";
             df3.ShowDataAs.SetDifference(rowField1, ePrevNextPivotItem.Previous);
@@ -324,6 +324,46 @@ namespace EPPlusSamples.PivotTables
             wsPivot5.Column(1).Width = 30;
 
             return pivotTable5;
+        }
+        private static void CreatePivotTableSorting(ExcelPackage pck, ExcelRangeBase dataRange)
+        {
+            var wsPivot = pck.Workbook.Worksheets.Add("PivotSorting");
+
+            //Sort by the row field
+            var pt1 = wsPivot.PivotTables.Add(wsPivot.Cells["A1"], dataRange, "PerCountrySorted");
+            pt1.DataOnRows = true;
+
+            var rowField1 = pt1.RowFields.Add(pt1.Fields["Country"]);
+            rowField1.Sort = eSortType.Ascending;
+            var dataField = pt1.DataFields.Add(pt1.Fields["OrderValue"]);
+            dataField.Format = "#,##0";
+
+
+            //Sort by the datafield field
+            var pt2 = wsPivot.PivotTables.Add(wsPivot.Cells["D1"], dataRange, "PerCountrySortedByData");
+            pt2.DataOnRows = true;
+
+            rowField1 = pt2.RowFields.Add(pt2.Fields["Country"]);
+            dataField = pt2.DataFields.Add(pt2.Fields["OrderValue"]);
+            dataField.Format = "#,##0";
+            rowField1.SetAutoSort(dataField, eSortType.Descending);
+
+
+            //Sort by the data field for a specific column using pivot areas.
+            //In this case we sort on the order value column for "Poland". 
+            var pt3 = wsPivot.PivotTables.Add(wsPivot.Cells["G1"], dataRange, "PerCountrySortedByDataColumn");
+            pt3.DataOnRows = true;
+
+            rowField1 = pt3.RowFields.Add(pt3.Fields["Name"]);
+            var columnField1 = pt3.ColumnFields.Add(pt3.Fields["Country"]);
+            dataField = pt3.DataFields.Add(pt3.Fields["OrderValue"]);
+            dataField.Format = "#,##0";
+            rowField1.SetAutoSort(dataField, eSortType.Ascending);
+
+            var conditionField = rowField1.AutoSort.Conditions.Fields.Add(columnField1);
+            //Before setting a reference to a value column we need to refresh the items cache.
+            columnField1.Items.Refresh();
+            conditionField.Items.AddByValue("Poland");
         }
 
         private static List<SalesDTO> GetDataFromSQL(string connectionStr)

@@ -53,11 +53,39 @@ namespace EPPlusSamples.PivotTables
                 //Sets the pivot table into tabular mode to display the filter boxes on the row fields then styles the button fields
                 StylePivotTable6_CaptionFilter(pck);
 
+                //Sets column fields to different background colors.
                 StylePivotTable7_WithDataFieldsUsingShowAs(pck);
-
+                
+                StylePivotTable8_Sort(pck);
                 pck.Save();
             }
             return newFile.FullName;
+        }
+
+        private static void StylePivotTable8_Sort(ExcelPackage pck)
+        {
+            var wsPivot = pck.Workbook.Worksheets["PivotSorting"];
+
+            //Mark the sorted ranges
+            var pt1 = wsPivot.PivotTables[0];
+            var style1 = pt1.Styles.AddLabel(pt1.RowFields[0]);
+            style1.Style.Border.BorderAround(ExcelBorderStyle.DashDotDot,Color.Red);
+            
+            //Set color red for data cells q
+            var pt2 = wsPivot.PivotTables[1];
+            var style2 = pt2.Styles.AddAllData();
+            style2.GrandColumn = true;
+            style2.Style.Font.Color.SetColor(Color.Red);
+            
+            //Mark sorted column with value "Poland"
+            var pt3 = wsPivot.PivotTables[2];
+            var style3 = pt3.Styles.AddData(pt3.RowFields[0]);      //Add style for Row field "Name"
+            style3.Conditions.DataFields.Add(pt3.DataFields[0]);    //..then add a condition for data field "Order Value" and...
+            var conditions = style3.Conditions.Fields.Add(pt3.ColumnFields[0]); //...column field Country with value...
+            //pt3.ColumnFields[0].Items.Refresh();
+            conditions.Items.AddByValue("Poland");  //..."Poland""..
+            style3.Style.Font.Color.SetColor(Color.Green);
+
         }
 
         private static void StylePivotTable1_PerCountry(ExcelPackage pck)

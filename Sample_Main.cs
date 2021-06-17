@@ -245,8 +245,8 @@ namespace EPPlusSamples
                 Console.WriteLine();
 
                 //Sample 29 - Add references to external workbooks
-                Console.WriteLine("Running sample 29 - External References");
-                ExternalReferencesSample.Run();
+                Console.WriteLine("Running sample 29 - External Links");
+                ExternalLinksSample.Run();
                 Console.WriteLine("Sample 29 finished.");
                 Console.WriteLine();
 

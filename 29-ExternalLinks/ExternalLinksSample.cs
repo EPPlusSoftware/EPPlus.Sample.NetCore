@@ -9,11 +9,11 @@ namespace EPPlusSamples
     /// EPPlus supports adding, updating and removing external workbooks of type xlsx, xlsm and xlst. EPPlus also use the external reference cache for External workbooks. 
     /// EPPlus will also preserve DDE and OLE links.
     /// </summary>
-    public static class ExternalReferencesSample
+    public static class ExternalLinksSample
     {
         public static void Run()
         {
-            //Reads a workbook and calculates the formulas from the cache and from the loaded exteranl workbook. 
+            //Reads a workbook and calculates the formulas from the cache and from the loaded external workbook. 
             ReadFileWithExternalLink();
 
             //Sample file 1 adds external links to another workbook.
@@ -28,7 +28,8 @@ namespace EPPlusSamples
                 p.Save();
             }
 
-            BreakLinks();
+            //Open the saved sample and break links to the fist external workbook 
+            BreakLinks(sampleFile1);
         }
 
 
@@ -37,7 +38,7 @@ namespace EPPlusSamples
         /// </summary>
         private static void ReadFileWithExternalLink()
         {
-            var externalFile = FileInputUtil.GetFileInfo("29-External References", "WorkbookWithExternalLinks.xlsx");
+            var externalFile = FileInputUtil.GetFileInfo("29-ExternalLinks", "WorkbookWithExternalLinks.xlsx");
             using (var p = new ExcelPackage(externalFile))
             {
                 //This worksheet contains references to an external workbook. 
@@ -70,8 +71,8 @@ namespace EPPlusSamples
 
                 //To avoid this behavior you can load the external workbook before doing the calculate.
                 //This is only an issue in special cases where the function needs information not available in the cache, as for example hidden cells and numeric formats.
-                var externalReference = p.Workbook.ExternalReferences[0].As.ExternalWorkbook;
-                p.Workbook.ExternalReferences.Directories.Add(FileInputUtil.GetSubDirectory("29-External References","Data"));
+                var externalReference = p.Workbook.ExternalLinks[0].As.ExternalWorkbook;
+                p.Workbook.ExternalLinks.Directories.Add(FileInputUtil.GetSubDirectory("29-ExternalLinks","Data"));
                 externalReference.Load();
 
                 ws.ClearFormulaValues();
@@ -91,7 +92,7 @@ namespace EPPlusSamples
         {
             //Add a reference to the file created by sample 28.
             var externalLinkFile = FileOutputUtil.GetFileInfo("28-Tables.xlsx", false);
-            var externalWorkbook = p.Workbook.ExternalReferences.AddExternalWorkbook(externalLinkFile);
+            var externalWorkbook = p.Workbook.ExternalLinks.AddExternalWorkbook(externalLinkFile);
 
             var ws = p.Workbook.Worksheets.Add("Sheet1");
             //You can access individual cells like this using the index of the external reference in brackets...
@@ -116,7 +117,7 @@ namespace EPPlusSamples
         private static void AddWorksheetWithExternalReferencesInFormulas(ExcelPackage p)
         {
             var externalLinkFile = FileOutputUtil.GetFileInfo("01-GettingStarted.xlsx", false);
-            var externalWorkbook = p.Workbook.ExternalReferences.AddExternalWorkbook(externalLinkFile);
+            var externalWorkbook = p.Workbook.ExternalLinks.AddExternalWorkbook(externalLinkFile);
             
             var ws = p.Workbook.Worksheets.Add("Sheet2");
 
@@ -140,9 +141,19 @@ namespace EPPlusSamples
 
             ws.Cells.AutoFitColumns();
         }
-        private static void BreakLinks()
+        private static void BreakLinks(FileInfo sampleFile1)
         {
-            throw new NotImplementedException();
+            //If you want to break links to a workbook, you simply remove it from the ExteralLinks collection.
+            //This will remove any formulas referencing the workbook and leave the values in the cells. Defined names referencing an external workbook will be set to #REF!
+
+            using(var p=new ExcelPackage(sampleFile1))
+            {
+                Console.WriteLine($"Now break links to the workbook {p.Workbook.ExternalLinks[0].As.ExternalWorkbook.File.FullName}");
+                p.Workbook.ExternalLinks.RemoveAt(0);
+                
+                var newFile = FileOutputUtil.GetFileInfo("29-ExternalLinks-Link1Removed.xlsx", false);
+                p.SaveAs(newFile);
+            }
         }
 
     }
