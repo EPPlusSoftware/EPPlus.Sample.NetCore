@@ -94,7 +94,7 @@ namespace EPPlusSamples.PerformanceAndProtection
 
                 Console.WriteLine("{0:HH.mm.ss}\tAutofit columns and lock and format cells...", DateTime.Now);
                 ws.Cells[rows - 100, 1, rows, 5].AutoFitColumns(5);     //Auto fit using the last 100 rows with minimum width 5
-                ws.Column(5).Width = 15;                                //We need to set the width for column F manually since the end sum formula is the widest cell in the column (EPPlus don't calculate any forumlas, so no output text is avalible). 
+                ws.Columns[5].Width = 15;                                //We need to set the width for column F manually since the end sum formula is the widest cell in the column (EPPlus don't calculate any forumlas, so no output text is avalible). 
 
                 //Now we set the sheet protection and a password.
                 ws.Cells[2, 3, rows + 1, 4].Style.Locked = false;

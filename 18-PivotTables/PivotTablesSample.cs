@@ -311,17 +311,17 @@ namespace EPPlusSamples.PivotTables
             df2.Name = "Order value % of total";
             df2.ShowDataAs.SetPercentOfColumn();
             df2.Format = "0.0%;";
-            
+
             var df3 = pivotTable5.DataFields.Add(pivotTable5.Fields["OrderValue"]);
             df3.Name = "Count Difference From Previous";
             df3.ShowDataAs.SetDifference(rowField1, ePrevNextPivotItem.Previous);
             df3.Function = DataFieldFunctions.Count;
             df3.Format = "#,##0";
-            
+
             pivotTable5.SetCompact(false);
             pivotTable5.ColumnHeaderCaption = "Data";
-            pivotTable5.ShowColumnStripes = true;            
-            wsPivot5.Column(1).Width = 30;
+            pivotTable5.ShowColumnStripes = true;
+            wsPivot5.Columns[1].Width = 30;
 
             return pivotTable5;
         }

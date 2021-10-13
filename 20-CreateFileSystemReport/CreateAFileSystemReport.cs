@@ -73,17 +73,14 @@ namespace EPPlusSamples.CreateFileSystemReport
 
             ws.View.ShowGridLines = false;
 
-            ws.Column(1).Width = 2.5;
-            ws.Column(2).Width = 60;
-            ws.Column(3).Width = 16;
-            ws.Column(4).Width = 20;
-            ws.Column(5).Width = 20;
+            ws.Columns[1].Width = 2.5;
+            ws.Columns[2].Width = 60;
+            ws.Columns[3].Width = 16;
+            ws.Columns[4, 5].Width = 20;
             
             //This set the outline for column 4 and 5 and hide them
-            ws.Column(4).OutlineLevel = 1;
-            ws.Column(4).Collapsed = true;
-            ws.Column(5).OutlineLevel = 1;
-            ws.Column(5).Collapsed = true;
+            ws.Columns[4, 5].OutlineLevel = 1;
+            ws.Columns[4, 5].Collapsed = true;
             ws.OutLineSummaryRight = true;
             
             //Headers
@@ -405,7 +402,7 @@ namespace EPPlusSamples.CreateFileSystemReport
             {
                 Bitmap icon = GetIcon(dir.FullName);
 
-                ws.Row(row).Height = height;
+                ws.Rows[row].Height = height;
                 //Add the icon as a picture
                 if (icon != null)
                 {
@@ -419,7 +416,7 @@ namespace EPPlusSamples.CreateFileSystemReport
 
             ws.Cells[row, 2, row, 5].Style.Font.Bold = true;
             //Sets the outline depth
-            ws.Row(row).OutlineLevel = level;
+            ws.Rows[row].OutlineLevel = level;
 
             int prevRow = row;
             row++;
@@ -439,7 +436,7 @@ namespace EPPlusSamples.CreateFileSystemReport
                 {
                     Bitmap fileIcon = GetIcon(file.FullName);
 
-                    ws.Row(row).Height = height;
+                    ws.Rows[row].Height = height;
                     if (fileIcon != null)
                     {
                         ExcelPicture pic = ws.Drawings.AddPicture("pic" + (row).ToString(), fileIcon);
@@ -452,7 +449,7 @@ namespace EPPlusSamples.CreateFileSystemReport
                 ws.Cells[row, 4].Value = file.CreationTime;
                 ws.Cells[row, 5].Value = file.LastAccessTime;
 
-                ws.Row(row).OutlineLevel = level+1;
+                ws.Rows[row].OutlineLevel = level+1;
 
                 AddStatistics(file);
 

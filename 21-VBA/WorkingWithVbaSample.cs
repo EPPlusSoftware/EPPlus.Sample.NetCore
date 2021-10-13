@@ -170,7 +170,7 @@ namespace EPPlusSamples
             //Set the headers.
             ws.SetValue("B1", "Computer Grid");
             ws.SetValue("M1", "Your Grid");
-            ws.Row(1).Style.Font.Size = 18;
+            ws.Rows[1].Style.Font.Size = 18;
 
             AddChart(ws.Cells["B13"], "chtHitPercent", "Player");
             AddChart(ws.Cells["M13"], "chtComputerHitPercent", "Computer");

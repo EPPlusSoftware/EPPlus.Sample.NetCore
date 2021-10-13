@@ -40,6 +40,7 @@ namespace EPPlusSamples
             } 
             return fi; 
         } 
+
         public static FileInfo GetFileInfo(DirectoryInfo altOutputDir, string file, bool deleteIfExists = true)
         {
             var fi = new FileInfo(altOutputDir.FullName + Path.DirectorySeparatorChar + file);

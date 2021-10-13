@@ -128,13 +128,11 @@ namespace EPPlusSamples
             formSheet.Cells["A1"].Value = "Room booking";
             formSheet.Cells["A1"].Style.Font.Size = 18;
             formSheet.Cells["A1"].Style.Font.Bold = true;
-            formSheet.Column(1).Width = 30;
-            formSheet.Column(2).Width = 60;
+            formSheet.Columns[1].Width = 30;
+            formSheet.Columns[2].Width = 60;
             formSheet.Cells.Style.Fill.SetBackground(Color.Gray);
-            for (int row = 1; row <= 18; row++)
-            {
-                formSheet.Row(row).Height = 25;
-            }
+
+            formSheet.Rows[1, 18].Height = 25;
 
             return formSheet;
         }

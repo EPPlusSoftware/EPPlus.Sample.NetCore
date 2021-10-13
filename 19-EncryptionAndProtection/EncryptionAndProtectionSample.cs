@@ -66,9 +66,9 @@ namespace EPPlusSamples.EncryptionAndProtection
                 sheet.Cells["A1"].Style.Font.Size = 18;
                 sheet.Cells["A3"].Value = "Enter your name:";
 
-                sheet.Column(1).Width = 30;
-                sheet.Column(2).Width = 80;
-                sheet.Column(3).Width = 20;
+                sheet.Columns[1].Width = 30;
+                sheet.Columns[2].Width = 80;
+                sheet.Columns[3].Width = 20;
 
                 sheet.Cells["A7"].Value = "What is the name of the capital of Sweden?";
                 sheet.Cells["A9"].Value = "At which place did the Swedish team end up in the Soccer Worldcup 1994?";

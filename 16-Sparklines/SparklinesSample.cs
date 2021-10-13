@@ -43,7 +43,7 @@ namespace EPPlusSamples.Sparklines
 
                 // Add a new worksheet to the empty workbook and load the fx rates from the text
                 var ws = package.Workbook.Worksheets.Add("SEKRates");
-                
+
                 //Load the sample data with a Swedish culture setting
                 ws.Cells["A1"].LoadFromText(txt, new ExcelTextFormat() { Delimiter = ';', Culture = CultureInfo.GetCultureInfo("sv-SE") }, TableStyles.Light10, true);
                 ws.Cells["A2:A12"].Style.Numberformat.Format = "yyyy-mm-dd";
@@ -52,7 +52,7 @@ namespace EPPlusSamples.Sparklines
                 ws.Cells["A15"].Value = "Column";
                 var sparklineCol = ws.SparklineGroups.Add(eSparklineType.Column, ws.Cells["B15:Q15"], ws.Cells["B2:Q12"]);
                 sparklineCol.High = true;
-                sparklineCol.ColorHigh.SetColor(Color.Red); 
+                sparklineCol.ColorHigh.SetColor(Color.Red);
 
                 // Add a line sparkline for  all currencies
                 ws.Cells["A16"].Value = "Line";
@@ -72,9 +72,7 @@ namespace EPPlusSamples.Sparklines
 
                 ws.Cells["A15:A17"].Style.Font.Bold = true;
                 ws.Cells.AutoFitColumns();
-                ws.Row(15).Height = 40;
-                ws.Row(16).Height = 40;
-                ws.Row(17).Height = 40;
+                ws.Rows[15, 17].Height = 40;
 
                 package.SaveAs(FileOutputUtil.GetFileInfo("16-Sparklines.xlsx"));
             }
