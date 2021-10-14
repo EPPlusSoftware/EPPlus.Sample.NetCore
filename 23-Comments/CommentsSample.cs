@@ -20,7 +20,7 @@ namespace EPPlusSamples.Comments
                 // Threaded comments
                 var sheet2 = package.Workbook.Worksheets.Add("ThreadedComments");
                 AddAndReadThreadedComments(sheet2);
-                package.SaveAs(FileOutputUtil.GetFileInfo("23-Comments.xlsx"));
+                package.SaveAs(FileUtil.GetCleanFileInfo("23-Comments.xlsx"));
             }
         }
 

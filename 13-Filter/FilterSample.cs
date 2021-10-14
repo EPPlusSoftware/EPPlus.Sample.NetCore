@@ -42,7 +42,7 @@ namespace EPPlusSampleApp.Core
             //Filter on a pivot table, also see sample 24-Slicers. 
             await PivotTableFilter(connectionString, p);
 
-            p.SaveAs(FileOutputUtil.GetFileInfo("13-Filters.xlsx"));
+            p.SaveAs(FileUtil.GetCleanFileInfo("13-Filters.xlsx"));
         }
 
         private static async Task ValueFilter(string connectionString, ExcelPackage p)

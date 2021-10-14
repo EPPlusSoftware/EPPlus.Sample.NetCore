@@ -118,7 +118,7 @@ namespace EPPlusSamples
                 code.AppendLine("End Sub");
                 module.Code = code.ToString();
 
-                package.SaveAs(FileOutputUtil.GetFileInfo("26-FormControls.xlsm"));
+                package.SaveAs(FileUtil.GetCleanFileInfo("26-FormControls.xlsm"));
             }
         }
 

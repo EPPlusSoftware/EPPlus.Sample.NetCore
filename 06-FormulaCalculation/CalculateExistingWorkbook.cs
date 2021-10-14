@@ -52,7 +52,7 @@ namespace EPPlusSamples.FormulaCalculation
         public void Run()
         {
             //var resourceStream = GetResource("EPPlusSampleApp.Core.FormulaCalculation.FormulaCalcSample.xlsx");
-            var filePath = FileInputUtil.GetFileInfo("06-FormulaCalculation", "FormulaCalcSample.xlsx").FullName;
+            var filePath = FileUtil.GetFileInfo("06-FormulaCalculation", "FormulaCalcSample.xlsx").FullName;
             using (var package = new ExcelPackage(new FileInfo(filePath)))
             {
                 // Read the value from the workbook. This is calculated by Excel.

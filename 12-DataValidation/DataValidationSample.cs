@@ -26,7 +26,7 @@ namespace EPPlusSamples.DataValidation
     {
         public static string Run()
         {
-            FileInfo output = FileOutputUtil.GetFileInfo("12-DataValidation.xlsx");
+            FileInfo output = FileUtil.GetCleanFileInfo("12-DataValidation.xlsx");
             using (var package = new ExcelPackage(output))
             {
                 AddIntegerValidation(package);

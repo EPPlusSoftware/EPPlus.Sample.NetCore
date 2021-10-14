@@ -29,7 +29,7 @@ namespace EPPlusSamples.SalesReport
         /// <param name="connectionString">The connection string to the SQLite database</param>
         public static string Run(string connectionString)
         {
-            var file = FileOutputUtil.GetFileInfo("08-Salesreport.xlsx");
+            var file = FileUtil.GetCleanFileInfo("08-Salesreport.xlsx");
             using (ExcelPackage xlPackage = new ExcelPackage(file))
             {
                 ExcelWorksheet worksheet = xlPackage.Workbook.Worksheets.Add("Sales");

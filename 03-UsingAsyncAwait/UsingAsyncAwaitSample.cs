@@ -30,7 +30,7 @@ namespace EPPlusSamples.SalesReport
         /// <param name="connectionString">The connection string to the SQLite database</param>
         public static async Task RunAsync(string connectionString)
         {
-            var file = FileOutputUtil.GetFileInfo("03-AsyncAwait.xlsx");
+            var file = FileUtil.GetCleanFileInfo("03-AsyncAwait.xlsx");
             using (ExcelPackage package = new ExcelPackage(file))
             {
                 var ws = package.Workbook.Worksheets.Add("Sheet1");
@@ -54,10 +54,10 @@ namespace EPPlusSamples.SalesReport
                 await package.LoadAsync(file);
 
                 var newWs = package.Workbook.Worksheets.Add("AddedSheet2");
-                var range = await newWs.Cells["A1"].LoadFromTextAsync(FileInputUtil.GetFileInfo("03-UsingAsyncAwait", "Importfile.txt"), new ExcelTextFormat { Delimiter='\t' });
+                var range = await newWs.Cells["A1"].LoadFromTextAsync(FileUtil.GetFileInfo("03-UsingAsyncAwait", "Importfile.txt"), new ExcelTextFormat { Delimiter='\t' });
                 range.AutoFitColumns();
 
-                await package.SaveAsAsync(FileOutputUtil.GetFileInfo("03-AsyncAwait-LoadedAndModified.xlsx"));
+                await package.SaveAsAsync(FileUtil.GetCleanFileInfo("03-AsyncAwait-LoadedAndModified.xlsx"));
             }
         }
     }

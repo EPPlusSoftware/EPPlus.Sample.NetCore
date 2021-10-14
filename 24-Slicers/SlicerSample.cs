@@ -26,7 +26,7 @@ namespace EPPlusSamples
                 //Create three slicers and two pivot tables, one that connects to both tables and two that connect to each of the tables.
                 PivotTableOneSlicerToMultiplePivotTables(p);
 
-                p.SaveAs(FileOutputUtil.GetFileInfo("24-Slicers.xlsx"));
+                p.SaveAs(FileUtil.GetCleanFileInfo("24-Slicers.xlsx"));
             }
         }
 

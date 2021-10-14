@@ -46,7 +46,7 @@ namespace EPPlusSamples.PivotTables
         {
             var list = GetDataFromSQL(connectionStr);
 
-            FileInfo newFile = FileOutputUtil.GetFileInfo("18-PivotTables.xlsx");
+            FileInfo newFile = FileUtil.GetCleanFileInfo("18-PivotTables.xlsx");
             using (ExcelPackage pck = new ExcelPackage(newFile))
             {
                 // get the handle to the existing worksheet

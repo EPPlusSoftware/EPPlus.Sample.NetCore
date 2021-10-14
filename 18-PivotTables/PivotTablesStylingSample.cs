@@ -35,8 +35,8 @@ namespace EPPlusSamples.PivotTables
     {
         public static string Run()
         {
-            FileInfo templateFile = FileOutputUtil.GetFileInfo("18-PivotTables.xlsx", false);
-            FileInfo newFile = FileOutputUtil.GetFileInfo("18-PivotTables-Styling.xlsx");
+            FileInfo templateFile = FileUtil.GetFileInfo("18-PivotTables.xlsx");
+            FileInfo newFile = FileUtil.GetFileInfo("18-PivotTables-Styling.xlsx");
             using ( ExcelPackage pck = new ExcelPackage(newFile, templateFile))
             {
                 //These two sample shows how to style different parts on the pivot table using pivot areas.

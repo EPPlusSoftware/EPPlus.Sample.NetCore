@@ -32,7 +32,7 @@ namespace EPPlusSamples
 	        Console.WriteLine("Now open sample 9 again and perform some Linq queries...");
 		    Console.WriteLine();
 
-            FileInfo existingFile = FileOutputUtil.GetFileInfo("09-PerformanceAndProtection.xlsx", false);
+            FileInfo existingFile = FileUtil.GetFileInfo("09-PerformanceAndProtection.xlsx");
             using (ExcelPackage package = new ExcelPackage(existingFile))
             {
                 ExcelWorksheet sheet = package.Workbook.Worksheets[0];

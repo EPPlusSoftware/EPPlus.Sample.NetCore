@@ -27,7 +27,7 @@ namespace EPPlusSamples.EncryptionAndProtection
         public static void Run()
         {
             //The output package
-            var outputFile = FileOutputUtil.GetFileInfo("14-ShapesAndImages.xlsx");
+            var outputFile = FileUtil.GetCleanFileInfo("14-ShapesAndImages.xlsx");
 
             //Create the template...
             using (ExcelPackage package = new ExcelPackage(outputFile))
@@ -44,25 +44,25 @@ namespace EPPlusSamples.EncryptionAndProtection
             var ws = package.Workbook.Worksheets.Add("Picture");
             
             //Add an jpg image and apply some effects.
-            var pic = ws.Drawings.AddPicture("Landscape", FileInputUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
+            var pic = ws.Drawings.AddPicture("Landscape", FileUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
             pic.SetPosition(2, 0, 1, 0);
             pic.Effect.SetPresetShadow(ePresetExcelShadowType.OuterBottomRight);
             pic.Effect.OuterShadow.Distance = 10;
             pic.Effect.SetPresetSoftEdges(ePresetExcelSoftEdgesType.SoftEdge5Pt);
 
             //Add the same image, but with 25 percent of the size. Let the position be absolute.
-            pic = ws.Drawings.AddPicture("LandscapeSmall", FileInputUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
+            pic = ws.Drawings.AddPicture("LandscapeSmall", FileUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
             pic.SetPosition(2, 0, 16, 0);
             pic.SetSize(25); //25% 
             pic.ChangeCellAnchor(eEditAs.Absolute);
 
             //Add the same image again, but let the picture move and resize when rows and colums are resized.
-            pic = ws.Drawings.AddPicture("LandscapeMoveAndResize", FileInputUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
+            pic = ws.Drawings.AddPicture("LandscapeMoveAndResize", FileUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
             pic.SetPosition(30, 0, 16, 0);
             pic.ChangeCellAnchor(eEditAs.TwoCell);
 
             //Add the image overlapping the first image, but make sure it is behind
-            pic = ws.Drawings.AddPicture("LandscapeSendToBack", FileInputUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
+            pic = ws.Drawings.AddPicture("LandscapeSendToBack", FileUtil.GetFileInfo("14-ShapesAndImages", "LandscapeView.jpg"));
             pic.SetPosition(8, 0, 8, 0);
             pic.SetSize(25); //25% 
             pic.SendToBack(); 
@@ -112,7 +112,7 @@ namespace EPPlusSamples.EncryptionAndProtection
             drawing.SetSize(250, 250);
             drawing.Fill.Style = eFillStyle.BlipFill;
 
-            var image = new Bitmap(FileInputUtil.GetFileInfo("14-ShapesAndImages", "EPPlusLogo.jpg").FullName);
+            var image = new Bitmap(FileUtil.GetFileInfo("14-ShapesAndImages", "EPPlusLogo.jpg").FullName);
             drawing.Fill.BlipFill.Image = image;
             drawing.Fill.BlipFill.Stretch = true;
             drawing.Text = "Blip Fill";

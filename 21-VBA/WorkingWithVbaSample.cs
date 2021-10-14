@@ -53,12 +53,12 @@ namespace EPPlusSamples
             pck.Workbook.CodeModule.Code = sb.ToString();
 
             //And Save as xlsm
-            FileInfo fi = FileOutputUtil.GetFileInfo("21.1-SimpleVba.xlsm");
+            FileInfo fi = FileUtil.GetCleanFileInfo("21.1-SimpleVba.xlsm");
             pck.SaveAs(fi);
         }
         private static void AddABubbleChart()
         {
-            FileInfo sample1File = FileOutputUtil.GetFileInfo("01-GettingStarted.xlsx", false);
+            FileInfo sample1File = FileUtil.GetFileInfo("01-GettingStarted.xlsx");
             //Open Sample 1 again
             ExcelPackage pck = new ExcelPackage(sample1File);
             var p = new ExcelPackage();
@@ -88,7 +88,7 @@ namespace EPPlusSamples
             //pck.Workbook.VbaProject.Signature.Certificate = store.Certificates[0];
 
             //And Save as xlsm
-            FileInfo fi =FileOutputUtil.GetFileInfo("21.2-AddABubbleChartVba.xlsm");
+            FileInfo fi =FileUtil.GetCleanFileInfo("21.2-AddABubbleChartVba.xlsm");
             pck.SaveAs(fi);
         }
         private static void CreateABattleShipsGame()
@@ -123,7 +123,7 @@ namespace EPPlusSamples
             //Password protect your code
             pck.Workbook.VbaProject.Protection.SetPassword("EPPlus");
 
-             var codeDir = FileInputUtil.GetSubDirectory("21-VBA", "VBA-Code");
+             var codeDir = FileUtil.GetSubDirectory("21-VBA", "VBA-Code");
 
             //Add all the code from the textfiles in the Vba-Code sub-folder.
             pck.Workbook.CodeModule.Code = GetCodeModule(codeDir, "ThisWorkbook.txt");
@@ -198,13 +198,13 @@ namespace EPPlusSamples
             //    }
             //}
 
-            var fi = FileOutputUtil.GetFileInfo(@"21.3-CreateABattleShipsGameVba.xlsm");
+            var fi = FileUtil.GetCleanFileInfo(@"21.3-CreateABattleShipsGameVba.xlsm");
             pck.SaveAs(fi);
         }
 
         private static string GetCodeModule(DirectoryInfo codeDir, string fileName)
         {
-            return File.ReadAllText(FileOutputUtil.GetFileInfo(codeDir, fileName, false).FullName);
+            return File.ReadAllText(FileUtil.GetFileInfo(codeDir, fileName, false).FullName);
         }
 
         private static void AddChart(ExcelRange rng,string name, string prefix)

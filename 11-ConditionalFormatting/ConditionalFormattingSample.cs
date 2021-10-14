@@ -33,7 +33,7 @@ namespace EPPlusSamples
     /// </summary>
     public static string Run()
     {
-      FileInfo newFile = FileOutputUtil.GetFileInfo("11-ConditionalFormatting.xlsx");
+      FileInfo newFile = FileUtil.GetCleanFileInfo("11-ConditionalFormatting.xlsx");
       using (ExcelPackage package = new ExcelPackage(newFile))
       {
         // add a new worksheet to the empty workbook

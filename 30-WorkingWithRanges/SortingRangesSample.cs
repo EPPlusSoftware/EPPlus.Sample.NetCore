@@ -27,7 +27,7 @@ namespace EPPlusSamples
                 // Sort the range left to right by row 0 (using a custom list), then by row 1
                 sheet2.Cells["A3:K5"].Sort(x => x.SortLeftToRightBy.Row(0).UsingCustomList("S", "M", "L", "XL", "XXL").ThenSortBy.Row(1));
 
-                p.SaveAs(FileOutputUtil.GetFileInfo("30-SortingRanges.xlsx"));
+                p.SaveAs(FileUtil.GetCleanFileInfo("30-SortingRanges.xlsx"));
             }
         }
 

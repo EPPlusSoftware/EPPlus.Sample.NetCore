@@ -52,7 +52,7 @@ namespace EPPlusSampleApp.Core
             ie = ws.IgnoredErrors.Add(ws.Cells["D2,D4"]);
             ie.Formula = true;                              // Ignore the inconsistant formula error
 
-            p.SaveAs(FileOutputUtil.GetFileInfo("22-IgnoreErrors.xlsx"));
+            p.SaveAs(FileUtil.GetCleanFileInfo("22-IgnoreErrors.xlsx"));
         }
     }
 }

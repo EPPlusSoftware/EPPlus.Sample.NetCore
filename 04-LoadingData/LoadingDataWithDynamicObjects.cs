@@ -52,7 +52,7 @@ namespace EPPlusSamples.LoadingData
             };
 
             // Create a workbook with a worksheet and load the data into a table
-            using(var package = new ExcelPackage(FileOutputUtil.GetFileInfo("04-LoadDynamicObjects.xlsx")))
+            using(var package = new ExcelPackage(FileUtil.GetCleanFileInfo("04-LoadDynamicObjects.xlsx")))
             {
                 var sheet = package.Workbook.Worksheets.Add("Dynamic");
                 sheet.Cells["A1"].LoadFromDictionaries(items, c =>
@@ -69,8 +69,8 @@ namespace EPPlusSamples.LoadingData
             }
 
             // Load data from json (in this case a file)
-            var jsonItems = JsonConvert.DeserializeObject<IEnumerable<ExpandoObject>>(File.ReadAllText(FileInputUtil.GetFileInfo("04-LoadingData", "testdata.json").FullName));
-            using (var package = new ExcelPackage(FileOutputUtil.GetFileInfo("04-LoadJsonFromFile.xlsx")))
+            var jsonItems = JsonConvert.DeserializeObject<IEnumerable<ExpandoObject>>(File.ReadAllText(FileUtil.GetFileInfo("04-LoadingData", "testdata.json").FullName));
+            using (var package = new ExcelPackage(FileUtil.GetCleanFileInfo("04-LoadJsonFromFile.xlsx")))
             {
                 var sheet = package.Workbook.Worksheets.Add("Dynamic");
                 sheet.Cells["A1"].LoadFromDictionaries(jsonItems, c =>

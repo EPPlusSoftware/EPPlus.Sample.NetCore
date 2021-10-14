@@ -23,7 +23,7 @@ namespace EPPlusSamples
                 await StyleTablesAsync(connectionString, p).ConfigureAwait(false);
                 await CreateTableFilterAndSlicerAsync(connectionString, p).ConfigureAwait(false);
 
-                p.SaveAs(FileOutputUtil.GetFileInfo("28-Tables.xlsx"));
+                p.SaveAs(FileUtil.GetCleanFileInfo("28-Tables.xlsx"));
             }
         }
         /// <summary>

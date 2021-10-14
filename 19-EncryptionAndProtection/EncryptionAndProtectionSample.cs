@@ -26,12 +26,12 @@ namespace EPPlusSamples.EncryptionAndProtection
         public static void Run()
         {
             //Create a Sample 19 directory...
-            var outputDir = FileOutputUtil.GetDirectoryInfo("19-EncryptionAndProtection");
+            var outputDir = FileUtil.GetDirectoryInfo("19-EncryptionAndProtection");
 
             //create the three FileInfo objects...
-            FileInfo templateFile = FileOutputUtil.GetFileInfo(outputDir, "template.xlsx");
-            FileInfo answerFile = FileOutputUtil.GetFileInfo(outputDir, "answers.xlsx");
-            FileInfo JKAnswerFile = FileOutputUtil.GetFileInfo(outputDir, "JKAnswers.xlsx");
+            FileInfo templateFile = FileUtil.GetFileInfo(outputDir, "template.xlsx");
+            FileInfo answerFile = FileUtil.GetFileInfo(outputDir, "answers.xlsx");
+            FileInfo JKAnswerFile = FileUtil.GetFileInfo(outputDir, "JKAnswers.xlsx");
 
             //Create the template...
             using (ExcelPackage package = new ExcelPackage(templateFile))

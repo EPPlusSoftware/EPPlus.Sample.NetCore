@@ -23,7 +23,7 @@ namespace EPPlusSamples
 	{
 		public static void Run()
 		{
-            var filePath = FileInputUtil.GetFileInfo("02-ReadWorkbook", "ReadWorkbook.xlsx").FullName;
+            var filePath = FileUtil.GetFileInfo("02-ReadWorkbook", "ReadWorkbook.xlsx").FullName;
 			Console.WriteLine("Reading column 2 of {0}", filePath);
 			Console.WriteLine();
 

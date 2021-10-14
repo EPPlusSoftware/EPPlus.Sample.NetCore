@@ -38,7 +38,7 @@ namespace EPPlusSamples.FXReportFromDatabase
         /// <returns></returns>
         public static string Run(string connectionString)
         {
-            FileInfo template = FileInputUtil.GetFileInfo("17-FXReportFromDatabase", "GraphTemplate.xlsx");
+            FileInfo template = FileUtil.GetFileInfo("17-FXReportFromDatabase", "GraphTemplate.xlsx");
 
             using (ExcelPackage p = new ExcelPackage(template, true))
             {
@@ -139,7 +139,7 @@ namespace EPPlusSamples.FXReportFromDatabase
                 //Get the documet as a byte array from the stream and save it to disk.  (This is useful in a webapplication) ... 
                 var bin = p.GetAsByteArray();
 
-                FileInfo file = FileOutputUtil.GetFileInfo("17-FxReportFromDatabase.xlsx");
+                FileInfo file = FileUtil.GetCleanFileInfo("17-FxReportFromDatabase.xlsx");
                 File.WriteAllBytes(file.FullName, bin);
                 return file.FullName;
             }

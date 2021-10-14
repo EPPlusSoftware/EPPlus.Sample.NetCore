@@ -59,7 +59,7 @@ namespace EPPlusSamples.LoadingData
                 new Actor2{ Salary = 315.34, Tax = 0.28, FirstName = "Lisa", MiddleName = "Maria", LastName = "Gonzales", Birthdate = new DateTime(1971, 10, 2)}
             };
 
-            using (var package = new ExcelPackage(FileOutputUtil.GetFileInfo("04-LoadFromCollectionAttributes.xlsx")))
+            using (var package = new ExcelPackage(FileUtil.GetCleanFileInfo("04-LoadFromCollectionAttributes.xlsx")))
             {
                 // using the Actor class above
                 var sheet = package.Workbook.Worksheets.Add("Actors");

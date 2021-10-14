@@ -64,7 +64,7 @@ namespace EPPlusSamples.CreateFileSystemReport
         {
             _maxLevels = depth;
 
-            FileInfo newFile = FileOutputUtil.GetFileInfo("20-CreateAFileSystemReport.xlsx");
+            FileInfo newFile = FileUtil.GetCleanFileInfo("20-CreateAFileSystemReport.xlsx");
             
             //Create the workbook
             ExcelPackage pck = new ExcelPackage(newFile);

@@ -33,7 +33,7 @@ namespace EPPlusSamples.LoadingData
             var pck = new ExcelPackage();
 
             //Create a datatable with the directories and files from the current directory...
-            DataTable dt = GetDataTable(FileOutputUtil.GetDirectoryInfo("."));
+            DataTable dt = GetDataTable(FileUtil.GetDirectoryInfo("."));
 
             var wsDt = pck.Workbook.Worksheets.Add("FromDataTable");
 
@@ -108,7 +108,7 @@ namespace EPPlusSamples.LoadingData
             wsList.Cells[wsList.Dimension.Address].AutoFitColumns();
 
             //...and save
-            var fi = FileOutputUtil.GetFileInfo("04-LoadingData.xlsx");
+            var fi = FileUtil.GetCleanFileInfo("04-LoadingData.xlsx");
             pck.SaveAs(fi);
             pck.Dispose();
         }

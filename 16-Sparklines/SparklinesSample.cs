@@ -74,7 +74,7 @@ namespace EPPlusSamples.Sparklines
                 ws.Cells.AutoFitColumns();
                 ws.Rows[15, 17].Height = 40;
 
-                package.SaveAs(FileOutputUtil.GetFileInfo("16-Sparklines.xlsx"));
+                package.SaveAs(FileUtil.GetCleanFileInfo("16-Sparklines.xlsx"));
             }
         }
 }

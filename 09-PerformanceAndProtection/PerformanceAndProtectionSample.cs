@@ -29,7 +29,7 @@ namespace EPPlusSamples.PerformanceAndProtection
         /// <param name="rows"></param>
         public static string Run(int rows)
         {
-            var newFile = FileOutputUtil.GetFileInfo("09-PerformanceAndProtection.xlsx");
+            var newFile = FileUtil.GetCleanFileInfo("09-PerformanceAndProtection.xlsx");
             using (ExcelPackage package = new ExcelPackage())
             {
                 Console.WriteLine("{0:HH.mm.ss}\tStarting...", DateTime.Now);

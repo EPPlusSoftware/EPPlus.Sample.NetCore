@@ -110,7 +110,7 @@ namespace EPPlusSamples
                 package.Workbook.Properties.SetCustomPropertyValue("Checked by", "Jan Källman");
                 package.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
 
-                var xlFile = FileOutputUtil.GetFileInfo("01-GettingStarted.xlsx");
+                var xlFile = FileUtil.GetCleanFileInfo("01-GettingStarted.xlsx");
                 
                 // Save our new workbook in the output directory and we are done!
                 package.SaveAs(xlFile);

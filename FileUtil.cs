@@ -9,16 +9,63 @@
   Date               Author                       Change
  *************************************************************************************************
   01/27/2020         EPPlus Software AB           Initial release EPPlus 5
- *************************************************************************************************/using System;
-using System.Collections.Generic;
+ *************************************************************************************************/
+using System;
 using System.IO;
-using System.Text;
-
 namespace EPPlusSamples
 {
-    public class FileInputUtil
+    public class FileUtil
     {
+        static DirectoryInfo _outputDir = null;
+        public static DirectoryInfo OutputDir
+        {
+            get
+            {
+                return _outputDir;
+            }
+            set
+            {
+                _outputDir = value;
+                if (!_outputDir.Exists)
+                {
+                    _outputDir.Create();
+                }
+            }
+        } 
+        public static FileInfo GetCleanFileInfo(string file)
+        {
+            var fi = new FileInfo(OutputDir.FullName + Path.DirectorySeparatorChar + file);
+            if (fi.Exists)
+            { 
+                fi.Delete();  // ensures we create a new workbook
+            } 
+            return fi; 
+        }
+        public static FileInfo GetFileInfo(string file)
+        {
+            return new FileInfo(OutputDir.FullName + Path.DirectorySeparatorChar + file);
+        }
 
+        public static FileInfo GetFileInfo(DirectoryInfo altOutputDir, string file, bool deleteIfExists = true)
+        {
+            var fi = new FileInfo(altOutputDir.FullName + Path.DirectorySeparatorChar + file);
+            if (deleteIfExists && fi.Exists)
+            {
+                fi.Delete();  // ensures we create a new workbook
+            }
+            return fi;  
+        }
+
+
+        internal static DirectoryInfo GetDirectoryInfo(string directory)
+        {
+            var di = new DirectoryInfo(_outputDir.FullName + Path.DirectorySeparatorChar + directory);
+            if (!di.Exists)
+            {
+                di.Create();
+            }
+            return di;
+        }
         /// <summary>
         /// Returns a fileinfo with the full path of the requested file
         /// </summary>

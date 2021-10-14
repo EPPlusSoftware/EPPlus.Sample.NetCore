@@ -22,7 +22,7 @@ namespace EPPlusSamples
                 CreatePivotTableStyles(p);
                 CreateSlicerStyles(p);
 
-                p.SaveAs(FileOutputUtil.GetFileInfo("27-TableAndSlicerStyles.xlsx"));
+                p.SaveAs(FileUtil.GetCleanFileInfo("27-TableAndSlicerStyles.xlsx"));
             }
         }
 

@@ -29,8 +29,8 @@ namespace EPPlusSamples.OpenWorkbookAddDataAndChart
         /// </summary>
         public static string Run()
         {
-            FileInfo newFile = FileOutputUtil.GetFileInfo("07-OpenWorkbookAndAddDataAndChartSample.xlsx");
-            FileInfo templateFile = FileInputUtil.GetFileInfo("07-OpenWorkbookAddDataAndChart", "ExistingWorkbook.xlsx");
+            FileInfo newFile = FileUtil.GetCleanFileInfo("07-OpenWorkbookAndAddDataAndChartSample.xlsx");
+            FileInfo templateFile = FileUtil.GetFileInfo("07-OpenWorkbookAddDataAndChart", "ExistingWorkbook.xlsx");
 
             using (ExcelPackage package = new ExcelPackage(newFile, templateFile))
             {

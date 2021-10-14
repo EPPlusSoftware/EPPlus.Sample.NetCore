@@ -17,7 +17,7 @@ namespace EPPlusSamples
             ReadFileWithExternalLink();
 
             //Sample file 1 adds external links to another workbook.
-            var sampleFile1 = FileOutputUtil.GetFileInfo("29-ExternalLinks-1.xlsx");
+            var sampleFile1 = FileUtil.GetCleanFileInfo("29-ExternalLinks-1.xlsx");
             using (var p = new ExcelPackage(sampleFile1))
             {
 
@@ -38,7 +38,7 @@ namespace EPPlusSamples
         /// </summary>
         private static void ReadFileWithExternalLink()
         {
-            var externalFile = FileInputUtil.GetFileInfo("29-ExternalLinks", "WorkbookWithExternalLinks.xlsx");
+            var externalFile = FileUtil.GetFileInfo("29-ExternalLinks", "WorkbookWithExternalLinks.xlsx");
             using (var p = new ExcelPackage(externalFile))
             {
                 //This worksheet contains references to an external workbook. 
@@ -72,7 +72,7 @@ namespace EPPlusSamples
                 //To avoid this behavior you can load the external workbook before doing the calculate.
                 //This is only an issue in special cases where the function needs information not available in the cache, as for example hidden cells and numeric formats.
                 var externalReference = p.Workbook.ExternalLinks[0].As.ExternalWorkbook;
-                p.Workbook.ExternalLinks.Directories.Add(FileInputUtil.GetSubDirectory("29-ExternalLinks","Data"));
+                p.Workbook.ExternalLinks.Directories.Add(FileUtil.GetSubDirectory("29-ExternalLinks","Data"));
                 externalReference.Load();
 
                 ws.ClearFormulaValues();
@@ -91,7 +91,7 @@ namespace EPPlusSamples
         private static void AddWorksheetWithExternalReferences(ExcelPackage p)
         {
             //Add a reference to the file created by sample 28.
-            var externalLinkFile = FileOutputUtil.GetFileInfo("28-Tables.xlsx", false);
+            var externalLinkFile = FileUtil.GetFileInfo("28-Tables.xlsx");
             var externalWorkbook = p.Workbook.ExternalLinks.AddExternalWorkbook(externalLinkFile);
 
             var ws = p.Workbook.Worksheets.Add("Sheet1");
@@ -116,7 +116,7 @@ namespace EPPlusSamples
         }
         private static void AddWorksheetWithExternalReferencesInFormulas(ExcelPackage p)
         {
-            var externalLinkFile = FileOutputUtil.GetFileInfo("01-GettingStarted.xlsx", false);
+            var externalLinkFile = FileUtil.GetFileInfo("01-GettingStarted.xlsx");
             var externalWorkbook = p.Workbook.ExternalLinks.AddExternalWorkbook(externalLinkFile);
             
             var ws = p.Workbook.Worksheets.Add("Sheet2");
@@ -151,7 +151,7 @@ namespace EPPlusSamples
                 Console.WriteLine($"Now break links to the workbook {p.Workbook.ExternalLinks[0].As.ExternalWorkbook.File.FullName}");
                 p.Workbook.ExternalLinks.RemoveAt(0);
                 
-                var newFile = FileOutputUtil.GetFileInfo("29-ExternalLinks-Link1Removed.xlsx", false);
+                var newFile = FileUtil.GetFileInfo("29-ExternalLinks-Link1Removed.xlsx");
                 p.SaveAs(newFile);
             }
         }

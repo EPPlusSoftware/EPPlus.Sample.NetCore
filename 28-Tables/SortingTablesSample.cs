@@ -16,7 +16,7 @@ namespace EPPlusSamples
     {
         public static async Task RunAsync(string connectionString)
         {
-            var file = FileOutputUtil.GetFileInfo("28-SortingTables.xlsx");
+            var file = FileUtil.GetCleanFileInfo("28-SortingTables.xlsx");
             using (ExcelPackage package = new ExcelPackage(file))
             {
                 // Sheet 1
