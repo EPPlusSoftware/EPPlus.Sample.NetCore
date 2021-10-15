@@ -132,10 +132,14 @@ namespace EPPlusSamples.FXReportFromDatabase
 
                     chart.Legend.Position = eLegendPosition.Bottom;
 
+                    //Set Font bold on USD/EUR in the legend.
+                    chart.Series[1].LegendEntry.Font.Bold = true;
+
                     //Set the chart style
                     chart.StyleManager.SetChartStyle(236);
+
                 }
-                
+
                 //Get the documet as a byte array from the stream and save it to disk.  (This is useful in a webapplication) ... 
                 var bin = p.GetAsByteArray();
 

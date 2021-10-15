@@ -252,7 +252,7 @@ namespace EPPlusSamples
 
                 // Sample 30 - Sort ranges
                 Console.WriteLine("Running sample 30 - Working with ranges");
-                CopyRangeSample.Run(connectionStr);
+                CopyRangeSample.Run();
                 FillRangeSample.Run();
                 SortingRangesSample.Run();
                 Console.WriteLine("Sample 30 finished.");
