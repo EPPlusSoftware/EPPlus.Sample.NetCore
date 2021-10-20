@@ -37,21 +37,27 @@ namespace EPPlusSamples
         {
             var ws = p.Workbook.Worksheets.Add("FillNumber Samples");
 
-            ws.SetValue(1, 1, 50);
+            ws.SetValue(1, 1, "FillNumber Default");
+            ws.SetValue(2, 1, 50);            
             //Fill the range by adding 1 for each cell starting from the value in the top-left cell.
-            ws.Cells["A1:A20"].FillNumber();
+            ws.Cells["A2:A20"].FillNumber();
 
+            ws.SetValue(1, 2, "FillNumber, Start 30, Step -2");
             //Fill the range by subtracting 2 from the initial value 30.
-            ws.Cells["B1:B20"].FillNumber(30, -2);
+            ws.Cells["B2:B20"].FillNumber(30, -2);
 
-            //Fill by starting with 100 and increase 5% for each cell. Fill by left by row
-            ws.Cells["D2:AA2"].FillNumber(x =>
+            ws.SetValue(1, 4, "FillNumber, Multiply add 5% row-wise");
+            //Fill by starting with 100 and increase 5% for each cell. Fill to the left by row
+            ws.Cells["E1:AA1"].FillNumber(x =>
             {
                 x.CalculationMethod = eCalculationMethod.Multiply;
                 x.StartValue = 100;
                 x.StepValue = 1.05;
                 x.Direction = eFillDirection.Row;
             });
+
+            ws.Cells["A1:D1"].Style.Font.Bold = true;
+            ws.Cells.AutoFitColumns();
         }
         /// <summary>
         /// Several samples how to use the FillDate method
@@ -62,14 +68,18 @@ namespace EPPlusSamples
             var ws = p.Workbook.Worksheets.Add("FillDateTime Samples");
 
             //Fill dates starting from the value in the first cell. By default a 1 day increase is assumed and fill is performed per column downwards.
+            ws.SetValue("A1", "FillDateTime-Default");
             ws.SetValue("A2", new DateTime(2021, 1, 1));
             ws.Cells["A2:A60"].FillDateTime();
 
-            //Fill dates using the starting value from a fixed start value instead of using the first cell.
-            ws.Cells["B2:B60"].FillDateTime(new DateTime(2021, 6, 30));
+
+            ws.SetValue("B1", "FillDateTime-Step two months");
+            //Fill dates using the starting value from a fixed start value instead of using the first cell. Increase with 2 months.
+            ws.Cells["B2:B60"].FillDateTime(new DateTime(2021, 6, 30), eDateTimeUnit.Month, 2);
 
             ws.Cells[2, 1, 60, 2].Style.Numberformat.Format = "yyyy-mm-dd";
 
+            ws.SetValue("C1", "FillDateTime-Month, exclude weekends and holidays");
             //Fill dates per last day of the quarter. If the start value is the last day of the month, this is used for all dates in the fill. 
             //This sample exclude weekends and adds some holiday dates. 
             //Column C2 and D2 are used as start values.
@@ -100,21 +110,23 @@ namespace EPPlusSamples
                 );
             });
 
+            ws.SetValue("F1", "FillDateTime-By Row from Right-to-Left");
             //You can also fill row-wise and fill right-to-left. 
-            //Note that as row 6 don't have a start value it's left blank in the fill.
+            //Note that as row 4 don't have a start value it's left blank in the fill.
             //We also set an end value where the fill will stop.
-            ws.Cells["AA4"].Value = new DateTime(2030, 1, 1);
-            ws.Cells["AA5"].Value = new DateTime(2030, 1, 5);
-            ws.Cells["AA7"].Value = new DateTime(2030, 1, 10);
-            ws.Cells["F4:AA7"].FillDateTime(x =>
+            ws.Cells["AA1"].Value = new DateTime(2030, 1, 1);
+            ws.Cells["AA2"].Value = new DateTime(2030, 1, 5);
+            ws.Cells["AA4"].Value = new DateTime(2030, 1, 10);
+            ws.Cells["H1:AA4"].FillDateTime(x =>
             {
                 x.Direction = eFillDirection.Row;
                 x.StartPosition = eFillStartPosition.BottomRight;
                 x.EndValue = new DateTime(2030, 1, 20);
                 x.NumberFormat = "yyyy-mm-dd";
             });
-
+            ws.Cells["A1:F1"].Style.Font.Bold = true;
             ws.Columns[1, 27].AutoFit();
+
         }
         /// <summary>
         /// Several samples how to use the FillList method
@@ -125,23 +137,32 @@ namespace EPPlusSamples
             var ws = p.Workbook.Worksheets.Add("Fill List Samples");
 
             var list = new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-            ws.Cells["A1:A20"].FillList(list);
+            ws.SetValue("A1", "FillList-Default");
+            //FillList repeates the list. Default starts from the first item at position 0
+            ws.Cells["A2:A20"].FillList(list);
 
-            ws.Cells["B1:B20"].FillList(list,  x=> { x.StartIndex=6; });
-            ws.Cells["E1:AA1"].FillList(list, x => 
+            ws.SetValue("B1", "FillList-Start index 6");
+            //Starts at position 6 in the list
+            ws.Cells["B2:B20"].FillList(list,  x=> { x.StartIndex=6; });
+
+            ws.SetValue("E1", "FillList-Per row");
+            //Fill per row
+            ws.Cells["F1:AA1"].FillList(list, x => 
             { 
                 x.Direction = eFillDirection.Row;
             });
 
+            ws.SetValue("C1", "FillList-Primes, bottom up");
             //Fill the list of primes starting from the bottom-up.
             //We set the range to the size of the list so it's not repeated.
             var primes = new List<int>{ 2,5,7,11,13,17,19,23,29,997,1009 };
-            ws.Cells[1,3,primes.Count, 3].FillList(primes, x =>
+            ws.Cells[2,3,primes.Count+1, 3].FillList(primes, x =>
             {
                 x.NumberFormat = "#,##0";
                 x.StartPosition = eFillStartPosition.BottomRight;
             });
-
+            ws.Cells["A1:E1"].Style.Font.Bold = true;
+            ws.Columns[1, 27].AutoFit();
         }
     }
 }

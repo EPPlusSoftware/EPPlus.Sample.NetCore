@@ -133,7 +133,7 @@ namespace EPPlusSamples.FXReportFromDatabase
                     chart.Legend.Position = eLegendPosition.Bottom;
 
                     //Set Font bold on USD/EUR in the legend.
-                    chart.Series[1].LegendEntry.Font.Bold = true;
+                    chart.Legend.Entries[1].Font.Bold = true;
 
                     //Set the chart style
                     chart.StyleManager.SetChartStyle(236);

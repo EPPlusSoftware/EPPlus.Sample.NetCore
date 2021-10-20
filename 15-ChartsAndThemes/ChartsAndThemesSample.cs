@@ -66,7 +66,10 @@ namespace EPPlusSamples
                 
                 //Adds a scatter chart with a moving average trendline.
                 ScatterChartSample.Add(package);
-                
+
+                //Adds a column chart with a legend where we style and remove individual legend items.
+                await ColumnChartWithLegendSample.Add(connectionString, package);
+
                 //Adds a bubble-chartsheet
                 ChartWorksheetSample.Add(package);
                 
@@ -79,13 +82,13 @@ namespace EPPlusSamples
                 //Adds a sunburst and a treemap chart 
                 await SunburstAndTreemapChartSample.Add(connectionString, package);
 
-                //Add a box & whisker and a histogram chart 
+                //Adds a box & whisker and a histogram chart 
                 BoxWhiskerHistogramChartSample.Add(package);
 
-                // Add a waterfall chart
+                // Adds a waterfall chart
                 WaterfallChartSample.Add(package);
 
-                // Add a funnel chart
+                // Adds a funnel chart
                 FunnelChartSample.Add(package);
 
                 await RegionMapChartSample.Add(connectionString, package);

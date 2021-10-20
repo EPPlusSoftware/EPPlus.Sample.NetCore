@@ -85,6 +85,8 @@ namespace EPPlusSamples
 
             //Copy styles and merged cells, excluding values and hyperlinks.
             sourceRange.Copy(ws.Cells["C45"], ExcelRangeCopyOptionFlags.ExcludeValues, ExcelRangeCopyOptionFlags.ExcludeHyperLinks);
+
+            ws.Cells.AutoFitColumns();
         }
         private static void CopyStyles(ExcelPackage p, ExcelWorksheet sourceWs)
         {
@@ -92,9 +94,9 @@ namespace EPPlusSamples
             
             //Create a new random report 
             FillRangeWithRandomData(ws);
-            
+
             //Copy the styles from the sales report.
-            //If the destination range is larger that the source range styles are filled down and right using the last column/row.
+            //If the destination range is larger that the source range styles are filled down and right using the last column/row the source range of the source range.
             sourceWs.Cells["A1:G5"].CopyStyles(ws.Cells["A1:G50"]);
             
             ws.Cells.AutoFitColumns();

@@ -130,9 +130,10 @@ namespace EPPlusSamples.SalesReport
                     // add the file path to the footer
                     worksheet.HeaderFooter.OddFooter.LeftAlignedText = ExcelHeaderFooter.FilePath + ExcelHeaderFooter.FileName;
                 }
-                // we had better add some document properties to the spreadsheet 
 
-                // set some core property values
+                // We can also add some document properties to the spreadsheet 
+
+                // Set some core property values
                 xlPackage.Workbook.Properties.Title = "Sales Report";
                 xlPackage.Workbook.Properties.Author = "Jan Källman";
                 xlPackage.Workbook.Properties.Subject = "Sales Report Samples";
@@ -140,11 +141,11 @@ namespace EPPlusSamples.SalesReport
                 xlPackage.Workbook.Properties.Category = "Sales Report  Samples";
                 xlPackage.Workbook.Properties.Comments = "This sample demonstrates how to create an Excel file from scratch using EPPlus";
 
-                // set some extended property values
+                // Set some extended property values
                 xlPackage.Workbook.Properties.Company = "Fiction Inc.";
                 xlPackage.Workbook.Properties.HyperlinkBase = new Uri("https://EPPlusSoftware.com");
 
-                // set some custom property values
+                // Set some custom property values
                 xlPackage.Workbook.Properties.SetCustomPropertyValue("Checked by", "Jan Källman");
                 xlPackage.Workbook.Properties.SetCustomPropertyValue("EmployeeID", "1");
                 xlPackage.Workbook.Properties.SetCustomPropertyValue("AssemblyName", "EPPlus");
