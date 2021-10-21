@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>    
+    <PackageReference Include="EPPlus" Version="5.7.5.794-20211021-develop" />    
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
@@ -23,10 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EPPlus\src\EPPlus\EPPlus.csproj" />
   </ItemGroup>
 
   <ItemGroup>
