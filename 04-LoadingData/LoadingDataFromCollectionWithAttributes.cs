@@ -40,6 +40,36 @@ namespace EPPlusSamples.LoadingData
 
     }
 
+    // classes used to demonstrate this functionality with a complex type property
+    [EpplusTable(TableStyle = TableStyles.Light14, PrintHeaders = true, AutofitColumns = true, AutoCalculate = true, ShowLastColumn = true)]
+    internal class Actor3
+    {
+        [EpplusIgnore]
+        public int Id { get; set; }
+
+        [EpplusNestedTableColumn(Order = 1)]
+        public ActorName Name { get; set; }
+
+        [EpplusTableColumn(Order = 0, NumberFormat = "yyyy-MM-dd", TotalsRowLabel = "Total")]
+        public DateTime Birthdate { get; set; }
+
+        [EpplusTableColumn(Order = 4, NumberFormat = "€#,##0.00", TotalsRowFunction = RowFunctions.Sum, TotalsRowNumberFormat = "€#,##0.00")]
+        public double Salary { get; set; }
+
+        [EpplusTableColumn(Order = 5, NumberFormat = "0%", TotalsRowFormula = "Table1[[#Totals],[Tax amount]]/Table1[[#Totals],[Salary]]", TotalsRowNumberFormat = "0 %")]
+        public double Tax { get; set; }
+    }
+
+    internal class ActorName
+    {
+        [EpplusTableColumn(Order = 3)]
+        public string LastName { get; set; }
+        [EpplusTableColumn(Order = 1, Header = "First name")]
+        public string FirstName { get; set; }
+        [EpplusTableColumn(Order = 2)]
+        public string MiddleName { get; set; }
+    }
+
     public static class LoadingDataFromCollectionWithAttributes
     {
         public static void Run()
@@ -59,6 +89,13 @@ namespace EPPlusSamples.LoadingData
                 new Actor2{ Salary = 315.34, Tax = 0.28, FirstName = "Lisa", MiddleName = "Maria", LastName = "Gonzales", Birthdate = new DateTime(1971, 10, 2)}
             };
 
+            var complexTypeActors = new List<Actor3>
+            {
+                new Actor3{ Salary = 256.24, Tax = 0.21, Name = new ActorName{ FirstName="John", MiddleName="Bernhard", LastName="Doe" }, Birthdate = new DateTime(1950, 3, 15) },
+                new Actor3{ Salary = 278.55, Tax = 0.23, Name = new ActorName{ FirstName="Sven", MiddleName="Bertil", LastName="Svensson" }, Birthdate = new DateTime(1962, 6, 10)},
+                new Actor3{ Salary = 315.34, Tax = 0.28, Name = new ActorName{ FirstName="Lisa", MiddleName="Maria", LastName="Gonzales" }, Birthdate = new DateTime(1971, 10, 2)}
+            };
+
             using (var package = new ExcelPackage(FileUtil.GetCleanFileInfo("04-LoadFromCollectionAttributes.xlsx")))
             {
                 // using the Actor class above
@@ -68,7 +105,11 @@ namespace EPPlusSamples.LoadingData
                 // using a subclass where we have overridden the EpplusTableAttribute (different TableStyle and highlight last column instead of the first).
                 var subclassSheet = package.Workbook.Worksheets.Add("Using subclass with attributes");
                 subclassSheet.Cells["A1"].LoadFromCollection(subclassActors);
-                
+
+                // using a subclass where we have overridden the EpplusTableAttribute (different TableStyle and highlight last column instead of the first).
+                var complexTypePropertySheet = package.Workbook.Worksheets.Add("Complex type property");
+                complexTypePropertySheet.Cells["A1"].LoadFromCollection(complexTypeActors);
+
                 package.Save();
             }
         }
