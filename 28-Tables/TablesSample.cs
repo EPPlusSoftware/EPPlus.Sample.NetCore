@@ -96,7 +96,7 @@ namespace EPPlusSamples
             var ws = p.Workbook.Worksheets.Add("StyleTables");
 
             var range1 = await LoadDataAsync(connectionString, ws).ConfigureAwait(false);
-
+            SetEmailAsHyperlink(range1);
             //Add the table and set some styles and properties.
             var tbl1 = ws.Tables.Add(range1, "StyleTable1");
             tbl1.TableStyle = TableStyles.Medium24;
@@ -133,6 +133,19 @@ namespace EPPlusSamples
 
             tbl2.Range.AutoFitColumns();
         }
+
+        private static void SetEmailAsHyperlink(ExcelRangeBase range)
+        {
+            for(int row=1;row<=range.Rows;row++)
+            {
+                var cell = range.Offset(row, 2,1,1);
+                if (cell.Value != null)
+                {
+                    cell.Hyperlink = new Uri($"mailto:{cell.Value}");
+                }
+            }
+        }
+
         /// <summary>
         /// This sample creates a table and a slicer. 
         /// </summary>

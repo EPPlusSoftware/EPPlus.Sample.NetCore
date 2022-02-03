@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>EPPlusSamples</RootNamespace>
   </PropertyGroup>
 
@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>    
-    <PackageReference Include="EPPlus" Version="5.8.1" />    
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
@@ -27,6 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EPPlus\src\EPPlus\EPPlus.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="31-HtmlExport\GoogleChartSetup.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

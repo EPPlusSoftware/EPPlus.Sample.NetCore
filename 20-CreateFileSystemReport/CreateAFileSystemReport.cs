@@ -205,7 +205,7 @@ namespace EPPlusSamples.CreateFileSystemReport
             using (ExcelRange r = ws.Cells["A1:O1"])
             {
                 r.Merge = true;
-                r.Style.Font.SetFromFont(new Font("Arial", 22, FontStyle.Regular));
+                r.Style.Font.SetFromFont("Arial", 22);
                 r.Style.Font.Color.SetColor(Color.White);
                 r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.CenterContinuous;
                 r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -306,7 +306,7 @@ namespace EPPlusSamples.CreateFileSystemReport
                 using (ExcelRange r = ws.Cells[row, 1, row, 2])
                 {
                     r.Merge = true;
-                    r.Style.Font.SetFromFont(new Font("Arial", 16, FontStyle.Italic));
+                    r.Style.Font.SetFromFont("Arial", 16, false,true);
                     r.Style.Font.Color.SetColor(Color.White);
                     r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.CenterContinuous;
                     r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -321,7 +321,7 @@ namespace EPPlusSamples.CreateFileSystemReport
             ws.Cells[row, 2].Value = propertyName;
             using (ExcelRange r = ws.Cells[row, 1, row, 2])
             {
-                r.Style.Font.SetFromFont(new Font("Arial", 12, FontStyle.Bold));
+                r.Style.Font.SetFromFont("Arial", 12, true);
             }
 
             row++;
@@ -406,8 +406,12 @@ namespace EPPlusSamples.CreateFileSystemReport
                 //Add the icon as a picture
                 if (icon != null)
                 {
-                    ExcelPicture pic = ws.Drawings.AddPicture("pic" + (row).ToString(), icon);
-                    pic.SetPosition((int)20 * (row - 1) + 2, 0);
+                    using (var ms = new MemoryStream())
+                    {
+                        icon.Save(ms, ImageFormat.Bmp);
+                        ExcelPicture pic = ws.Drawings.AddPicture("pic" + (row).ToString(), ms, ePictureType.Bmp);
+                        pic.SetPosition((int)20 * (row - 1) + 2, 0);
+                    }
                 }
             }
             ws.Cells[row, 2].Value = dir.Name;
@@ -439,8 +443,12 @@ namespace EPPlusSamples.CreateFileSystemReport
                     ws.Rows[row].Height = height;
                     if (fileIcon != null)
                     {
-                        ExcelPicture pic = ws.Drawings.AddPicture("pic" + (row).ToString(), fileIcon);
-                        pic.SetPosition((int)20 * (row - 1) + 2, 0);
+                        using (var ms = new MemoryStream())
+                        {
+                            fileIcon.Save(ms, ImageFormat.Bmp);
+                            ExcelPicture pic = ws.Drawings.AddPicture("pic" + (row).ToString(), ms, ePictureType.Bmp);
+                            pic.SetPosition((int)20 * (row - 1) + 2, 0);
+                        }
                     }
                 }
 

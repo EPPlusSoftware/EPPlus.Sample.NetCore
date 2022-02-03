@@ -257,6 +257,13 @@ namespace EPPlusSamples
                 SortingRangesSample.Run();
                 Console.WriteLine("Sample 30 finished.");
                 Console.WriteLine();
+
+                // Sample 31 - Html Export
+                Console.WriteLine("Running sample 31 - Html export");
+                HtmlTableExportSample.Run();
+                HtmlRangeExportSample.Run();
+                Console.WriteLine("Sample 31 finished.");
+                Console.WriteLine();
             }
             catch (Exception ex)
             {
