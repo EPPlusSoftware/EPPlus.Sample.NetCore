@@ -9,7 +9,7 @@ namespace EPPlusSamples
 {
     public static class HtmlTableExportSample
     {
-        //This sample demonstrates how to copy entire worksheet, ranges and how to exclude different cell properties.
+        //This sample demonstrates how to export html from a table.
         public static void Run()
         {
             var outputFolder = FileUtil.GetDirectoryInfo("HtmlOutput");
@@ -39,7 +39,7 @@ namespace EPPlusSamples
 
             // The GetSinglePage method generates en single page. You can also add a string parameter with your own HTML where where the styles and table html is inserted.
             var fullHtml = htmlExporter.GetSinglePage();
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "01-table1_SinglePage.html", true).FullName,
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-01-Table1_SinglePage.html", true).FullName,
                 fullHtml);
 
             //In most cases you want to keep the html and the styles separated, so you will retrive the html and the css in separate calls...
@@ -47,12 +47,12 @@ namespace EPPlusSamples
             var tableCss = htmlExporter.GetCssString();
 
             //First create the html file and reference the the css.
-            var html = $"<html><head><link rel=\"stylesheet\" href=\"01-table1_html.css\"</head>{tableHtml}</html>";
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "01-table1_Html.html", true).FullName,
+            var html = $"<html><head><link rel=\"stylesheet\" href=\"Table-01-Table1.css\"</head>{tableHtml}</html>";
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-01-Table1.html", true).FullName,
                 html);
 
             //The css is written to a separate file.
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "01-table1_Html.css", true).FullName, tableCss);
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-01-Table1.css", true).FullName, tableCss);
         }
         private static void ExportSimpleTable2(DirectoryInfo outputFolder, ExcelWorksheet wsSimpleTable)
         {
@@ -65,20 +65,20 @@ namespace EPPlusSamples
             htmlExporter.Settings.RenderDataAttributes = false;
 
             var html = htmlExporter.GetSinglePage();
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "01-table2.html", true).FullName,
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-02-Table2.html", true).FullName,
                 html);
 
             //We can also change the table style to get a different styling.
             //Here we change to Medium15...
             table2.TableStyle = OfficeOpenXml.Table.TableStyles.Medium15;
             html = htmlExporter.GetSinglePage();
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "01-table2_Medium15.html", true).FullName,
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-02-table2_Medium15.html", true).FullName,
                 html);
 
             //...Here we use Dark2...
             table2.TableStyle = OfficeOpenXml.Table.TableStyles.Dark2;
             html = htmlExporter.GetSinglePage();
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "01-table2_Dark2.html", true).FullName,
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-02-table2_Dark2.html", true).FullName,
                 html);
         }
 
@@ -93,7 +93,7 @@ namespace EPPlusSamples
             //This sample exports the table as well as some individually cell styles. The headers have font italic and the totals row has a custom formatted text.
             //Also note that Column 2 has hyper links create for the mail addresses.
             var html = htmlExporter.GetSinglePage();
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "02-Styling_table1_with_hyperlinks.html", true).FullName,
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-02-Styling_table1_with_hyperlinks.html", true).FullName,
                 html);
 
             var table2 = wsStyleTables.Tables[1];
@@ -101,7 +101,7 @@ namespace EPPlusSamples
 
             //Table 2 contains a custom table style.
             html = htmlExporter.GetSinglePage();
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "02-Styling_table2.html", true).FullName,
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-02-Styling_table2.html", true).FullName,
                 html);
         }
         private static void ExportSlicerTables1(DirectoryInfo outputFolder, ExcelWorksheet wsSlicer)
@@ -112,14 +112,14 @@ namespace EPPlusSamples
             //This sample exports the table filtered by the selection in the slicer (that applies the filter on the table).
             //By default EPPlus will remove hidden rows.
             var html = htmlExporter.GetSinglePage();
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "03-Slicer_table.html", true).FullName,
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-03-Slicer.html", true).FullName,
                 html);
 
             //You can change this option by setting eHiddenState.Include in the settings.
             //You can also set the it to eHiddenState.IncludeButHide if you want to apply your own filtering.
             htmlExporter.Settings.HiddenRows = eHiddenState.Include;
             html = htmlExporter.GetSinglePage();
-            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "03-Slicer_table_all_rows.html", true).FullName,
+            File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-03-Slicer_table_all_rows.html", true).FullName,
                 html);
         }
     }

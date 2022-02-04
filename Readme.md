@@ -43,6 +43,7 @@ dotnet run
 |28|[Tables](/28-Tables)|Sample showing how to work with tables.
 |29|[External links](/29-ExternalLinks)|Shows how to work with links to external workbooks
 |30|[Sorting Ranges](/30-WorkingWithRanges)|Shows how to work with the Sort method for ranges and tables
+|31|[Html Export](/31-HtmlExport)|Shows how to export tables and ranges to HTML
 
 ### Output files
 The samples above produces some workbooks - the name of each workbook indicates which sample that generated it. These workbooks are located in a subdirectory - named "SampleApp" - to the output directory of the sample project.

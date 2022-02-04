@@ -30,9 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="31-HtmlExport\GoogleChartSetup.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

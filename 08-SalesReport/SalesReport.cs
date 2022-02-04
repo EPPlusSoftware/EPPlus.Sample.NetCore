@@ -112,8 +112,8 @@ namespace EPPlusSamples.SalesReport
                             worksheet.Cells[startRow, 6, row - 1, 6].Style.Numberformat.Format = "[$$-409]#,##0";
 
                             //Set column width
-                            worksheet.Columns[1].Width = 35;
-                            worksheet.Columns[2, 3].Width = 28;
+                            worksheet.Columns[1,3].Width = 35;
+                            worksheet.Columns[2].Width = 28;
                             worksheet.Columns[4].Width = 10;
                             worksheet.Columns[5, 7].Width = 12;
                         }
