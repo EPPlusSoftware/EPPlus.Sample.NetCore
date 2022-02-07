@@ -261,7 +261,7 @@ namespace EPPlusSamples
                 // Sample 31 - Html Export
                 Console.WriteLine("Running sample 31 - Html export");
                 HtmlTableExportSample.Run();
-                HtmlRangeExportSample.Run();
+                await HtmlRangeExportSample.RunAsync();
                 Console.WriteLine("Sample 31 finished.");
                 Console.WriteLine();
             }

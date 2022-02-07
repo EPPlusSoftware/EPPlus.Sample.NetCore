@@ -8,7 +8,7 @@ namespace EPPlusSamples
     public static class HtmlRangeExportSample
     {
         //This sample demonstrates how to copy entire worksheet, ranges and how to exclude different cell properties.
-        public async static Task Run()
+        public async static Task RunAsync()
         {
             var outputFolder = FileUtil.GetDirectoryInfo("HtmlOutput");
 
@@ -43,7 +43,7 @@ namespace EPPlusSamples
             {
                 var ws = p.Workbook.Worksheets["Sales"];
                 var exporter = ws.Cells.CreateHtmlExporter();   //Will create the html exporter for min and max bounds of the worksheet (ws.Dimensions)
-                exporter.Settings.HeaderRows = 3;               //We have three header rows.
+                exporter.Settings.HeaderRows = 4;               //We have three header rows.
                 exporter.Settings.TableId = "my-table";         //We can set an id of the worksheet if we want to use it in css or javascript.
 
                 //By default EPPlus include the normal font in the css for the table. This can be tuned off and replaces by your own settings.
