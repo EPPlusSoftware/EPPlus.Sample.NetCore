@@ -259,11 +259,22 @@ namespace EPPlusSamples
                 Console.WriteLine();
 
                 // Sample 31 - Html Export
+                //This sample shows basic html export functionality.
+                //For more advanced samples using charts see https://samples.epplussoftware.com/HtmlExport
                 Console.WriteLine("Running sample 31 - Html export");
                 HtmlTableExportSample.Run();
                 await HtmlRangeExportSample.RunAsync();
                 Console.WriteLine("Sample 31 finished.");
                 Console.WriteLine();
+
+                //Sample 32 - Json Export
+                //This sample shows the json export functionality.
+                //For more a samples exporting to chart librays see https://samples.epplussoftware.com/JsonExport
+                Console.WriteLine("Running sample 32 - json export");
+                JsonExportSample.Run();
+                Console.WriteLine("Sample 32 finished.");
+                Console.WriteLine();
+
             }
             catch (Exception ex)
             {

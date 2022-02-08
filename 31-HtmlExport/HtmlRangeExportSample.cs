@@ -8,6 +8,8 @@ namespace EPPlusSamples
     public static class HtmlRangeExportSample
     {
         //This sample demonstrates how to copy entire worksheet, ranges and how to exclude different cell properties.
+        //More advanced samples using charts and json exports are available in our samples web site available 
+        //here: https://samples.epplussoftware.com/HtmlExport, https://samples.epplussoftware.com/JsonExport
         public async static Task RunAsync()
         {
             var outputFolder = FileUtil.GetDirectoryInfo("HtmlOutput");
@@ -25,7 +27,6 @@ namespace EPPlusSamples
             using (var p = new ExcelPackage(FileUtil.GetFileInfo("01-GettingStarted.xlsx")))
             {
                 var ws = p.Workbook.Worksheets["Inventory"];
-                
                 //Will create the html exporter for min and max bounds of the worksheet (ws.Dimensions)
                 var exporter = ws.Cells.CreateHtmlExporter();   
 

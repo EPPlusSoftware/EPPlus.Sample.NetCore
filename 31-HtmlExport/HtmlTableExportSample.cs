@@ -10,6 +10,8 @@ namespace EPPlusSamples
     public static class HtmlTableExportSample
     {
         //This sample demonstrates how to export html from a table.
+        //More advanced samples using charts and json exports are available in our samples web site available 
+        //here: https://samples.epplussoftware.com/HtmlExport, https://samples.epplussoftware.com/JsonExport
         public static void Run()
         {
             var outputFolder = FileUtil.GetDirectoryInfo("HtmlOutput");
@@ -24,6 +26,7 @@ namespace EPPlusSamples
                 var wsStyleTables = p.Workbook.Worksheets["StyleTables"];
                 ExportStyleTables(outputFolder, wsStyleTables);
 
+                //This samples exports the filtered table from the slicer sample.
                 var wsSlicer = p.Workbook.Worksheets["Slicer"];
                 ExportSlicerTables1(outputFolder, wsSlicer);
             }
@@ -84,7 +87,8 @@ namespace EPPlusSamples
 
         private static void ExportStyleTables(DirectoryInfo outputFolder, ExcelWorksheet wsStyleTables)
         {
-            //The last row of the cell contains uncalculated cell (they calculate when opened in Excel), but in EPPlus we need to calculate them here first to get a result in cell A254 in the totals row.
+            //The last row of the cell contains uncalculated cell (they calculate when opened in Excel),
+            //but in EPPlus we need to calculate them first to get a result in cell A254 in the totals row.
             wsStyleTables.Calculate();
 
             var table1 = wsStyleTables.Tables[0];
