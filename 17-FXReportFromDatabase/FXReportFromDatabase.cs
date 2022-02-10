@@ -23,11 +23,20 @@ using OfficeOpenXml.Style;
 using System.Drawing;
 using System.Data.SQLite;
 using OfficeOpenXml.Drawing.Chart.Style;
-
+using System.Linq;
 namespace EPPlusSamples.FXReportFromDatabase
 {
     class FxReportFromDatabase
     {
+        public class FxRates
+        {
+            public DateTime? Date { get; set; }
+            public double UsdSek { get; set; }
+            public double UsdEur { get; set; }
+            public double UsdInr { get; set; }
+            public double UsdCny { get; set; }
+            public double UsdDkk { get; set; }
+        }
         /// <summary>
         /// This sample creates a new workbook from a template file containing a chart and populates it with Exchange rates from 
         /// the database and set the three series on the chart.
@@ -138,6 +147,18 @@ namespace EPPlusSamples.FXReportFromDatabase
                     //Set the chart style
                     chart.StyleManager.SetChartStyle(236);
 
+                    var query = (from cell in ws.Cells["A22:A" + (row - 1).ToString()]
+                                  select new FxRates
+                                  {
+                                      Date = cell.GetCellValue<DateTime?>(),
+                                      UsdSek = cell.GetCellValue<double>(1),
+                                      UsdEur = cell.GetCellValue<double>(2),
+                                      UsdInr = cell.GetCellValue<double>(3),
+                                      UsdCny = cell.GetCellValue<double>(4),
+                                      UsdDkk = cell.GetCellValue<double>(5),
+                                  }).ToList();
+
+                    var json = System.Text.Json.JsonSerializer.Serialize(query);
                 }
 
                 //Get the documet as a byte array from the stream and save it to disk.  (This is useful in a webapplication) ... 

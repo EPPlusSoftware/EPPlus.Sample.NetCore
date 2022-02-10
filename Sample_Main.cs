@@ -271,7 +271,7 @@ namespace EPPlusSamples
                 //This sample shows the json export functionality.
                 //For more a samples exporting to chart librays see https://samples.epplussoftware.com/JsonExport
                 Console.WriteLine("Running sample 32 - json export");
-                JsonExportSample.Run();
+                await JsonExportSample.RunAsync();
                 Console.WriteLine("Sample 32 finished.");
                 Console.WriteLine();
 

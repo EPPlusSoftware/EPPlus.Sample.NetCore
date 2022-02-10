@@ -9,7 +9,7 @@ namespace EPPlusSamples
         //This sample demonstrates how to export html from a table.
         //More advanced samples using charts and json exports are available in our samples web site available 
         //here: https://samples.epplussoftware.com/JsonExport
-        public static async Task Run()
+        public static async Task RunAsync()
         {
             var outputFolder = FileUtil.GetDirectoryInfo("JsonOutput");
 
