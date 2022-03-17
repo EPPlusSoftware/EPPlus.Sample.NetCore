@@ -29,6 +29,9 @@ namespace EPPlusSamples
                 //This samples exports the filtered table from the slicer sample.
                 var wsSlicer = p.Workbook.Worksheets["Slicer"];
                 ExportSlicerTables1(outputFolder, wsSlicer);
+
+                //Exports three tables and combine the html and css 
+                ExportMultipleTables(outputFolder);
             }
         }
         private static void ExportSimpleTable1(DirectoryInfo outputFolder, ExcelWorksheet wsSimpleTable)
@@ -126,5 +129,41 @@ namespace EPPlusSamples
             File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-03-Slicer_table_all_rows.html", true).FullName,
                 html);
         }
+        private static void ExportMultipleTables(DirectoryInfo outputFolder)
+        {
+            using (var p = new ExcelPackage(FileUtil.GetFileInfo("04-LoadingData.xlsx")))
+            {
+                //Now we will use the third worksheet from sample 4, that contains three tables with different styles.
+                var wsList = p.Workbook.Worksheets["FromList"];
+              
+                var tbl1 = wsList.Tables[0];
+                var exporter1 = tbl1.CreateHtmlExporter();
+                var tbl1Html = exporter1.GetHtmlString();
+                var tbl1Css = exporter1.GetCssString();
+
+                var tbl2 = wsList.Tables[1];
+                var exporter2 = tbl2.CreateHtmlExporter();
+                var tbl2Html = exporter2.GetHtmlString();                                
+                //We have already exported the css once, so we don't want shared css classes to be added again.
+                exporter2.Settings.Css.IncludeSharedClasses = false;
+                var tbl2Css = exporter2.GetCssString();
+
+                var tbl3 = wsList.Tables[2];
+                var exporter3 = tbl3.CreateHtmlExporter();
+                var tbl3Html = exporter3.GetHtmlString();
+                exporter3.Settings.Css.IncludeSharedClasses = false;
+                
+                var tbl3Css = exporter3.GetCssString();
+
+                //As the tables have different table styles we add all of the css's.
+                //If multiple tables have the same table style, you should only add one of them.
+                var css = tbl1Css + tbl2Css + tbl3Css;
+
+                var htmlTemplate = "<html>\r\n<head>\r\n<style type=\"text/css\">\r\n{0}</style></head>\r\n<body>\r\n{1}<hr>{2}<hr>{3}</body>\r\n</html>";
+                File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Table-04-MultipleTables.html", true).FullName,
+                    string.Format(htmlTemplate, css, tbl1Html, tbl2Html, tbl3Html));
+            }
+        }
+
     }
 }
