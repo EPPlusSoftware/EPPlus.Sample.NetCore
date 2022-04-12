@@ -111,25 +111,24 @@ namespace EPPlusSamples
                 wsStock.Cells["A3:E4"].Style.Fill.SetBackground(Color.Green);
                 wsStock.Cells["A7:E8"].Style.Fill.SetBackground(Color.Red);
 
-                //Create the exporter. The workbook exporter exports ranges only. If you want to export tables, use the exporter available on the table object.
+                var tblChartData = p.Workbook.Worksheets["ChartData"].Tables[0];
+
+                //Create the exporter. The workbook exporter exports ranges and tables, if the range corresponds to the table range.. 
                 var rngExporter = p.Workbook.CreateHtmlExporter(
                     ws3D.Cells["A1:D16"],
-                    wsStock.Cells["A1:E11"]);
+                    wsStock.Cells["A1:E11"],
+                    tblChartData.Range);    //If you want to export a table, the exact table range must be used.
 
                 //Get the html for the ranges in the HTML. The argument index referece to the ranges supplied when creating the exporter. 
                 var html3D = rngExporter.GetHtmlString(0);
                 var htmlStock = rngExporter.GetHtmlString(1);
+                var tblHtml = rngExporter.GetHtmlString(2);
                 var css = rngExporter.GetCssString();
 
                 //We also exports a table and merge the css the range css.
-                var tblChartData = p.Workbook.Worksheets["ChartData"].Tables[0];
-                var tblExporter = tblChartData.CreateHtmlExporter();
-                var tblHtml = tblExporter.GetHtmlString();
-                var tblCss = tblExporter.GetCssString();
-
                 var htmlTemplate = "<html>\r\n<head>\r\n<style type=\"text/css\">\r\n{0}</style></head>\r\n<body>\r\n{1}<hr>{2}<hr>{3}</body>\r\n</html>";
                 File.WriteAllText(FileUtil.GetFileInfo(outputFolder, "Range-04-MultipleRanges.html", true).FullName,
-                    string.Format(htmlTemplate, css+tblCss, html3D, htmlStock, tblHtml));
+                    string.Format(htmlTemplate, css, html3D, htmlStock, tblHtml));
             }
         }
     }

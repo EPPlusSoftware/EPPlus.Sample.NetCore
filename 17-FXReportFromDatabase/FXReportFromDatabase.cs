@@ -157,8 +157,6 @@ namespace EPPlusSamples.FXReportFromDatabase
                                       UsdCny = cell.GetCellValue<double>(4),
                                       UsdDkk = cell.GetCellValue<double>(5),
                                   }).ToList();
-
-                    var json = System.Text.Json.JsonSerializer.Serialize(query);
                 }
 
                 //Get the documet as a byte array from the stream and save it to disk.  (This is useful in a webapplication) ... 
