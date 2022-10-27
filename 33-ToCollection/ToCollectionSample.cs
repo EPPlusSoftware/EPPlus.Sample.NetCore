@@ -80,6 +80,8 @@ namespace EPPlusSamples
                     Console.WriteLine($"Birthdate: {person.BirthDate.ToShortDateString()}");
                 }
 
+                Console.WriteLine();
+
                 /**********************************************************
                  * ToCollection. Using property attributes for mappings,  *
                  * see the ToCollectionSamplePersonAttr class             *
@@ -99,6 +101,31 @@ namespace EPPlusSamples
                 var exportedPersons3 = range2.ToCollection<ToCollectionSamplePersonAttr>();
 
                 foreach (var person in exportedPersons3)
+                {
+                    Console.WriteLine("***************************");
+                    Console.WriteLine($"Name: {person.FirstName} {person.LastName}");
+                    Console.WriteLine($"Height: {person.Height} cm");
+                    Console.WriteLine($"Birthdate: {person.BirthDate.ToShortDateString()}");
+                }
+
+                Console.WriteLine();
+
+                /**********************************************************
+                 * ToCollection from a table                              *
+                 **********************************************************/
+                Console.WriteLine("******* Sample 33 - ToCollection from a table ********\n");
+                // Load the sample data a new worksheet
+                var ws3 = package.Workbook.Worksheets.Add("Ws3");
+                var tableRange = ws3.Cells["A1"].LoadFromCollection(ToCollectionSampleData.Persons, options =>
+                {
+                    options.PrintHeaders = true;
+                    options.TableStyle = TableStyles.Dark1;
+                });
+                var table = ws3.Tables.GetFromRange(tableRange);
+                // export the data loaded into the worksheet above to a collection
+                var exportedPersons4 = table.ToCollection<ToCollectionSamplePerson>();
+
+                foreach (var person in exportedPersons4)
                 {
                     Console.WriteLine("***************************");
                     Console.WriteLine($"Name: {person.FirstName} {person.LastName}");

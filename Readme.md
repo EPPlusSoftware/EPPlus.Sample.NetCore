@@ -45,6 +45,7 @@ dotnet run
 |30|[Sorting Ranges](/30-WorkingWithRanges)|Shows how to work with the Sort method for ranges and tables
 |31|[Html Export](/31-HtmlExport)|Shows how to export tables and ranges to HTML
 |32|[Json Export](/32-JsonExport)|Shows how to export tables and ranges to JSON
+|33|[ToCollection](/32-ToCollection)|Shows how to export data from worksheets and tables into an IEnumerable<T> where T is a class.
 
 ### Output files
 The samples above produces some workbooks - the name of each workbook indicates which sample that generated it. These workbooks are located in a subdirectory - named "SampleApp" - to the output directory of the sample project.

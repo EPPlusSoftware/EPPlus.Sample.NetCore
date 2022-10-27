@@ -46,8 +46,6 @@ namespace EPPlusSamples
                 //Set the output directory to the SampleApp folder where the app is running from. 
                 FileUtil.OutputDir = new DirectoryInfo($"{AppDomain.CurrentDomain.BaseDirectory}SampleApp");
 
-                ToCollectionSample.Run();
-
                 // Sample 1 - Simply creates a new workbook from scratch
                 // containing a worksheet that adds a few numbers together 
                 Console.WriteLine("Running sample 1");
@@ -275,6 +273,14 @@ namespace EPPlusSamples
                 Console.WriteLine("Running sample 32 - json export");
                 await JsonExportSample.RunAsync();
                 Console.WriteLine("Sample 32 finished.");
+                Console.WriteLine();
+
+                // Sample 33 - ToCollection and ToCollectionWithMappings
+                // This sample shows how to export data from a worksheet
+                // to a IEnumerable<T> where T is a class.
+                Console.WriteLine("Running sample 33 - ToCollection and ToCollectionWithMappings");
+                ToCollectionSample.Run();
+                Console.WriteLine("Sample 33 finished.");
                 Console.WriteLine();
 
             }
