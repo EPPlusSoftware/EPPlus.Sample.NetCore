@@ -36,7 +36,7 @@ namespace EPPlusSamples
 		{
 			try
 			{
-                //EPPlus 5 uses a dual licens model. This requires you to specifiy the License you are using to be able to use the library. 
+                //EPPlus 5 uses a dual license model. This requires you to specifiy the License you are using to be able to use the library. 
                 //This sample sets the LicenseContext in the appsettings.json file. An alternative is the commented row below.
                 //ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 //See https://epplussoftware.com/Developers/LicenseException for more info.
@@ -45,6 +45,8 @@ namespace EPPlusSamples
 
                 //Set the output directory to the SampleApp folder where the app is running from. 
                 FileUtil.OutputDir = new DirectoryInfo($"{AppDomain.CurrentDomain.BaseDirectory}SampleApp");
+
+                ToCollectionSample.Run();
 
                 // Sample 1 - Simply creates a new workbook from scratch
                 // containing a worksheet that adds a few numbers together 
