@@ -197,6 +197,7 @@ namespace EPPlusSamples
                 //Sample 21 - Shows how to work with macro-enabled workbooks(VBA).
                 Console.WriteLine("Running sample 21-VBA");
                 WorkingWithVbaSample.Run();
+                SigningYourVBAProject.Run();
                 Console.WriteLine("Sample 21 created {0}", FileUtil.OutputDir.Name);
                 Console.WriteLine();
 
