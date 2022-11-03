@@ -32,7 +32,7 @@ dotnet run
 |17|[FX report](/17-FXReportFromDatabase/)|Exchange rates report with data from a SQL database. Demonstrates some of the chart capabilities of EPPlus|
 |18|[Pivot tables](/18-PivotTables/)|Demonstrates the Pivot table functionality of EPPlus.|
 |19|[Encryption and protection](/19-EncryptionAndProtection/)|This sample produces a quiz, where the template workbook is encrypted and password protected.|
-|20|[Create filesystem report](/20-CreateFileSystemReport/)|Demonstrates usage of styling, printer settings, rich text, pie-, doughnut- and bar-charts, freeze panes|
+|20|[Create filesystem report](/20-CreateFileSystemReport/)|Demonstrates usage of styling, printer settings, rich text, pie-, doughnut- and bar-charts, freeze panes and row/column outlines|
 |21|[VBA - Visual Basic for Applications](/21-VBA/)|Demonstrates EPPlus support for VBA, includes a battleship game|
 |22|[Ignore errors](/22-IgnoreErrors/)|Various samples on how to ignore error on cells.|
 |23|[Comments](/23-Comments/)|Sample showing how to add notes and threaded comments.|
@@ -45,7 +45,7 @@ dotnet run
 |30|[Sorting Ranges](/30-WorkingWithRanges)|Shows how to work with the Sort method for ranges and tables
 |31|[Html Export](/31-HtmlExport)|Shows how to export tables and ranges to HTML
 |32|[Json Export](/32-JsonExport)|Shows how to export tables and ranges to JSON
-|33|[ToCollection](/32-ToCollection)|Shows how to export data from worksheets and tables into an IEnumerable&lt;T&gt; where T is a class.
+|33|[ToCollection](/33-ToCollection)|Shows how to export data from worksheets and tables into an IEnumerable&lt;T&gt; where T is a class.
 
 ### Output files
 The samples above produces some workbooks - the name of each workbook indicates which sample that generated it. These workbooks are located in a subdirectory - named "SampleApp" - to the output directory of the sample project.
