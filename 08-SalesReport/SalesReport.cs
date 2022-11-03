@@ -36,6 +36,8 @@ namespace EPPlusSamples.SalesReport
                 var namedStyle = xlPackage.Workbook.Styles.CreateNamedStyle("HyperLink");
                 namedStyle.Style.Font.UnderLine = true;
                 namedStyle.Style.Font.Color.SetColor(Color.Blue);
+                namedStyle.BuildInId = 8; //This is the id for the build in HyperLink style.
+
                 const int startRow = 5;
                 int row = startRow;
                 //Create Headers and format them 

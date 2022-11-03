@@ -98,8 +98,7 @@ namespace EPPlusSamples.CreateFileSystemReport
             int row = 2;
 
             //Load the directory content to sheet 1
-            row = AddDirectory(ws, dir, row, height, 0, skipIcons);
-
+            row = AddDirectory(ws, dir, row, height, skipIcons);
             ws.OutLineSummaryBelow = false;
 
             //Format columns
@@ -111,8 +110,8 @@ namespace EPPlusSamples.CreateFileSystemReport
             var shape = ws.Drawings.AddShape("txtDesc", eShapeStyle.Rect);
             shape.SetPosition(1, 5, 6, 5);
             shape.SetSize(400, 200);
-
-            shape.Text = "This example demonstrates how to create various drawing objects like pictures, shapes and charts.\n\r\n\rThe first sheet contains all subdirectories and files with an icon, name, size and dates.\n\r\n\rThe second sheet contains statistics about extensions and the top-10 largest files.";
+            shape.EditAs = eEditAs.Absolute;
+            shape.Text = "This example demonstrates how to create various drawing objects like pictures, shapes and charts.\n\r\n\rThe first sheet contains all subdirectories and files with an icon, name, size and dates.\r\n\r\nThe second sheet contains statistics about extensions and the top-10 largest files.";
             shape.Fill.Style = eFillStyle.SolidFill;
             shape.Fill.Color = Color.DarkSlateGray;
             shape.Fill.Transparancy = 20;
@@ -129,12 +128,22 @@ namespace EPPlusSamples.CreateFileSystemReport
             //Add the graph sheet
             AddGraphs(pck, row, dir.FullName);
 
-            //Add a HyperLink to the statistics sheet. 
-            var namedStyle = pck.Workbook.Styles.CreateNamedStyle("HyperLink");   //This one is language dependent
-            namedStyle.Style.Font.UnderLine = true;
-            namedStyle.Style.Font.Color.SetColor(Color.Blue);
-            ws.Cells["K13"].Hyperlink = new ExcelHyperLink("Statistics!A1", "Statistics");
-            ws.Cells["K13"].StyleName = "HyperLink";
+
+            //Add a drawing with a HyperLink to the statistics sheet.
+            //We add the hyperlink as a drawing here, as we don't want it to move when we expand and collapse rows.. 
+            var hl =ws.Drawings.AddShape("HyperLink", eShapeStyle.Rect);            
+            hl.Hyperlink = new ExcelHyperLink("Statistics!A1", "Statistics");
+            hl.SetPosition(13, 0, 9, 0);
+            hl.SetSize(70, 30);
+            hl.EditAs = eEditAs.Absolute;
+            hl.Border.Fill.Style = eFillStyle.NoFill;
+            hl.Fill.Style = eFillStyle.NoFill;
+            hl.Text = "Statistics";
+            hl.Font.UnderLine = eUnderLineType.Single;
+            hl.Font.Fill.Color = Color.Blue;
+
+            // Collaps children to level 1 for each row under the root.
+            ws.Rows[2].SetVisibleOutlineLevel(1); 
 
             //Printer settings
             ws.PrinterSettings.FitToPage = true;
@@ -394,7 +403,7 @@ namespace EPPlusSamples.CreateFileSystemReport
             }
         }
 
-        private static int AddDirectory(ExcelWorksheet ws, DirectoryInfo dir, int row, double height, int level, bool skipIcons)
+        private static int AddDirectory(ExcelWorksheet ws, DirectoryInfo dir, int row, double height, bool skipIcons)
         {
             //Get the icon as a bitmap
             Console.WriteLine("Directory " + dir.Name);
@@ -409,7 +418,7 @@ namespace EPPlusSamples.CreateFileSystemReport
                     using (var ms = new MemoryStream())
                     {
                         icon.Save(ms, ImageFormat.Bmp);
-                        ExcelPicture pic = ws.Drawings.AddPicture("pic" + (row).ToString(), ms, ePictureType.Bmp);
+                        ExcelPicture pic = ws.Drawings.AddPicture("pic" + (row).ToString(), ms);
                         pic.SetPosition((int)20 * (row - 1) + 2, 0);
                     }
                 }
@@ -419,17 +428,15 @@ namespace EPPlusSamples.CreateFileSystemReport
             ws.Cells[row, 5].Value = dir.LastAccessTime;
 
             ws.Cells[row, 2, row, 5].Style.Font.Bold = true;
-            //Sets the outline depth
-            ws.Rows[row].OutlineLevel = level;
 
             int prevRow = row;
             row++;
             //Add subdirectories
             foreach (DirectoryInfo subDir in dir.GetDirectories())
             {
-                if (level < _maxLevels)
+                if (ws.Rows[prevRow].OutlineLevel < _maxLevels)
                 {
-                    row = AddDirectory(ws, subDir, row, height, level + 1, skipIcons);
+                    row = AddDirectory(ws, subDir, row, height, skipIcons);
                 }                           
             }
             
@@ -446,7 +453,7 @@ namespace EPPlusSamples.CreateFileSystemReport
                         using (var ms = new MemoryStream())
                         {
                             fileIcon.Save(ms, ImageFormat.Bmp);
-                            ExcelPicture pic = ws.Drawings.AddPicture("pic" + (row).ToString(), ms, ePictureType.Bmp);
+                            ExcelPicture pic = ws.Drawings.AddPicture("pic" + (row).ToString(), ms);
                             pic.SetPosition((int)20 * (row - 1) + 2, 0);
                         }
                     }
@@ -457,11 +464,15 @@ namespace EPPlusSamples.CreateFileSystemReport
                 ws.Cells[row, 4].Value = file.CreationTime;
                 ws.Cells[row, 5].Value = file.LastAccessTime;
 
-                ws.Rows[row].OutlineLevel = level+1;
-
                 AddStatistics(file);
 
                 row++;
+            }
+
+            //If the directory has children, group them. The Group method adds one to the Outline level.
+            if (prevRow < row - 1)
+            {
+                ws.Rows[prevRow + 1, row - 1].Group();
             }
 
             //Add a subtotal for the directory
