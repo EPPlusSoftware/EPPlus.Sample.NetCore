@@ -10,12 +10,12 @@
  *************************************************************************************************
   01/27/2020         EPPlus Software AB           Initial release EPPlus 5
  *************************************************************************************************/
-using System;
-using System.Text;
-using System.IO;
 using OfficeOpenXml;
 using OfficeOpenXml.DataValidation;
 using OfficeOpenXml.DataValidation.Contracts;
+using System;
+using System.IO;
+using System.Text;
 
 namespace EPPlusSamples.DataValidation
 {
@@ -34,6 +34,7 @@ namespace EPPlusSamples.DataValidation
                 AddListValidationValues(package);
                 AddTimeValidation(package);
                 AddDateTimeValidation(package);
+                AddCustomValidation(package);
                 ReadExistingValidationsFromPackage(package);
                 package.SaveAs(output);
             }
@@ -48,7 +49,7 @@ namespace EPPlusSamples.DataValidation
         {
             var sheet = package.Workbook.Worksheets.Add("integer");
             // add a validation and set values
-            var validation = sheet.DataValidations.AddIntegerValidation("A1:A2");            
+            var validation = sheet.DataValidations.AddIntegerValidation("A1:A2");
             // Alternatively:
             //var validation = sheet.Cells["A1:A2"].DataValidation.AddIntegerDataValidation();
             validation.ErrorStyle = ExcelDataValidationWarningStyle.stop;
@@ -77,7 +78,7 @@ namespace EPPlusSamples.DataValidation
             sheet.Cells["B2"].Value = 1;
             sheet.Cells["B3"].Value = 2;
             sheet.Cells["B4"].Value = 3;
-            
+
             // add a validation and set values
             var validation = sheet.DataValidations.AddListValidation("A1");
             // Alternatively:
@@ -89,7 +90,7 @@ namespace EPPlusSamples.DataValidation
             validation.Formula.ExcelFormula = "B2:B4";
 
             Console.WriteLine("Added sheet for list validation with formula");
-            
+
         }
 
         /// <summary>
@@ -156,6 +157,23 @@ namespace EPPlusSamples.DataValidation
 
         }
 
+        private static void AddCustomValidation(ExcelPackage package)
+        {
+            var sheet = package.Workbook.Worksheets.Add("custom");
+            //Add a custom validation to the range
+            var validation = sheet.DataValidations.AddCustomValidation("A1:B2");
+
+            validation.ShowErrorMessage = true;
+            validation.ErrorStyle = ExcelDataValidationWarningStyle.stop;
+            validation.Error = "Must be a number!";
+            validation.ShowInputMessage = true;
+            validation.Prompt = "Enter a number! Any Number!";
+
+            //Add a validation that ensures input is a number on every cell in the range
+            validation.Formula.ExcelFormula = "=ISNUMBER(A1)";
+            Console.WriteLine("Added sheet for custom validation");
+        }
+
         /// <summary>
         /// shows details about all existing validations in the entire workbook
         /// </summary>
@@ -174,7 +192,7 @@ namespace EPPlusSamples.DataValidation
             int row = 2;
             foreach (var otherSheet in package.Workbook.Worksheets)
             {
-                if(otherSheet == sheet)
+                if (otherSheet == sheet)
                 {
                     continue;
                 }
@@ -187,7 +205,7 @@ namespace EPPlusSamples.DataValidation
                         sheet.Cells["C" + row.ToString()].Value = ((IExcelDataValidationWithOperator)dataValidation).Operator.ToString();
                     }
                     // type casting is needed to get validationtype-specific values
-                    switch(dataValidation.ValidationType.Type)
+                    switch (dataValidation.ValidationType.Type)
                     {
                         case eDataValidationType.Whole:
                             PrintWholeValidationDetails(sheet, dataValidation.As.IntegerValidation, row);
@@ -217,7 +235,7 @@ namespace EPPlusSamples.DataValidation
         {
             string value = string.Empty;
             // if formula is used - show it...
-            if(!string.IsNullOrEmpty(listValidation.Formula.ExcelFormula))
+            if (!string.IsNullOrEmpty(listValidation.Formula.ExcelFormula))
             {
                 value = listValidation.Formula.ExcelFormula;
             }
@@ -225,9 +243,9 @@ namespace EPPlusSamples.DataValidation
             {
                 // otherwise - show the values from the list collection
                 var sb = new StringBuilder();
-                foreach(var listValue in listValidation.Formula.Values)
+                foreach (var listValue in listValidation.Formula.Values)
                 {
-                    if(sb.Length > 0)
+                    if (sb.Length > 0)
                     {
                         sb.Append(",");
                     }
@@ -241,7 +259,7 @@ namespace EPPlusSamples.DataValidation
         private static void PrintTimeValidationDetails(ExcelWorksheet sheet, IExcelDataValidationTime validation, int row)
         {
             var value1 = string.Empty;
-            if(!string.IsNullOrEmpty(validation.Formula.ExcelFormula))
+            if (!string.IsNullOrEmpty(validation.Formula.ExcelFormula))
             {
                 value1 = validation.Formula.ExcelFormula;
             }
