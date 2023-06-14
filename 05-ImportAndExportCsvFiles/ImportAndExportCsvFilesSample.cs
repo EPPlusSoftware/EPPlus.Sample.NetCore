@@ -53,6 +53,11 @@ namespace EPPlusSamples.LoadDataFromCsvFilesIntoTables
         {
             var ws = package.Workbook.Worksheets[1];
             var tbl = ws.Tables[0];
+
+            // Note that we are changing Delimiter to semi-colon in this example.
+            // This is just to show that you can use any character as delimiter in your exported
+            // csv-data. The default delimiter is comma (',').
+            // The Culture property is for how numbers, dates, etc are formatted in the exported csv-data.
             var format = new ExcelOutputTextFormat
             {
                 Delimiter = ';',
