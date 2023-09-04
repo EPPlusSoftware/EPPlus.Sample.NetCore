@@ -23,6 +23,7 @@ using OfficeOpenXml.Style.Dxf;
 using OfficeOpenXml.DataValidation;
 using OfficeOpenXml.ConditionalFormatting;
 using OfficeOpenXml.Drawing;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace EPPlusSamples
 {
@@ -390,7 +391,27 @@ namespace EPPlusSamples
         ExcelAddress cfAddress43 = new ExcelAddress("G2:G10");
         var cfRule42 = worksheet.ConditionalFormatting.AddThreeIconSet(cfAddress43, eExcelconditionalFormatting3IconsSetType.TrafficLights1);
 
-        ExcelAddress cfAddress44 = new ExcelAddress("H2:H10");
+                // -------------------------------------------------------------------
+                // Create an iconSet with custom Icons
+                // -------------------------------------------------------------------
+
+                ExcelAddress cfAddress43Alt = new ExcelAddress("G20:G30");
+
+                worksheet.Cells["G20:G30"].Formula = "Row()";
+
+                var cfRule42Alt = worksheet.ConditionalFormatting.AddFourIconSet(cfAddress43Alt, eExcelconditionalFormatting4IconsSetType.Rating);
+
+                cfRule42Alt.Icon1.CustomIcon = eExcelconditionalFormattingCustomIcon.GreenUpArrow;
+                //cfRule42Alt.Icon2.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithOneWhiteQuarter;
+                //cfRule42Alt.Icon3.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithTwoWhiteQuarters;
+                //cfRule42Alt.Icon4.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithThreeWhiteQuarters;
+
+
+                // -------------------------------------------------------------------
+                // Create a Databar
+                // -------------------------------------------------------------------
+
+                ExcelAddress cfAddress44 = new ExcelAddress("H2:H10");
         var cfRule43 = worksheet.ConditionalFormatting.AddDatabar(cfAddress44, Color.DarkBlue);
         
           // -----------------------------------------------------------
