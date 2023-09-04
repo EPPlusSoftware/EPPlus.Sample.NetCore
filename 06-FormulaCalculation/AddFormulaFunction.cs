@@ -18,8 +18,8 @@ using System.Text;
 using OfficeOpenXml;
 using OfficeOpenXml.FormulaParsing;
 using OfficeOpenXml.FormulaParsing.Excel.Functions;
-using OfficeOpenXml.FormulaParsing.ExpressionGraph;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using OfficeOpenXml.FormulaParsing.FormulaExpressions;
 
 namespace EPPlusSamples.FormulaCalculation
 {
@@ -85,15 +85,18 @@ namespace EPPlusSamples.FormulaCalculation
     /// </summary>
     class CalculateVat : ExcelFunction
     {
-        public override CompileResult Execute(IEnumerable<FunctionArgument> arguments, ParsingContext context)
+        public override int ArgumentMinLength { get; }
+
+        public override CompileResult Execute(IList<FunctionArgument> arguments, ParsingContext context)
         {
             const double VatRate = 0.25;
+
             // Sanity check, will set excel VALUE error if min length is not met
             ValidateArguments(arguments, 1);
-            
+
             // Helper method that converts function arguments to an enumerable of doubles
             var numbers = ArgsToDoubleEnumerable(arguments, context);
-            
+
             // Do the work
             var result = 0d;
             numbers.ToList().ForEach(x => result += (x.Value * VatRate));
@@ -107,13 +110,15 @@ namespace EPPlusSamples.FormulaCalculation
     /// </summary>
     class TextSwedish : ExcelFunction
     {
-        public override CompileResult Execute(IEnumerable<FunctionArgument> arguments, ParsingContext context)
+        public override int ArgumentMinLength { get; }
+
+        public override CompileResult Execute(IList<FunctionArgument> arguments, ParsingContext context)
         {
             // Sanity check, will set excel VALUE error if min length is not met
             ValidateArguments(arguments, 2);
 
             //Replace swedish year format with invariant for parameter 2.
-            var format = arguments.ElementAt(1).Value.ToString().Replace("åååå", "yyyy");   
+            var format = arguments.ElementAt(1).Value.ToString().Replace("åååå", "yyyy");
             var newArgs = new List<FunctionArgument> { arguments.ElementAt(0) };
             newArgs.Add(new FunctionArgument(format));
 
@@ -128,7 +133,9 @@ namespace EPPlusSamples.FormulaCalculation
     /// </summary>
     class ReverseString : ExcelFunction
     {
-        public override CompileResult Execute(IEnumerable<FunctionArgument> arguments, ParsingContext context)
+        public override int ArgumentMinLength { get; }
+
+        public override CompileResult Execute(IList<FunctionArgument> arguments, ParsingContext context)
         {
             // Sanity check, will set excel VALUE error if min length is not met
             ValidateArguments(arguments, 1);
