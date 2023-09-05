@@ -24,6 +24,7 @@ using OfficeOpenXml.DataValidation;
 using OfficeOpenXml.ConditionalFormatting;
 using OfficeOpenXml.Drawing;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data;
 
 namespace EPPlusSamples
 {
@@ -405,15 +406,64 @@ namespace EPPlusSamples
         cfRule42Alt.Icon2.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithOneWhiteQuarter;
         cfRule42Alt.Icon3.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithTwoWhiteQuarters;
         cfRule42Alt.Icon4.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithThreeWhiteQuarters;
-
+        //The fifth icon is left as the 5th rating symbol by not assigning to it
 
         // -------------------------------------------------------------------
         // Create a Databar
+        // And assign advanced settings
         // -------------------------------------------------------------------
 
         ExcelAddress cfAddress44 = new ExcelAddress("H2:H10");
         var cfRule43 = worksheet.ConditionalFormatting.AddDatabar(cfAddress44, Color.DarkBlue);
-        
+
+        worksheet.Cells["H2:H10"].Formula = "Row()-5";
+
+        //Wheter to show the value in the cell as well as the databar
+        //Inverse of Show Bar Only in excel but same effect.
+        cfRule43.ShowValue = false;
+
+        //Type for minimum and Maximum in Excel
+        cfRule43.HighValue.Type = eExcelConditionalFormattingValueObjectType.Percent;
+        cfRule43.LowValue.Type = eExcelConditionalFormattingValueObjectType.Percentile;
+
+        //Value in Excel
+        cfRule43.HighValue.Value = 100;
+        cfRule43.LowValue.Value = 0;
+
+        //Fill being Gradient fill or not in Excel
+        cfRule43.Gradient = false;
+
+        //Color in Excel. Also has auto, index and Color options
+        cfRule43.FillColor.Theme = eThemeSchemeColor.Accent1;
+
+        //Border option in excel.
+        //Sets to true automatically if BoderColor is set.
+        cfRule43.Border = true;
+
+        //Color to the right of Border in Excel.
+        //Same options of theme etc. as other colors.
+        cfRule43.BorderColor.Color = Color.RebeccaPurple;
+
+        //Bar Direction option in Excel
+        cfRule43.Direction = eDatabarDirection.Context;
+
+        //Negative Value and Axis settings:
+
+        //Negative bar fill color
+        cfRule43.NegativeFillColor.Color = Color.DarkRed;
+
+        //Negative bar border color
+        cfRule43.NegativeBorderColor.Color = Color.GreenYellow;
+
+        //Axis Settings
+        cfRule43.AxisPosition = eExcelDatabarAxisPosition.Middle;
+
+        cfRule43.AxisColor.Theme = eThemeSchemeColor.Accent2;
+
+        //Booleans for negative values
+        //cfRule43.NegativeBarColorSameAsPositive = true;
+        //cfRule43.NegativeBarBorderColorSameAsPositive = true;
+
         // -----------------------------------------------------------
         // Removing Conditional Formatting rules
         // -----------------------------------------------------------
