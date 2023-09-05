@@ -391,30 +391,30 @@ namespace EPPlusSamples
         ExcelAddress cfAddress43 = new ExcelAddress("G2:G10");
         var cfRule42 = worksheet.ConditionalFormatting.AddThreeIconSet(cfAddress43, eExcelconditionalFormatting3IconsSetType.TrafficLights1);
 
-                // -------------------------------------------------------------------
-                // Create an iconSet with custom Icons
-                // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+        // Create an iconSet with custom Icons
+        // -------------------------------------------------------------------
 
-                ExcelAddress cfAddress43Alt = new ExcelAddress("G20:G30");
+        ExcelAddress cfAddress43Alt = new ExcelAddress("G22:G32");
 
-                worksheet.Cells["G20:G30"].Formula = "Row()";
+        worksheet.Cells["G22:G32"].Formula = "Row()";
 
-                var cfRule42Alt = worksheet.ConditionalFormatting.AddFourIconSet(cfAddress43Alt, eExcelconditionalFormatting4IconsSetType.Rating);
+        var cfRule42Alt = worksheet.ConditionalFormatting.AddFiveIconSet(cfAddress43Alt, eExcelconditionalFormatting5IconsSetType.Rating);
 
-                cfRule42Alt.Icon1.CustomIcon = eExcelconditionalFormattingCustomIcon.GreenUpArrow;
-                //cfRule42Alt.Icon2.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithOneWhiteQuarter;
-                //cfRule42Alt.Icon3.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithTwoWhiteQuarters;
-                //cfRule42Alt.Icon4.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithThreeWhiteQuarters;
+        cfRule42Alt.Icon1.CustomIcon = eExcelconditionalFormattingCustomIcon.GreenUpArrow;
+        cfRule42Alt.Icon2.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithOneWhiteQuarter;
+        cfRule42Alt.Icon3.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithTwoWhiteQuarters;
+        cfRule42Alt.Icon4.CustomIcon = eExcelconditionalFormattingCustomIcon.CircleWithThreeWhiteQuarters;
 
 
-                // -------------------------------------------------------------------
-                // Create a Databar
-                // -------------------------------------------------------------------
+        // -------------------------------------------------------------------
+        // Create a Databar
+        // -------------------------------------------------------------------
 
-                ExcelAddress cfAddress44 = new ExcelAddress("H2:H10");
+        ExcelAddress cfAddress44 = new ExcelAddress("H2:H10");
         var cfRule43 = worksheet.ConditionalFormatting.AddDatabar(cfAddress44, Color.DarkBlue);
         
-          // -----------------------------------------------------------
+        // -----------------------------------------------------------
         // Removing Conditional Formatting rules
         // -----------------------------------------------------------
         // Remove one Rule by its object
