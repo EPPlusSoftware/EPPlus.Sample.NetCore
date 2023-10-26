@@ -1,4 +1,5 @@
-# EPPlus samples
+## This sample project is for EPPlus 6, a newer sample for EPPlus 7 is available here... [C#](https://github.com/EPPlusSoftware/EPPlus.Samples.CSharp) or [VB](https://github.com/EPPlusSoftware/EPPlus.Samples.VB)
+## EPPlus samples
 
 ### EPPlus samples for .Net Core
 
